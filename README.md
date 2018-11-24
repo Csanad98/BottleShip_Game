@@ -1,1 +1,1 @@
-# BottleShip_Game
+# we can put here all the notes for the game
