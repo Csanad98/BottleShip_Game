@@ -1,14 +1,26 @@
-body {
-    
-    background-image: url("../images/splashPic.jpg");
-    background-repeat: no-repeat;
-    background-position: bottom;
+.center {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
 }
+
 
 .title {
     margin: auto;
-    align-self: center;
+    text-align: center;
     width: 80%;
     height: 20%;
     padding: 10px;
 }
+
+.description {
+    text-align: center;
+}
+
+.enter_name {
+    text-align: center;
+}
+
+
+
+
