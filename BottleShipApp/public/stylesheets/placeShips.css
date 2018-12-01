@@ -53,13 +53,12 @@ body {
     }
 
 .ship1 {
-    position: relative;
-    float: center;
 }
 
 .ship2 {
-    position: relative;
-    float: right;
+}
+
+.ship2 {
 }
 
 .yourBoardCell {
