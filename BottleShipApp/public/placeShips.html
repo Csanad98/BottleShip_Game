@@ -10,6 +10,11 @@
     
 </head>
 <body>
+    <div class ="statistics">
+        <div id = "onlinePlayers">Players online: 7 </div>
+        <div id = "yourSteps">Steps taken: 0</div>
+        <div id = "recordSteps">All time record: 19 steps</div>
+    </div>
     <div class="title">
         Put your ships on the board
     </div>
@@ -32,7 +37,7 @@
     <img id="ship22" src="images/2ship.jpg" width="50" height="100" draggable="true" ondragstart="drag(event)">  <!-- ship3 -->
     <img id="ship23" src="images/2ship.jpg" width="50" height="100" draggable="true" ondragstart="drag(event)">  <!-- ship4 -->
     <img id="ship24" src="images/2ship.jpg" width="50" height="100" draggable="true" ondragstart="drag(event)">  <!-- ship5 -->
-</div>
+    </div>
 
 
     <div id='yourBoard'>
@@ -158,6 +163,7 @@
             <div id='cell77' class='yourBoardCell' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             <div id='cell78' class='yourBoardCell' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
-    <button class="button">start the game</button>
+    
+    <button class="startButton">start the game</button>
 </body>
 </html>
