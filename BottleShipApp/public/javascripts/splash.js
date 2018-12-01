@@ -1,18 +1,17 @@
 
-
-
+//save user's name, which was entered to the input box
 var savePlayerName = function(){
     var text_to_save=document.getElementById('playerName').value;
-    alert(text_to_save);
-    localStorage.setItem("playerName", text_to_save); // save the item
-    var user=localStorage.getItem("playerName"); // retrieve
-    retrievePlayerName();
-    alert("Hello " + user );
+    
+    localStorage.setItem("player_name", text_to_save); // save the item
+    alert("Hello " + retrievePlayerName() );
+
+
 }
 
-function retrievePlayerName(){
-    var playersName=localStorage.getItem("playerName"); // retrieve
-    document.getElementById('textDiv').innerHTML = playersName; // display
+//returns the player's name which was saved to the localStorage
+var retrievePlayerName = function (){
+    return localStorage.getItem("player_name"); // retrieve
 }
 
 
