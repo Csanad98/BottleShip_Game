@@ -55,7 +55,6 @@ height: 50px;
     cursor: pointer;
 }
 
-
 .yourBoardCell:hover {
     background-color: #8ADBB0;
 }
@@ -93,18 +92,20 @@ height: 50px;
 
 #yourBoard {
     position: relative;
+    float: right;
     background-color: #ffffff;
     height: 450px;
     width: 450px;
-    margin-left: 0;
+    margin-left: auto;
     margin-right: auto;
 }
 
 #enemyBoard {
     position: relative;
+    float: right;
     background-color: #ffffff;
     height: 450px;
     width: 450px;
     margin-left: auto;
-    margin-right: 0;
+    margin-right: auto;
 }
