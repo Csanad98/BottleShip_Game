@@ -3,9 +3,15 @@
 var savePlayerName = function(){
     var text_to_save=document.getElementById('playerName').value;
     
-    localStorage.setItem("player_name", text_to_save); // save the item
-    alert("Hello " + retrievePlayerName() );
+    //if the input field is not empty
+    if(text_to_save !== "") {
 
+        localStorage.setItem("player_name", text_to_save); // save the item
+        alert("Hello " + retrievePlayerName() + "! Click OK to get started with placing your ships!");
+
+    } else if(text_to_save === "") {
+        alert("Please add your name to the input field to get started.");
+    }
 
 }
 
