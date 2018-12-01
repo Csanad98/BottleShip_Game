@@ -6,41 +6,148 @@
     <title>BottleShip</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/placeShips.css" />
-    <script src="main.js"></script>
+    <script src="placeShip.js"></script>
     
 </head>
 <body>
-    <header> 
-            <style>
-                .button {
-                    background-color: #4CAF50;
-                    border: none;
-                    color: white;
-                    padding: 15px 25px;
-                    text-align: center;
-                    font-size: 16px;
-                    cursor: pointer;
-                }
-                
-                .button:hover {
-                    background-color: green;
-                }
-
-                img {
-                    width: 10%;
-                    height: auto;
-                }
-                </style>
-    </header>
-
-    <div class="center">
-
+    <div class="description">
         <h2>Put your ships on the board</h2>
-        <img src="images/1ship.jpg" alt="ship with lenghth 1">
-        <img src="images/1ship.jpg" width="46" height="34">
+    </div>
+    <div class="rotate">
         <p>Press rotate to rotate</p> 
         <button class="button">rotate</button>
     </div>
 
+    <div class="placing ships">
+            <p>Drag the W3Schools image into the rectangle:</p>
+            
+            <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <br>
+            <img id="drag1" src="images/1ship.jpg" draggable="true" ondragstart="drag(event)" width="336" height="69">
+    </div>
+
+    <div id='yourBoard'>
+            <div class='numberLabel'></div>
+            <div class='numberLabel'>
+                <div class='numText'>1</div>
+            </div>
+            <div class='numberLabel'>
+                <div class='numText'>2</div>
+            </div>
+            <div class='numberLabel'>
+                <div class='numText'>3</div>
+            </div>
+            <div class='numberLabel'>
+                <div class='numText'>4</div>
+            </div>
+            <div class='numberLabel'>
+                <div class='numText'>5</div>
+            </div>
+            <div class='numberLabel'>
+                <div class='numText'>6</div>
+            </div>
+            <div class='numberLabel'>
+                <div class='numText'>7</div>
+            </div>
+            <div class='numberLabel'>
+                <div class='numText'>8</div>
+            </div>
+
+            <div class='letterLabel'>
+                <div class='letText'>A</div>
+            </div>
+            <div id='cell01' class='yourBoardCell'></div>
+            <div id='cell02' class='yourBoardCell'></div>
+            <div id='cell03' class='yourBoardCell'></div>
+            <div id='cell04' class='yourBoardCell'></div>
+            <div id='cell05' class='yourBoardCell'></div>
+            <div id='cell06' class='yourBoardCell'></div>
+            <div id='cell07' class='yourBoardCell'></div>
+            <div id='cell08' class='yourBoardCell'></div>
+
+            <div class='letterLabel'>
+                <div class='letText'>B</div>
+            </div>
+            <div id='cell11' class='yourBoardCell'></div>
+            <div id='cell12' class='yourBoardCell'></div>
+            <div id='cell13' class='yourBoardCell'></div>
+            <div id='cell14' class='yourBoardCell'></div>
+            <div id='cell15' class='yourBoardCell'></div>
+            <div id='cell16' class='yourBoardCell'></div> 
+            <div id='cell17' class='yourBoardCell'></div>
+            <div id='cell18' class='yourBoardCell'></div>
+
+            <div class='letterLabel'>
+                <div class='letText'>C</div>
+            </div>
+            <div id='cell21' class='yourBoardCell'></div>
+            <div id='cell22' class='yourBoardCell'></div>
+            <div id='cell23' class='yourBoardCell'></div>
+            <div id='cell24' class='yourBoardCell'></div>
+            <div id='cell25' class='yourBoardCell'></div>
+            <div id='cell26' class='yourBoardCell'></div>
+            <div id='cell27' class='yourBoardCell'></div>
+            <div id='cell28' class='yourBoardCell'></div>
+
+            <div class='letterLabel'>
+                <div class='letText'>D</div>
+            </div>
+            <div id='cell31' class='yourBoardCell'></div>
+            <div id='cell32' class='yourBoardCell'></div>
+            <div id='cell33' class='yourBoardCell'></div>
+            <div id='cell34' class='yourBoardCell'></div>
+            <div id='cell35' class='yourBoardCell'></div>
+            <div id='cell36' class='yourBoardCell'></div>
+            <div id='cell37' class='yourBoardCell'></div>
+            <div id='cell38' class='yourBoardCell'></div>
+
+            <div class='letterLabel'>
+                <div class='letText'>E</div>
+            </div>
+            <div id='cell41' class='yourBoardCell'></div>
+            <div id='cell42' class='yourBoardCell'></div>
+            <div id='cell43' class='yourBoardCell'></div>
+            <div id='cell44' class='yourBoardCell'></div>
+            <div id='cell45' class='yourBoardCell'></div>
+            <div id='cell46' class='yourBoardCell'></div>
+            <div id='cell47' class='yourBoardCell'></div>
+            <div id='cell48' class='yourBoardCell'></div>
+
+            <div class='letterLabel'>
+                <div class='letText'>F</div>
+            </div>
+            <div id='cell51' class='yourBoardCell'></div>
+            <div id='cell52' class='yourBoardCell'></div>
+            <div id='cell53' class='yourBoardCell'></div>
+            <div id='cell54' class='yourBoardCell'></div>
+            <div id='cell55' class='yourBoardCell'></div>
+            <div id='cell56' class='yourBoardCell'></div>
+            <div id='cell57' class='yourBoardCell'></div>
+            <div id='cell58' class='yourBoardCell'></div>
+
+            <div class='letterLabel'>
+                <div class='letText'>G</div>
+            </div>
+            <div id='cell61' class='yourBoardCell'></div>
+            <div id='cell62' class='yourBoardCell'></div>
+            <div id='cell63' class='yourBoardCell'></div>
+            <div id='cell64' class='yourBoardCell'></div>
+            <div id='cell65' class='yourBoardCell'></div>
+            <div id='cell66' class='yourBoardCell'></div>
+            <div id='cell67' class='yourBoardCell'></div>
+            <div id='cell68' class='yourBoardCell'></div>
+
+           <div class='letterLabel'>
+                <div class='letText'>H</div>
+            </div>
+            <div id='cell71' class='yourBoardCell'></div>
+            <div id='cell72' class='yourBoardCell'></div>
+            <div id='cell73' class='yourBoardCell'></div>
+            <div id='cell74' class='yourBoardCell'></div>
+            <div id='cell75' class='yourBoardCell'></div>
+            <div id='cell76' class='yourBoardCell'></div>
+            <div id='cell77' class='yourBoardCell'></div>
+            <div id='cell78' class='yourBoardCell'></div>
+    </div>
 </body>
 </html>

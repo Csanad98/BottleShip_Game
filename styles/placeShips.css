@@ -8,4 +8,84 @@
 
 body {
     background-color: #ffffff;
-}\
+}
+
+.button {
+    background-color: grey;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    }
+                
+.button:hover {
+        background-color: grey;
+    }
+
+img {
+    width: 10%;
+    height: auto;
+}
+
+#div1 {
+    width: 350px;
+    height: 70px;
+    padding: 10px;
+    border: 1px solid #000000;
+}
+
+
+
+
+
+
+.yourBoardCell {
+    background-color: #37A86C;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0px 0px 0px 1px #ffffff inset;
+    float: left;
+    cursor: pointer;
+}
+
+.yourBoardCell:hover {
+    background-color: #8ADBB0;
+}
+
+.numberLabel {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
+.numText { 
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+}
+
+.letterLabel {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
+.letText {
+    position: absolute;
+    line-height: 50px;
+    right: 0;
+    color: black;
+}
+
+#yourBoard {
+    position: relative;
+    background-color: #ffffff;
+    height: 450px;
+    width: 450px;
+    margin-left: 0;
+    margin-right: auto;
+}
