@@ -1,8 +1,8 @@
-var main = function() {
-    "use strict";
+//don't use sloppy parts of JS
+"use strict";
 
-    //event handler for clicking on the button
-    //listens on the button
+//event handler for clicking on the button
+//listens on the button
     $(".username_input button").on("click", function(event) {
       addNickNameFromInput();
     });
@@ -29,9 +29,6 @@ var main = function() {
          alert("Hello " + username);
     }
 
-
-
-}
 
 function save(){
     var text_to_save=document.getElementById('submitButton').value;
