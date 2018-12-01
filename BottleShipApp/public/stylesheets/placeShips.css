@@ -12,10 +12,26 @@
     text-align: center;
 }
 .statistics{
-    clear: both;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
+
+}
+#onlinePlayers{
+    margin-left: 10px;
+    margin-right: auto;
+    float: left;
+}
+
+#yourSteps{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    float: center;
+
+}
+
+#recordSteps{
+    margin-left: auto;
+    margin-right: 10px;
+    float: right;
 }
 
 body {
@@ -43,7 +59,7 @@ body {
 
 .ship2 {
     position: relative;
-    float: center;
+    float: right;
 }
 
 .yourBoardCell {
@@ -96,7 +112,7 @@ body {
     float: left;
 }
 
-.startButton {
+#startButton {
     background-color: grey;
     border: none;
     color: white;

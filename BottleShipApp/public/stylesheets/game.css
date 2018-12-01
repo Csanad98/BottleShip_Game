@@ -80,3 +80,26 @@ height: 50px;
     margin-left: auto;
     margin-right:40px;
 }
+
+#onlinePlayers{
+    margin-left: 10px;
+    margin-right: auto;
+    float: left;
+}
+
+#yourSteps{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    float: center;
+
+}
+
+#recordSteps{
+    margin-left: auto;
+    margin-right: 10px;
+    float: right;
+}
+
+#whoseTurn{
+}
