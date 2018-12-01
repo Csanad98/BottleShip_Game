@@ -2,7 +2,7 @@ var startGame = function() {
     alert("You are starting the game!");
 
     //TODO
-    //iff all ships have been placed
+    //iff all ships have been placed then:
     window.open("game.html", "_self");
 
 }
