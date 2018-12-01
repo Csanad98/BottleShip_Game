@@ -8,6 +8,7 @@ var savePlayerName = function(){
 
         localStorage.setItem("player_name", text_to_save); // save the item
         alert("Hello " + retrievePlayerName() + "! Click OK to get started with placing your ships!");
+        window.open("placeShips.html", "_self");
 
     } else if(text_to_save === "") {
         alert("Please add your name to the input field to get started.");

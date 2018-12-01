@@ -12,6 +12,7 @@
     text-align: center;
 }
 .statistics{
+    
 
 }
 #onlinePlayers{
@@ -111,7 +112,7 @@ body {
     float: left;
 }
 
-#startButton {
+#startGameButton {
     background-color: grey;
     border: none;
     color: white;
