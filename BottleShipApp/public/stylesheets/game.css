@@ -1,41 +1,12 @@
-.center {
-    margin: auto;
-    width: 60%;
-    height: 60%;
-    border: 3px solid #000000;
-    padding: 10px;
-}
 
 body {
     background-color: #ffffff;
 }
 
-.button {
-    background-color: grey;
-    border: none;
-    color: white;
-    padding: 15px 25px;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    }
-                
-.button:hover {
-        background-color: grey;
-    }
-
-img {
-    width: 10%;
-    height: auto;
-}
-
-
 #ship {
 width: 50px;
 height: 50px;
 }
-
-
 
 .yourBoardCell {
     background-color: #37A86C;
@@ -92,11 +63,11 @@ height: 50px;
 
 #yourBoard {
     position: relative;
-    float: right;
+    float: left;
     background-color: #ffffff;
     height: 450px;
     width: 450px;
-    margin-left: auto;
+    margin-left: 20px;
     margin-right: auto;
 }
 
@@ -107,5 +78,5 @@ height: 50px;
     height: 450px;
     width: 450px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right:40px;
 }
