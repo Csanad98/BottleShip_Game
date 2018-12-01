@@ -1,3 +1,13 @@
+var startGame = function() {
+    alert("You are starting the game!");
+
+    //TODO
+    //iff all ships have been placed
+    window.open("game.html", "_self");
+
+}
+
+
 //drag and drop events
 function allowDrop(ev) {
     ev.preventDefault();
