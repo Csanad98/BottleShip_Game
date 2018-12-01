@@ -6,7 +6,7 @@
     <title>BottleShip</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/splash.css" />
-    <script src="javascripts/splash.js"></script>
+    
     
 </head>
 <body>
@@ -29,14 +29,16 @@
                     <p>Good luck and don't litter!</p> 
             </div>
         
-            <div class="enter_name">
-                <form action="">
-                <input type="text" name="playerName" size="35" placeholder="Enter your name to get started">
+            <section class="enter_name">
+               
+                <input  type="text" id="playerName" size="35" placeholder="Enter your name to get started">
                 <br>
                 <br>
-                <input id="submitButton" type="submit" value="Start the game" onclick="sayHello()" required>
-                </form>
-            </div>
+                <!--<input id="submitButton" type="submit" value="Start the game">-->
+                <button id="submitButton" onclick="savePlayerName()">Start the game</button>
+                
+            </section>
+
 
     </div>
 
@@ -46,7 +48,8 @@
 
     
 
-    
+    <script src="javascripts/splash.js"></script>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 
 </body>
 </html>
