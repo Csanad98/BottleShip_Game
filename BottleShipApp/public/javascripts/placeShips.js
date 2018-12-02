@@ -15,6 +15,15 @@ var tileSize = 50;
 // get the container for the board
 var gameBoardContainer = document.getElementById("gameBoard");
 
+//add number labels on top of the grid
+for (var i = 1; i<=cols; i++) {
+    var numTile = document.createElement("div");
+    gameBoardContainer.appendChild(numTile);
+
+    numTile.textContent = i;
+    numTile.setAttribute("class", "numberLabel");
+}
+
 
 //make the grid
 for (var i = 0; i<cols; i++) {
@@ -26,6 +35,8 @@ for (var i = 0; i<cols; i++) {
 
         //add unique ids for each element based on row and column numbers
         tile.id = "t" + i + e;
+
+        tile.setAttribute("class", "yourBoardCell");
 
         //set each grid tile's coordinates: multiples of the current row or column number
 		var topPosition = e * tileSize;
