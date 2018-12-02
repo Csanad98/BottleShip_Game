@@ -15,39 +15,29 @@ var tileSize = 50;
 // get the container for the board
 var gameBoardContainer = document.getElementById("gameBoard");
 
-//add number labels on top of the grid
-for (var i = 1; i<=cols; i++) {
-    var numTile = document.createElement("div");
-    gameBoardContainer.appendChild(numTile);
-
-    numTile.textContent = i;
-    numTile.setAttribute("class", "numberLabel");
-}
-
-
 //make the grid
 for (var i = 0; i<cols; i++) {
     for(var e = 0; e<rows; e++) {
-
-        //create new html element (div) and it to the gameboard
-        var tile = document.createElement("div");
-        gameBoardContainer.appendChild(tile);
-
-        //add unique ids for each element based on row and column numbers
-        tile.id = "t" + i + e;
-
-        tile.setAttribute("class", "yourBoardCell");
-
-        //set each grid tile's coordinates: multiples of the current row or column number
-		var topPosition = e * tileSize;
-        var leftPosition = i * tileSize;
         
-        // use CSS absolute positioning to place each grid tile on the page
-		tile.style.top = topPosition + 'px';
-		tile.style.left = leftPosition + 'px';
+            //create new html element (div) and add it to the gameboard
+            var tile = document.createElement("div");
+            gameBoardContainer.appendChild(tile);
 
+            //add unique ids for each element based on row and column numbers
+            tile.id = "t" + i + e;
+
+            tile.setAttribute("class", "yourBoardCell");
+
+            //set each grid tile's coordinates: multiples of the current row or column number
+		    var topPosition = e * tileSize;
+            var leftPosition = i * tileSize;
         
+            // use CSS absolute positioning to place each grid tile on the page
+		    tile.style.top = topPosition + 'px';
+		    tile.style.left = leftPosition + 'px';
+
     }
+
 }
 
 
