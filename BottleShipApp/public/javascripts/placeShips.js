@@ -41,6 +41,22 @@ for (var i = 0; i<cols; i++) {
 }
 
 
+
+//create 2D array for internal representation of the board
+var boardArray = Array(cols);
+
+for (var i = 0; i<cols; i++) {
+    boardArray[i] = Array(rows);
+}
+
+for(var i = 0; i<cols; i++) {
+    for(var e = 0; e<rows; e++) {
+        boardArray[i][e] = 0;
+    }
+}
+
+
+
 //drag and drop events
 function allowDrop(ev) {
     ev.preventDefault();
@@ -58,9 +74,9 @@ function drop(ev) {
 
 // grid for the board. ship sizes = 1,2,3 no ship = 0
 yourBoard: [[0, 0, 0, 0, 0, 0, 0, 0],     // y = 0
-       [0, 0, 0, 0, 0, 0, 0, 0],     // y = 1
-       [0, 0, 0, 0, 0, 0, 0, 0],     // y = 2
-       [0, 0, 0, 0, 0, 0, 0, 0],     // y = 3
-       [0, 0, 0, 0, 0, 0, 0, 0],     // y = 4
-       [0, 0, 0, 0, 0, 0, 0, 0],     // y = 5
-       [0, 0, 0, 0, 0, 0, 0, 0]]
+            [0, 0, 0, 0, 0, 0, 0, 0],     // y = 1
+            [0, 0, 0, 0, 0, 0, 0, 0],     // y = 2
+            [0, 0, 0, 0, 0, 0, 0, 0],     // y = 3
+            [0, 0, 0, 0, 0, 0, 0, 0],     // y = 4
+            [0, 0, 0, 0, 0, 0, 0, 0],     // y = 5
+            [0, 0, 0, 0, 0, 0, 0, 0]]
