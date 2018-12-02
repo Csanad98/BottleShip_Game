@@ -32,9 +32,13 @@ for (var i = 0; i<cols; i++) {
 		    var topPosition = e * tileSize;
             var leftPosition = i * tileSize;
         
+            tile.addEventListener("click", placeShip);
+            //tile.onclick(placeShip());
+
             // use CSS absolute positioning to place each grid tile on the page
 		    tile.style.top = topPosition + 'px';
-		    tile.style.left = leftPosition + 'px';
+            tile.style.left = leftPosition + 'px';
+            
 
     }
 
@@ -53,6 +57,16 @@ for(var i = 0; i<cols; i++) {
     for(var e = 0; e<rows; e++) {
         boardArray[i][e] = 0;
     }
+}
+
+
+
+//click event listener function for placing individual ships
+function placeShip() {
+    alert("You clicked on a tile!");
+    var clickedTile = getElementById(tileId);
+    clickedTile.setAttribute("style", "color: red");
+    
 }
 
 
