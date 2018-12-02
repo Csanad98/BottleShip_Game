@@ -13,7 +13,7 @@ var cols = 10;
 var tileSize = 50;
 
 // get the container for the board
-var gameBoardContainer = document.getElementById("gameboard");
+var gameBoardContainer = document.getElementById("gameBoard");
 
 
 //make the grid
@@ -25,7 +25,17 @@ for (var i = 0; i<cols; i++) {
         gameBoardContainer.appendChild(tile);
 
         //add unique ids for each element based on row and column numbers
-        tile.id = "t" + i + j;
+        tile.id = "t" + i + e;
+
+        //set each grid tile's coordinates: multiples of the current row or column number
+		var topPosition = e * tileSize;
+        var leftPosition = i * tileSize;
+        
+        // use CSS absolute positioning to place each grid tile on the page
+		tile.style.top = topPosition + 'px';
+		tile.style.left = leftPosition + 'px';
+
+        
     }
 }
 
