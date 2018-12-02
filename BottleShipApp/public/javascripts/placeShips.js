@@ -10,13 +10,24 @@ var startGame = function() {
 
 var rows = 10;
 var cols = 10;
-var squareSize = 50;
+var tileSize = 50;
 
 // get the container for the board
 var gameBoardContainer = document.getElementById("gameboard");
 
 
 //make the grid
+for (var i = 0; i<cols; i++) {
+    for(var e = 0; e<rows; e++) {
+
+        //create new html element (div) and it to the gameboard
+        var tile = document.createElement("div");
+        gameBoardContainer.appendChild(tile);
+
+        //add unique ids for each element based on row and column numbers
+        tile.id = "t" + i + j;
+    }
+}
 
 
 //drag and drop events
