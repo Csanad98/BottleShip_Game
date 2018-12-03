@@ -220,9 +220,9 @@ class ShipObject {
 
 var myshipTiles = [1, 2];
 var myshipTilesSurrounding = [3, 11, 12, 13];
-var myshiphitTiles = [];
+var myshiphitTiles = [1];
 myHelloShip = new ShipObject(12,2,myshipTiles, myshipTilesSurrounding, myshiphitTiles, true)
 
-var yourShips = function() {
-    alert("You have a ship with ID"+ myHelloShip.shipID);
-}
+// var yourShips = function() {
+//     alert("You have a ship with ID "+ myHelloShip.shipID + " size " + myHelloShip.shipSize + " tiles " + myHelloShip.shipTiles + " sour.tiles " + myHelloShip.surroundingTiles + " hit " + myHelloShip.hitTiles + " vertical " + myHelloShip.verticalOrientation);
+// }
