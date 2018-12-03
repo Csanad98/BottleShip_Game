@@ -55,13 +55,12 @@ body {
         background-color: #B7B7B4;
     }
 
-.ship1 {
+.placedShip {
+    background: red;
 }
 
-.ship2 {
-}
-
-.ship2 {
+.placedShipSurronding {
+    background: yellow;
 }
 
 .yourBoardCell {
