@@ -205,5 +205,24 @@ function drop(ev) {
 
 
 
-//ship objects
-var i = 0
+// ship objects
+// Initializing a class 
+class ShipObject {
+    constructor(shipID, shipSize, shipTiles, surroundingTiles, hitTiles, verticalOrientation ) {
+        this.shipID = shipID;
+        this.shipSize = shipSize;
+        this.shipTiles = shipTiles;
+        this.surroundingTiles = surroundingTiles;
+        this.hitTiles = hitTiles;
+        this.verticalOrientation = verticalOrientation;
+    }
+}
+
+var myshipTiles = [1, 2];
+var myshipTilesSurrounding = [3, 11, 12, 13];
+var myshiphitTiles = [];
+myHelloShip = new ShipObject(12,2,myshipTiles, myshipTilesSurrounding, myshiphitTiles, true)
+
+var yourShips = function() {
+    alert("You have a ship with ID"+ myHelloShip.shipID);
+}
