@@ -85,8 +85,8 @@ for (var i = 0; i<cols; i++) {
             //tile.addEventListener("click", placeShip);
             //tile.onclick(placeShip());
            
-           // tile.onclick = function () {placeLongShips(this.id, 3, false)};
-           tile.onclick = function() {renderTilesFromArray(boardArray)};
+            tile.onclick = function () {placeLongShips(this.id, 3, false)};
+           //tile.onclick = function() {renderTilesFromArray(boardArray)};
 
             // use CSS absolute positioning to place each grid tile on the page
 		    tile.style.top = topPosition + 'px';
@@ -162,7 +162,7 @@ function placeLongShips(tileId, length, vertical) {
                     //alert(newTileId);
 
 
-                    
+
                     
                     document.getElementById(newTileId).style.backgroundColor = 'grey';
                     
