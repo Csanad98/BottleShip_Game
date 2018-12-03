@@ -160,6 +160,9 @@ function placeLongShips(tileId, length, vertical) {
                     var newTileId = "t" + newcol.toString() + row.toString();
 
                     //alert(newTileId);
+
+
+                    
                     
                     document.getElementById(newTileId).style.backgroundColor = 'grey';
                     
