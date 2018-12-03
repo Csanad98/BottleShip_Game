@@ -203,3 +203,4 @@ function drop(ev) {
 
 
 //ship objects
+var i = 0
