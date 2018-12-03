@@ -22,6 +22,34 @@ var boardArray = Array(rows);
 for (var i = 0; i<rows; i++) {
     boardArray[i] = Array(cols);
 }
+//render the tiles based on the internal representation
+//0: free/empty tile
+//0<: ship is there, each ship will have a different number - a ship that spans through
+//multiple tiles will have its number on multiple tiles
+//<0: surronding of a ship: ship number with a minus, identifies the each ships' surronding 
+//separately
+function renderTilesFromArray(boardArray) {
+    for (var r = 0; r<boardArray.length; r++) {
+        for(var c = 0; c<boardArray[r].length; c++ ) {
+
+            var curTileId = "t" + c + r;
+            var curTile = document.getElementById(curTileId);
+            //alert(curTileId);
+
+
+            if (boardArray[r][c] === 0) {
+
+
+            } else if (boardArray[r][c] > 0) {
+
+            } else if (boardArray[r][c] < 0) {
+
+            }
+
+            
+        }
+    }
+}
 
 
 
@@ -46,7 +74,9 @@ for (var i = 0; i<cols; i++) {
         
             //tile.addEventListener("click", placeShip);
             //tile.onclick(placeShip());
-            tile.onclick = function () {placeLongShips(this.id, 3, false)};
+           
+           // tile.onclick = function () {placeLongShips(this.id, 3, false)};
+           tile.onclick = function() {renderTilesFromArray(boardArray)};
 
             // use CSS absolute positioning to place each grid tile on the page
 		    tile.style.top = topPosition + 'px';
@@ -68,6 +98,14 @@ function placeShip(tileId) {
     alert("You clicked on tile: " + tileId);
     document.getElementById(tileId).style.backgroundColor = 'red';
     
+}
+
+//based on the ship coordinates calculates the surronding tile coordinates
+//updates the classes of these tiles to be 'placedShipSurronding'
+function updateShipSurrondings(shipCoordinates) {
+
+
+
 }
 
 //placing multiple tile long ships
@@ -138,7 +176,7 @@ function placeLongShips(tileId, length, vertical) {
 
 
 //drag and drop events
-function allowDrop(ev) {
+/*function allowDrop(ev) {
     ev.preventDefault();
 }
 
@@ -150,4 +188,4 @@ function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data));
-}
+}*/
