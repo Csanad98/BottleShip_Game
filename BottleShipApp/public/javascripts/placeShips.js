@@ -22,12 +22,16 @@ var boardArray = Array(rows);
 for (var i = 0; i<rows; i++) {
     boardArray[i] = Array(cols);
 }
+
+//boardArray[2][1] = -1;
+
 //render the tiles based on the internal representation
 //0: free/empty tile
 //0<: ship is there, each ship will have a different number - a ship that spans through
 //multiple tiles will have its number on multiple tiles
 //<0: surronding of a ship: ship number with a minus, identifies the each ships' surronding 
 //separately
+//modifies the class of the tile based on the internal state of the board
 function renderTilesFromArray(boardArray) {
     for (var r = 0; r<boardArray.length; r++) {
         for(var c = 0; c<boardArray[r].length; c++ ) {
@@ -38,11 +42,14 @@ function renderTilesFromArray(boardArray) {
 
 
             if (boardArray[r][c] === 0) {
+                curTile.setAttribute("class", "yourBoardCell");
 
 
             } else if (boardArray[r][c] > 0) {
+                curTile.setAttribute("class", "placedShip");
 
             } else if (boardArray[r][c] < 0) {
+                curTile.setAttribute("class", "placedShipSurronding");
 
             }
 
