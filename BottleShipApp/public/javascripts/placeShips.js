@@ -15,9 +15,21 @@ var tileSize = 50;
 // get the container for the board
 var gameBoardContainer = document.getElementById("gameBoard");
 
+
+//create 2D array for internal representation of the board
+var boardArray = Array(rows);
+
+for (var i = 0; i<rows; i++) {
+    boardArray[i] = Array(cols);
+}
+
+
+
+
 //make the grid
 for (var i = 0; i<cols; i++) {
     for(var e = 0; e<rows; e++) {
+
         
             //create new html element (div) and add it to the gameboard
             var tile = document.createElement("div");
@@ -47,18 +59,7 @@ for (var i = 0; i<cols; i++) {
 
 
 
-//create 2D array for internal representation of the board
-var boardArray = Array(cols);
 
-for (var i = 0; i<cols; i++) {
-    boardArray[i] = Array(rows);
-}
-
-for(var i = 0; i<cols; i++) {
-    for(var e = 0; e<rows; e++) {
-        boardArray[i][e] = 0;
-    }
-}
 
 
 
@@ -76,7 +77,7 @@ function placeLongShips(tileId, length, vertical) {
 
     var invalidTile = "You cannot place a ship here. Please try again.";
 
-    alert("You clicked on tile: " + tileId);
+    //alert("You clicked on tile: " + tileId);
 
     var column = parseInt(tileId.charAt(1));
     var row = parseInt(tileId.charAt(2));
@@ -105,7 +106,24 @@ function placeLongShips(tileId, length, vertical) {
             if (newcol < cols) {
                 document.getElementById(newTileId).style.backgroundColor = 'red';
             } else {
+                //undo the styling of the tiles
+                for (var e = i-1; e>=0; e--) {
+                    newcol--;
+                    var newTileId = "t" + newcol.toString() + row.toString();
+
+                    //alert(newTileId);
+                    
+                    document.getElementById(newTileId).style.backgroundColor = 'grey';
+                    
+
+                }
+
+                //tell the user that (s)he can't place a ship here
                 alert(invalidTile);
+
+                //break out from the for loop
+                break;
+
             }
             
             newcol +=1;
