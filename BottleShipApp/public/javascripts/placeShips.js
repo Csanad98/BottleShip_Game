@@ -34,7 +34,7 @@ for (var i = 0; i<cols; i++) {
         
             //tile.addEventListener("click", placeShip);
             //tile.onclick(placeShip());
-            tile.onclick = placeShip(this.id);
+            tile.onclick = function () {placeShip(this.id)};
 
             // use CSS absolute positioning to place each grid tile on the page
 		    tile.style.top = topPosition + 'px';
@@ -64,7 +64,7 @@ for(var i = 0; i<cols; i++) {
 
 //click event listener function for placing individual ships
 function placeShip(tileId) {
-    alert("You clicked on a tile!");
+    alert("You clicked on tile: " + tileId);
     var clickedTile = getElementById(tileId);
     clickedTile.setAttribute("style", "color: red");
     
