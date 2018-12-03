@@ -34,7 +34,7 @@ for (var i = 0; i<cols; i++) {
         
             //tile.addEventListener("click", placeShip);
             //tile.onclick(placeShip());
-            tile.onclick = function () {placeShip(this.id)};
+            tile.onclick = function () {placeLongShips(this.id, 3, false)};
 
             // use CSS absolute positioning to place each grid tile on the page
 		    tile.style.top = topPosition + 'px';
@@ -67,6 +67,54 @@ function placeShip(tileId) {
     alert("You clicked on tile: " + tileId);
     document.getElementById(tileId).style.backgroundColor = 'red';
     
+}
+
+//placing multiple tile long ships
+//length: num of tiles the ship takes
+//vertical: boolean, true if it's vertical, false if it's horizontal
+function placeLongShips(tileId, length, vertical) {
+
+    var invalidTile = "You cannot place a ship here. Please try again.";
+
+    alert("You clicked on tile: " + tileId);
+
+    var column = parseInt(tileId.charAt(1));
+    var row = parseInt(tileId.charAt(2));
+    var newrow = row;
+    var newcol = column;
+
+
+    if (vertical) {
+        for (var i = 0; i<length; i++) {
+            var newTileId = "t" + column.toString() + newrow.toString();
+            //alert(newTileId);
+            if (newrow < rows) {
+                document.getElementById(newTileId).style.backgroundColor = 'red';
+            } else {
+                alert(invalidTile);
+            }
+            
+            newrow +=1;
+        }
+      
+    //horizontal
+    } else {
+        for (var i = 0; i<length; i++) {
+            var newTileId = "t" + newcol.toString() + row.toString();
+            //alert(newTileId);
+            if (newcol < cols) {
+                document.getElementById(newTileId).style.backgroundColor = 'red';
+            } else {
+                alert(invalidTile);
+            }
+            
+            newcol +=1;
+        }
+
+    }
+
+    
+
 }
 
 
