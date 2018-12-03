@@ -65,8 +65,7 @@ for(var i = 0; i<cols; i++) {
 //click event listener function for placing individual ships
 function placeShip(tileId) {
     alert("You clicked on tile: " + tileId);
-    var clickedTile = getElementById(tileId);
-    clickedTile.setAttribute("style", "color: red");
+    document.getElementById(tileId).style.backgroundColor = 'red';
     
 }
 
