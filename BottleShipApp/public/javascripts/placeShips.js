@@ -84,8 +84,9 @@ for (var i = 0; i<cols; i++) {
         
             //tile.addEventListener("click", placeShip);
             //tile.onclick(placeShip());
-           
-            tile.onclick = function () {placeLongShips(this.id, 3, false)};
+            tile.onclick = function () {placeCurrentShip(this.id, rotated)};
+
+// // /// tile.onclick = function () {placeLongShips(this.id, 3, false)};
            //tile.onclick = function() {renderTilesFromArray(boardArray)};
 
             // use CSS absolute positioning to place each grid tile on the page
@@ -112,81 +113,79 @@ for (var i = 0; i<cols; i++) {
 
 //based on the ship coordinates calculates the surronding tile coordinates
 //updates the classes of these tiles to be 'placedShipSurronding'
-function updateShipSurrondings(shipCoordinates) {
+
+// /////////////
+// function updateShipSurrondings(shipCoordinates) {
 
 
 
-}
+// }
 
-//placing multiple tile long ships
-//length: num of tiles the ship takes
-//vertical: boolean, true if it's vertical, false if it's horizontal
-function placeLongShips(tileId, length, vertical) {
+// //placing multiple tile long ships
+// //length: num of tiles the ship takes
+// //vertical: boolean, true if it's vertical, false if it's horizontal
+// function placeLongShips(tileId, length, vertical) {
 
-    var invalidTile = "You cannot place a ship here. Please try again.";
+//     var invalidTile = "You cannot place a ship here. Please try again.";
 
-    //alert("You clicked on tile: " + tileId);
+//     //alert("You clicked on tile: " + tileId);
 
-    var column = parseInt(tileId.charAt(1));
-    var row = parseInt(tileId.charAt(2));
-    var newrow = row;
-    var newcol = column;
+//     var column = parseInt(tileId.charAt(1));
+//     var row = parseInt(tileId.charAt(2));
+//     var newrow = row;
+//     var newcol = column;
 
 
-    if (vertical) {
-        for (var i = 0; i<length; i++) {
-            var newTileId = "t" + column.toString() + newrow.toString();
-            //alert(newTileId);
-            if (newrow < rows) {
-                document.getElementById(newTileId).style.backgroundColor = 'red';
-            } else {
-                alert(invalidTile);
-            }
+//     if (vertical) {
+//         for (var i = 0; i<length; i++) {
+//             var newTileId = "t" + column.toString() + newrow.toString();
+//             //alert(newTileId);
+//             if (newrow < rows) {
+//                 document.getElementById(newTileId).style.backgroundColor = 'red';
+//             } else {
+//                 alert(invalidTile);
+//             }
             
-            newrow +=1;
-        }
+//             newrow +=1;
+//         }
       
-    //horizontal
-    } else {
-        for (var i = 0; i<length; i++) {
-            var newTileId = "t" + newcol.toString() + row.toString();
-            //alert(newTileId);
-            if (newcol < cols) {
-                document.getElementById(newTileId).style.backgroundColor = 'red';
-            } else {
-                //undo the styling of the tiles
-                for (var e = i-1; e>=0; e--) {
-                    newcol--;
-                    var newTileId = "t" + newcol.toString() + row.toString();
+//     //horizontal
+//     } else {
+//         for (var i = 0; i<length; i++) {
+//             var newTileId = "t" + newcol.toString() + row.toString();
+//             //alert(newTileId);
+//             if (newcol < cols) {
+//                 document.getElementById(newTileId).style.backgroundColor = 'red';
+//             } else {
+//                 //undo the styling of the tiles
+//                 for (var e = i-1; e>=0; e--) {
+//                     newcol--;
+//                     var newTileId = "t" + newcol.toString() + row.toString();
 
-                    //alert(newTileId);
+//                     //alert(newTileId);
 
 
 
                     
-                    document.getElementById(newTileId).style.backgroundColor = 'grey';
+//                     document.getElementById(newTileId).style.backgroundColor = 'grey';
                     
 
-                }
+//                 }
 
-                //tell the user that (s)he can't place a ship here
-                alert(invalidTile);
+//                 //tell the user that (s)he can't place a ship here
+//                 alert(invalidTile);
 
-                //break out from the for loop
-                break;
+//                 //break out from the for loop
+//                 break;
 
-            }
+//             }
             
-            newcol +=1;
-        }
+//             newcol +=1;
+//         }
+//     }
+// }
 
-    }
-
-    
-
-}
-
-
+///////////////
 
 //drag and drop events
 /*function allowDrop(ev) {
@@ -218,10 +217,99 @@ class ShipObject {
     }
 }
 
-var myshipTiles = [1, 2];
-var myshipTilesSurrounding = [3, 11, 12, 13];
-var myshiphitTiles = [1];
-myHelloShip = new ShipObject(12,2,myshipTiles, myshipTilesSurrounding, myshiphitTiles, true)
+//ititialise all the user's ships (total 8)
+
+var shipsPlaced = 0;
+//var allShipIDs = [2,3,4,5,6,7,8,9]
+//declare the (shipID, length of ship) array
+var allShipProperties = [[2,5], [3,4], [4,3], [5,3], [6,2], [7,2], [8,1], [9,1]]
+
+function placeCurrentShip(tileId, vertical) {
+    //check whether there are any ships left to place
+    if (shipsPlaced<allShipProperties.length){
+
+        //get ship ID
+        currentID = allShipProperties[shipsPlaced][0];
+        //get ship size
+        currentSize = allShipProperties[shipsPlaced][1]
+        //get row and column of field clicked
+        column = parseInt(tileId.charAt(1));
+        row = parseInt(tileId.charAt(2));
+        //initialise new array to hold the IDs of tiles where the ship is located
+        currentShipTiles = new Array(currentSize);
+        //check if vertical
+        validMove = true;
+
+        if (vertical == true) {
+            for (i = 0; i<currentSize; i++) {
+                newRow = row + i;
+                //alert(newTileId) if the row is out of range;
+                if (newRow > 9) {
+                    alert("Invalid operation, tile out of range.")
+                    validMove = false;
+                    break;
+                } else {
+                    newTileId = "t" + column.toString() + newRow.toString();
+                    //append new tileID to the array of currentShipTiles
+                    currentShipTiles[i] = newTileId;
+                    // document.getElementById(newTileId).style.backgroundColor = 'red';
+                }
+            }
+        //horizontal
+        } else {
+            for (var i = 0; i<currentSize; i++) {
+                newColumn = column + i; 
+                //alert(newTileId) if column is out of range;
+                if (newColumn > 9) {
+                    alert("Invalid operation, tile out of range.");
+                    validMove = false;
+                    break;
+                } else {
+                    newTileId = "t" + newColumn.toString() + row.toString();
+                    //append new tileID to the array of currentShipTiles
+                    currentShipTiles[i] = newTileId;
+                    // document.getElementById(newTileId).style.backgroundColor = 'red';      
+                    }
+            }
+        }
+        
+
+        if (validMove == true){
+            currentShipSurroundingTiles = ["t10","t11"];
+            currentShipHitTiles = 0;
+            newShip = new ShipObject(currentID,currentSize,currentShipTiles, currentShipSurroundingTiles, currentShipHitTiles, vertical)
+            //increment ships placed to go to the next ship
+            shipsPlaced += 1;
+
+            // render tiles to red one by one
+            for (i = 0; i<currentSize; i++) {
+            document.getElementById(currentShipTiles[i]).style.backgroundColor = 'red';
+            }
+
+        }
+} else{
+    alert("All your ships have been placed. Press start to start the game.");
+}
+}
+
+var rotated = false;
+
+var rotate = function() {
+    alert("You rotated your ship");
+    if (rotated == false){
+        rotated = true;
+    //if already rotated
+    } else {
+        rotated = false;
+    }
+}
+
+// for (var i = 0; i<varShipIDs.length; i++) {
+// myHelloShip = new ShipObject(12,2,myshipTiles, myshipTilesSurrounding, myshiphitTiles, true)
+// var myshipTiles = [1, 2];
+// var myshipTilesSurrounding = [3, 11, 12, 13];
+// var myshiphitTiles = [1];
+// myHelloShip = new ShipObject(12,2,myshipTiles, myshipTilesSurrounding, myshiphitTiles, true)
 
 // var yourShips = function() {
 //     alert("You have a ship with ID "+ myHelloShip.shipID + " size " + myHelloShip.shipSize + " tiles " + myHelloShip.shipTiles + " sour.tiles " + myHelloShip.surroundingTiles + " hit " + myHelloShip.hitTiles + " vertical " + myHelloShip.verticalOrientation);
