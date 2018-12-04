@@ -104,11 +104,11 @@ for (var i = 0; i<cols; i++) {
 
 
 //click event listener function for placing individual ships
-function placeShip(tileId) {
-    alert("You clicked on tile: " + tileId);
-    document.getElementById(tileId).style.backgroundColor = 'red';
+//function placeShip(tileId) {
+//    alert("You clicked on tile: " + tileId);
+//    document.getElementById(tileId).style.backgroundColor = 'red';
     
-}
+//}
 
 //based on the ship coordinates calculates the surronding tile coordinates
 //updates the classes of these tiles to be 'placedShipSurronding'
