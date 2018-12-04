@@ -283,9 +283,12 @@ function placeCurrentShip(tileId, vertical) {
 
             // render tiles to red one by one
             for (i = 0; i<currentSize; i++) {
-            document.getElementById(currentShipTiles[i]).style.backgroundColor = 'red';
+                c = currentShipTiles[i].charAt(1);
+                r = currentShipTiles[i].charAt(2);
+                boardArray[r][c] = currentID;
+            //document.getElementById(currentShipTiles[i]).style.backgroundColor = 'red';
             }
-
+            renderTilesFromArray(boardArray);
         }
 } else{
     alert("All your ships have been placed. Press start to start the game.");
