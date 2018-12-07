@@ -387,8 +387,16 @@ var rotate = function() {
 
 //display length of next ship
 function nextShip(){
-    var nextShipLength = "Next ship's length is " + allShipProperties[shipsPlaced][1];
-    document.getElementById('nextShip').innerHTML = nextShipLength;
+
+    //if there are no ships left
+    if (shipsPlaced >= allShipProperties.length) {
+        document.getElementById('nextShip').innerHTML = "No ships left.";
+
+    } else {
+        var nextShipLength = "Next ship's length is " + allShipProperties[shipsPlaced][1];
+        document.getElementById('nextShip').innerHTML = nextShipLength;
+    }
+    
 };
 // for (var i = 0; i<varShipIDs.length; i++) {
 // myHelloShip = new ShipObject(12,2,myshipTiles, myshipTilesSurrounding, myshiphitTiles, true)
