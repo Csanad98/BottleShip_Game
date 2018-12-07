@@ -390,9 +390,12 @@ function nextShip(){
 
     //if there are no ships left
     if (shipsPlaced >= allShipProperties.length) {
+
+        //then tell it to the user
         document.getElementById('nextShip').innerHTML = "No ships left.";
 
     } else {
+        //otherwise update the field with the next ship's length
         var nextShipLength = "Next ship's length is " + allShipProperties[shipsPlaced][1];
         document.getElementById('nextShip').innerHTML = nextShipLength;
     }
