@@ -86,7 +86,7 @@ for (var i = 0; i<cols; i++) {
             //tile.addEventListener("click", placeShip);
             //tile.onclick(placeShip());
             tile.onclick = function () {placeCurrentShip(this.id, rotated)};
-
+ 
 // // /// tile.onclick = function () {placeLongShips(this.id, 3, false)};
            //tile.onclick = function() {renderTilesFromArray(boardArray)};
 
@@ -363,6 +363,7 @@ function placeCurrentShip(tileId, vertical) {
             //increment ships placed to go to the next ship
             shipsPlaced += 1;
             renderTilesFromArray(boardArray);
+            {nextShip()};
         }
 } else{
     alert("All your ships have been placed. Press start to start the game.");
@@ -381,6 +382,11 @@ var rotate = function() {
     }
 }
 
+//display length of next ship
+function nextShip(){
+    var nextShipLength = "Next ship's length is " + allShipProperties[shipsPlaced][1];
+    document.getElementById('nextShip').innerHTML = nextShipLength;
+};
 // for (var i = 0; i<varShipIDs.length; i++) {
 // myHelloShip = new ShipObject(12,2,myshipTiles, myshipTilesSurrounding, myshiphitTiles, true)
 // var myshipTiles = [1, 2];
