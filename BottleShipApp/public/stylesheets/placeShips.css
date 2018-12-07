@@ -39,25 +39,25 @@
 }
 
 
-#onlinePlayers{
+/*#onlinePlayers{
     margin-left: 10px;
     margin-right: auto;
     float: left;
-}
+}*/
 
-#yourSteps{
+/* #yourSteps{
     margin-left: auto;
     margin-right: auto;
     text-align: center;
     float: center;
 
-}
+} */
 
-#recordSteps{
+/*#recordSteps{
     margin-left: auto;
     margin-right: 10px;
     float: right;
-}
+}*/
 
 body {
     background-color: #ffffff;
