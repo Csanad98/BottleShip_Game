@@ -337,7 +337,8 @@ function placeCurrentShip(tileId, vertical) {
             }
             currentShipSurroundingTiles = currentShipSurroundingTiles.filter(onlyUnique);
         
-            //remove tiles from surroundingTiles which are part of the ship or which are outofBound
+            //remove tiles from surroundingTiles which are part of the ship or 
+            //which are outofBound
             for (i = 0; i<currentShipSurroundingTiles.length; i++){
                 var column = currentShipSurroundingTiles[i].charAt(1);
                 var row = currentShipSurroundingTiles[i].charAt(2);
@@ -373,19 +374,32 @@ function placeCurrentShip(tileId, vertical) {
 var rotated = false;
 
 var rotate = function() {
-    alert("You rotated your ship");
+    //alert("You rotated your ship");
     if (rotated == false){
         rotated = true;
+        alert("Now you can place your ship vertically.");
     //if already rotated
     } else {
         rotated = false;
+        alert("Now you can place your ship horizontally.");
     }
 }
 
 //display length of next ship
 function nextShip(){
-    var nextShipLength = "Next ship's length is " + allShipProperties[shipsPlaced][1];
-    document.getElementById('nextShip').innerHTML = nextShipLength;
+
+    //if there are no ships left
+    if (shipsPlaced >= allShipProperties.length) {
+
+        //then tell it to the user
+        document.getElementById('nextShip').innerHTML = "No ships left.";
+
+    } else {
+        //otherwise update the field with the next ship's length
+        var nextShipLength = "Next ship's length is " + allShipProperties[shipsPlaced][1];
+        document.getElementById('nextShip').innerHTML = nextShipLength;
+    }
+    
 };
 // for (var i = 0; i<varShipIDs.length; i++) {
 // myHelloShip = new ShipObject(12,2,myshipTiles, myshipTilesSurrounding, myshiphitTiles, true)
