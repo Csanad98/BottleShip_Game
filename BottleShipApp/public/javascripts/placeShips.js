@@ -47,7 +47,7 @@ function renderTilesFromArray(boardArray) {
 
             } else if (boardArray[r][c] > 0) {
                 curTile.setAttribute("class", "placedShip");
-
+                
             } else if (boardArray[r][c] < 0) {
                 curTile.setAttribute("class", "placedShipSurronding");
 
@@ -56,6 +56,7 @@ function renderTilesFromArray(boardArray) {
             
         }
     }
+    
 }
 
 
