@@ -8,20 +8,27 @@ var startGame = function() {
 }
 
 
-var rows = 10;
-var cols = 10;
-var tileSize = 50;
+(function createBoardArray() {
+    var rows = 10;
+    var cols = 10;
+    var tileSize = 50;
 
-// get the container for the board
-var gameBoardContainer = document.getElementById("gameBoard");
+    // get the container for the board
+    var gameBoardContainer = document.getElementById("gameBoard");
 
 
-//create 2D array for internal representation of the board
-var boardArray = Array(rows);
+    //create 2D array for internal representation of the board
+    var boardArray = Array(rows);
 
-for (var i = 0; i<rows; i++) {
-    boardArray[i] = Array(cols);
-}
+    for (var i = 0; i<rows; i++) {
+        boardArray[i] = Array(cols);
+
+    }
+})();
+
+
+
+
 
 //boardArray[2][1] = -1;
 
@@ -57,19 +64,13 @@ function renderTilesFromArray(boardArray) {
         }
     }
     
-}
+};
 
+(function createBoardVisual(){
+    //make the grid
+    for (var i = 0; i<cols; i++) {
+        for(var e = 0; e<rows; e++) {
 
-//function 
-
-
-
-
-//make the grid
-for (var i = 0; i<cols; i++) {
-    for(var e = 0; e<rows; e++) {
-
-        
             //create new html element (div) and add it to the gameboard
             var tile = document.createElement("div");
             gameBoardContainer.appendChild(tile);
@@ -98,6 +99,9 @@ for (var i = 0; i<cols; i++) {
     }
 
 }
+
+})();
+
 
 
 
