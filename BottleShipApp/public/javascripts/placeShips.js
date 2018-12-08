@@ -1,24 +1,29 @@
-var startGame = function() {
+/* var startGame = function() {
     alert("You are starting the game!");
 
     //TODO
     //iff all ships have been placed then:
     window.open("game.html", "_self");
 
-}
+} */
+
+//global variables to store essential data about the board
+var rows = 10;
+var cols = 10;
+var tileSize = 50;
+var gameBoardContainer;
+var boardArray;
 
 
 (function createBoardArray() {
-    var rows = 10;
-    var cols = 10;
-    var tileSize = 50;
+    
 
     // get the container for the board
-    var gameBoardContainer = document.getElementById("gameBoard");
+    gameBoardContainer = document.getElementById("gameBoard");
 
 
     //create 2D array for internal representation of the board
-    var boardArray = Array(rows);
+    boardArray = Array(rows);
 
     for (var i = 0; i<rows; i++) {
         boardArray[i] = Array(cols);
@@ -48,7 +53,7 @@ function renderTilesFromArray(boardArray) {
             //alert(curTileId);
 
 
-            if (boardArray[r][c] === 0) {
+            if (boardArray[r][c] == 0 || boardArray[r][c] == undefined) {
                 curTile.setAttribute("class", "yourBoardCell");
 
 
@@ -66,7 +71,7 @@ function renderTilesFromArray(boardArray) {
     
 };
 
-(function createBoardVisual(){
+(function(){
     //make the grid
     for (var i = 0; i<cols; i++) {
         for(var e = 0; e<rows; e++) {
@@ -86,7 +91,7 @@ function renderTilesFromArray(boardArray) {
         
             //tile.addEventListener("click", placeShip);
             //tile.onclick(placeShip());
-            tile.onclick = function () {placeCurrentShip(this.id, rotated)};
+            tile.onclick = function () {placeCurrentShip(this.id, vertical)};
  
 // // /// tile.onclick = function () {placeLongShips(this.id, 3, false)};
            //tile.onclick = function() {renderTilesFromArray(boardArray)};
@@ -360,16 +365,18 @@ function placeCurrentShip(tileId, vertical) {
 }
 }
 
-var rotated = false;
+var vertical= false;
 
 var rotate = function() {
-    //alert("You rotated your ship");
-    if (rotated == false){
-        rotated = true;
+    
+    if (vertical == false){
+        vertical = true;
+        document.getElementById("curRotation").innerHTML = "Current rotation is: Vertical";
         alert("Now you can place your ship vertically.");
-    //if already rotated
+    
     } else {
-        rotated = false;
+        vertical = false;
+        document.getElementById("curRotation").innerHTML = "Current rotation is: Horizontal";
         alert("Now you can place your ship horizontally.");
     }
 }
