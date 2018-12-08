@@ -129,7 +129,7 @@ function renderTilesFromArray(boardArray) {
 // //placing multiple tile long ships
 // //length: num of tiles the ship takes
 // //vertical: boolean, true if it's vertical, false if it's horizontal
- function placeLongShips(tileId, length, vertical) {
+function placeLongShips(tileId, length, vertical) {
 
      var invalidTile = "You cannot place a ship here. Please try again.";
 
