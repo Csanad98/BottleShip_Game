@@ -91,7 +91,7 @@ function renderTilesFromArray(boardArray) {
         
             //tile.addEventListener("click", placeShip);
             //tile.onclick(placeShip());
-            tile.onclick = function () {placeCurrentShip(this.id, vertical)};
+            tile.onclick = function () {placeCurrentShip(this.id)};
  
 // // /// tile.onclick = function () {placeLongShips(this.id, 3, false)};
            //tile.onclick = function() {renderTilesFromArray(boardArray)};
@@ -134,7 +134,7 @@ function renderTilesFromArray(boardArray) {
 // //placing multiple tile long ships
 // //length: num of tiles the ship takes
 // //vertical: boolean, true if it's vertical, false if it's horizontal
-function placeLongShips(tileId, length, vertical) {
+/* function placeLongShips(tileId, length, vertical) {
 
      var invalidTile = "You cannot place a ship here. Please try again.";
 
@@ -194,7 +194,7 @@ function placeLongShips(tileId, length, vertical) {
          }
      }
  }
-
+ */
 
 
 
@@ -216,10 +216,10 @@ class ShipObject {
 
 var shipsPlaced = 0;
 //var allShipIDs = [2,3,4,5,6,7,8,9]
-//declare the (shipID, length of ship) array
+//declare the (shipID, length_of_ship) array
 var allShipProperties = [[2,5], [3,4], [4,3], [5,3], [6,2], [7,2], [8,1], [9,1]]
 
-function placeCurrentShip(tileId, vertical) {
+function placeCurrentShip(tileId) {
     //check whether there are any ships left to place
     if (shipsPlaced<allShipProperties.length){
 
@@ -232,8 +232,9 @@ function placeCurrentShip(tileId, vertical) {
         row = parseInt(tileId.charAt(2));
         //initialise new array to hold the IDs of tiles where the ship is located
         currentShipTiles = new Array(currentSize);
-        //check if vertical
-        validMove = true;
+
+        //initialize variable
+        var validMove = true;
 
         if (vertical == true) {
             for (i = 0; i<currentSize; i++) {
@@ -272,25 +273,111 @@ function placeCurrentShip(tileId, vertical) {
         if (validMove == true){
             currentShipSurroundingTiles = [];
             currentShipHitTiles = 0;
+            
             // render tiles to red one by one
             for (i = 0; i<currentSize; i++) {
-                c = currentShipTiles[i].charAt(1);
-                r = currentShipTiles[i].charAt(2);
-                boardArray[r][c] = currentID;
-            //document.getElementById(currentShipTiles[i]).style.backgroundColor = 'red';
-            }
-            // render tiles to red one by one
-            for (i = 0; i<currentSize; i++) {
-                //disable tile
-                //document.getElementById(currentShipTiles[i]).disabled = true;
+                
                 var column = parseInt(currentShipTiles[i].charAt(1));
                 var row =   parseInt(currentShipTiles[i].charAt(2));
                 boardArray[row][column] = currentID;
-                //document.getElementById(currentShipTiles[i]).style.backgroundColor = 'red';
+
+
+
+                //if vertical
+                if (vertical) {
+
+                    //if first tile
+                    if(i === 0) {
+
+                        //cell above
+                        var aboveRow = row-1;
+                        var cellAboveTileId = "t"+column+aboveRow;
+                        currentShipSurroundingTiles.push(cellAboveTileId);
+                        
+                        
+                        //cell to the left (and above)
+                        var colLeft = column-1;
+                        var cellLeftTileId = "t"+colLeft+aboveRow;
+                        currentShipSurroundingTiles.push(cellLeftTileId);
+
+
+                        //cell to the right (and above)
+                        var colRight = column+1;
+                        var cellRightTileId = "t"+colRight+aboveRow;
+                        currentShipSurroundingTiles.push(cellRightTileId);
+
+
+                    //if last tile
+                    } else if (i === currentSize-1) {
+
+                        //cell below
+                        var belowRow = row+1;
+                        var cellBelowTileId = "t"+column+belowRow;
+                        currentShipSurroundingTiles.push(cellBelowTileId);
+                        
+                        
+                        //cell to the left (and below)
+                        var colLeft = column-1;
+                        var cellLeftTileId = "t"+colLeft+belowRow;
+                        currentShipSurroundingTiles.push(cellLeftTileId);
+
+
+                        //cell to the right (and below)
+                        var colRight = column+1;
+                        var cellRightTileId = "t"+colRight+belowRow;
+                        currentShipSurroundingTiles.push(cellRightTileId);
+
+
+                    
+                    } 
+                    //all inbetween tiles
+                    //also top and bottom tiles' side tiles
+
+
+                     //cell to the left 
+                    var colLeft = column-1;
+                    var cellLeftTileId = "t"+colLeft+row;
+                    currentShipSurroundingTiles.push(cellLeftTileId);
+
+
+                    //cell to the right 
+                    var colRight = column+1;
+                    var cellRightTileId = "t"+colRight+row;
+                    currentShipSurroundingTiles.push(cellRightTileId);
+
+                    
+
+
+                //if horizontal
+                } else {
+        
+                    //if first tile
+                    if(i === 0) {
+                        var
+
+
+                    //if last tile
+                    } else if (i === currentSize-1) {
+    
+    
+                    //all inbetween tiles
+                    } else {
+    
+                    }
+                
+                }
+
+
+                    
+
+
+
+                
+
                 //add surroundingTiles
                 // manipulate row and column values to find neightbours if current cell is not an edge cell
                 
-                if(column == 9 ){
+                /* if(column == 9 ){
                     var upColumn = column;
                 }else{
                     var upColumn = column + 1;
@@ -322,7 +409,7 @@ function placeCurrentShip(tileId, vertical) {
                 currentShipSurroundingTiles.push(("t" + upColumn + downRow));
                 currentShipSurroundingTiles.push(("t" + upColumn + row));
                 currentShipSurroundingTiles.push(("t" + upColumn + upRow ));
-
+ */
             }
             
             //filter out duplicants in currentShipSurroundingTiles
@@ -380,6 +467,21 @@ var rotate = function() {
         alert("Now you can place your ship horizontally.");
     }
 }
+
+//returns true if the ship's neightbouring cells are free
+//false otherwise
+function getNeighbours(currentShipTiles, vertical) {
+
+    //array of tileids that surround the ship, the ship is described by the ids of the tiles
+    //which are stored in the currentShipTiles
+    var neighbours = Array(2*currentShipTiles.length+6);
+
+    for(let i = 0; i<currentShipTiles.length; i++) {
+
+
+
+    }
+};
 
 //display length of next ship
 function nextShip(){
