@@ -29,6 +29,12 @@ var boardArray;
         boardArray[i] = Array(cols);
 
     }
+
+    for (let i = 0; i<boardArray.length; i++) {
+        for(let e = 0; e<boardArray[i].length; e++) {
+            boardArray[i][e] = 0;
+        }
+    }
 })();
 
 
@@ -353,17 +359,52 @@ function placeCurrentShip(tileId) {
         
                     //if first tile
                     if(i === 0) {
-                        var
+                        var colLeft = column-1;
+                        var cellLeftTileId = "t"+colLeft+row;
+                        currentShipSurroundingTiles.push(cellLeftTileId);
+
+                        var aboveRow = row-1;
+                        var cellLeftAboveTileId = "t"+colLeft+aboveRow;
+                        currentShipSurroundingTiles.push(cellLeftAboveTileId);
+
+
+                        var belowRow = row+1;
+                        var cellLeftBelowTileId = "t"+colLeft+belowRow;
+                        currentShipSurroundingTiles.push(cellLeftBelowTileId);
 
 
                     //if last tile
                     } else if (i === currentSize-1) {
+                        var colRight = column+1;
+                        var cellRightTileId = "t"+colRight+row;
+                        currentShipSurroundingTiles.push(cellRightTileId);
+
+                        var aboveRow = row-1;
+                        var cellRightAboveTileId = "t"+colRight+aboveRow;
+                        currentShipSurroundingTiles.push(cellRightAboveTileId);
+
+
+                        var belowRow = row+1;
+                        var cellRightBelowTileId = "t"+colRight+belowRow;
+                        currentShipSurroundingTiles.push(cellRightBelowTileId);
     
-    
-                    //all inbetween tiles
-                    } else {
-    
-                    }
+                    
+                    }  
+
+                    //all inbetween tiles, also below and above tiles for first and last
+
+                     //cell above
+                    var aboveRow = row-1;
+                    var cellAboveTileId = "t"+column+aboveRow;
+                    currentShipSurroundingTiles.push(cellAboveTileId);
+
+                    //cell below
+                    var belowRow = row+1;
+                    var cellBelowTileId = "t"+column+belowRow;
+                    currentShipSurroundingTiles.push(cellBelowTileId);
+ 
+
+
                 
                 }
 
