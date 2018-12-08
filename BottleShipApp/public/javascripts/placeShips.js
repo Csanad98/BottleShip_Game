@@ -129,83 +129,68 @@ function renderTilesFromArray(boardArray) {
 // //placing multiple tile long ships
 // //length: num of tiles the ship takes
 // //vertical: boolean, true if it's vertical, false if it's horizontal
-// function placeLongShips(tileId, length, vertical) {
+ function placeLongShips(tileId, length, vertical) {
 
-//     var invalidTile = "You cannot place a ship here. Please try again.";
+     var invalidTile = "You cannot place a ship here. Please try again.";
 
-//     //alert("You clicked on tile: " + tileId);
+     alert("You clicked on tile: " + tileId);
 
-//     var column = parseInt(tileId.charAt(1));
-//     var row = parseInt(tileId.charAt(2));
-//     var newrow = row;
-//     var newcol = column;
+    var column = parseInt(tileId.charAt(1));
+     var row = parseInt(tileId.charAt(2));
+    var newrow = row;
+    var newcol = column;
 
 
-//     if (vertical) {
-//         for (var i = 0; i<length; i++) {
-//             var newTileId = "t" + column.toString() + newrow.toString();
-//             //alert(newTileId);
-//             if (newrow < rows) {
-//                 document.getElementById(newTileId).style.backgroundColor = 'red';
-//             } else {
-//                 alert(invalidTile);
-//             }
+     if (vertical) {
+         for (var i = 0; i<length; i++) {
+            var newTileId = "t" + column.toString() + newrow.toString();
+             //alert(newTileId);
+             if (newrow < rows) {
+                 document.getElementById(newTileId).style.backgroundColor = 'red';
+             } else {
+                 alert(invalidTile);
+             }
             
-//             newrow +=1;
-//         }
+             newrow +=1;
+         }
       
-//     //horizontal
-//     } else {
-//         for (var i = 0; i<length; i++) {
-//             var newTileId = "t" + newcol.toString() + row.toString();
-//             //alert(newTileId);
-//             if (newcol < cols) {
-//                 document.getElementById(newTileId).style.backgroundColor = 'red';
-//             } else {
-//                 //undo the styling of the tiles
-//                 for (var e = i-1; e>=0; e--) {
-//                     newcol--;
-//                     var newTileId = "t" + newcol.toString() + row.toString();
+     //horizontal
+     } else {
+         for (var i = 0; i<length; i++) {
+             var newTileId = "t" + newcol.toString() + row.toString();
+             //alert(newTileId);
+             if (newcol < cols) {
+                 document.getElementById(newTileId).style.backgroundColor = 'red';
+             } else {
+                 //undo the styling of the tiles
+                 for (var e = i-1; e>=0; e--) {
+                     newcol--;
+                     var newTileId = "t" + newcol.toString() + row.toString();
 
-//                     //alert(newTileId);
+                     //alert(newTileId);
 
 
 
                     
-//                     document.getElementById(newTileId).style.backgroundColor = 'grey';
+                     document.getElementById(newTileId).style.backgroundColor = 'grey';
                     
 
-//                 }
+                 }
 
-//                 //tell the user that (s)he can't place a ship here
-//                 alert(invalidTile);
+                 //tell the user that (s)he can't place a ship here
+                 alert(invalidTile);
 
-//                 //break out from the for loop
-//                 break;
+                 //break out from the for loop
+                 break;
 
-//             }
+             }
             
-//             newcol +=1;
-//         }
-//     }
-// }
+             newcol +=1;
+         }
+     }
+ }
 
-///////////////
 
-//drag and drop events
-/*function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-}*/
 
 
 
