@@ -10,31 +10,25 @@
     
 </head>
 <body>
+  <header>
+      <button id="Button" onclick="rotate()">Change Ship Rotation</button>
+      
+      <div id = "nextShip">Next ship's length is 5</div>
+      
+      <div id = "curRotation">Current rotation is: Horizontal</div>
+  </header>
         
 
         <div class="row">
           <div class="column" style="background-color:#aaa;">
-            <h2>Information on placing ships</h2>
-            
-            <button id="Button" onclick="rotate()">Change Ship Rotation</button>
-            <br>
-            <br>
-            <div id = "nextShip">Next ship's length is 5</div>
-            <br>
-            <div id = "curRotation">Current rotation is: Horizontal</div>
-                
-          </div>
-          <div class="middlecolumn" style="background-color:#bbb;">
-                <div class="title">
-                        Put your ships on the board
-                    </div>
 
             <div id="gameBoard">
             </div>
+                
+          </div>
           
-         </div>
           <div class="column" style="background-color:#ccc;">
-            <h2>Column 3</h2>
+            
             <button id="Button" onclick="startGame()">start the game</button>
             <br>
             <br>
