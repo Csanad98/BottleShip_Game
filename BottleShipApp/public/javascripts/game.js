@@ -306,8 +306,38 @@ function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
 
 //returns true if the ship's coordinates are on the board
 //false if any of the coordinates are outside of the board
-//board: 2d array of board
+//board: 2d array of board, at least 2x2
 function checkIfShipIsOnBoard(shipCoordinates, board) {
+
+    for(var i = 0; i<shipCoordinates.length; i++) {
+        for(var j = 0; j <shipCoordinates[i].length; j++) {
+
+            //column is negative
+            if (shipCoordinates[i] < 0) {
+                return false;
+            }
+
+            //row is negative
+            if (shipCoordinates[i][j] < 0) {
+                return false;
+            }
+
+            //column is outside of the board's max column number
+            if(shipCoordinates[i]>= board.length) {
+                return false;
+            }
+
+            //column is outside of the board's max row number
+            if(shipCoordinates[i][j]>= board[0].length) {
+                return false;
+            }
+
+        }
+    }
+
+    return true;
+
+
 
 };
 
