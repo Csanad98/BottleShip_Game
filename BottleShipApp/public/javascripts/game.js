@@ -155,18 +155,63 @@ var allShipProperties = [[2,5], [3,4], [4,3], [5,3], [6,2], [7,2], [8,1], [9,1]]
 5a: a ship can be placed only on zeros
 5b: surroundings of ships can overlap
 5c: surroundings of ships cannot cover other ships (follows from the previous two)
+5d: ships can be placed only on the board
+
+if click is on valid spot:
+6: place the ship
+6a: modify the 2d array
+6b: render the html file
+
+if not:
+7: alert user
 
 
 Notes: all checks/calculations should be done on the 2D array, once we find the spot to be correct we render the tiles to change their color
 If we find the click to be invalid, then alert the user with this without rerendering anything
 
 
-
-
-
 */
+//returns the start coordinat pair from tileid(String)
+function calculateStartCoordinate(tileId) {
+
+};
 
 
+//returns an array of the ship's tile coordinates, where it would be placed based on the
+//provided coordinate
+//startCoordinate: [col, row]
+function calculateVerticalShipTileCoordinates(startCoordinate) {
+
+};
+
+function calculateHorizontalShipTileCoordinates(startCoordinate) {
+
+};
+
+
+//shipCoordinates: array of coordinates of proposed ship coordinates
+//returns an array of the coordinates of the surrounding tiles
+function calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates) {
+
+};
+
+
+function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
+
+};
+
+
+//returns true if the ship's coordinates are on the board
+//false if any of the coordinates are outside of the board
+function checkIfShipIsOnBoard(shipCoordinates) {
+
+};
+
+//returns true if the given ship coordinates are all zero on the board
+//false otherwise
+function checkIfShipIsOnZeros(shipCoordinates) {
+
+};
 
 
 
