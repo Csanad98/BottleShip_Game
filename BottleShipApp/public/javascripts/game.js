@@ -19,7 +19,7 @@ var boardArray;
     
 
     // get the container for the board
-    gameBoardContainer = document.getElementById("gameBoard");
+    gameBoardContainer = document.getElementById("board1");
 
 
     //create 2D array for internal representation of the board
