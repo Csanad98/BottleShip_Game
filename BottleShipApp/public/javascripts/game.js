@@ -224,6 +224,7 @@ function calculateHorizontalShipTileCoordinates(startCoordinate, length) {
 
 //shipCoordinates: array of coordinates of proposed ship coordinates
 //returns an array of the coordinates of the surrounding tiles
+//first coordinate should be the leftmost, last coordinate the rightmost
 function calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates) {
 
     var shipRow =shipCoordinates[0][1];
@@ -231,6 +232,9 @@ function calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates) {
 
     var belowRow = shipRow-1;
     var aboveRow = shipRow+1;
+
+    var leftCol = shipCoordinates[0][0]-1;
+    var rightCol = shipCoordinates[shipCoordinates.length-1][0]+1;
 
     //tiles right above and below the ship
     for(var i = 0; i<shipCoordinates.length; i++) {
@@ -241,17 +245,20 @@ function calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates) {
 
         surrondingCoordinates.push(aboveXY);
         surrondingCoordinates.push(belowXY);
-        
-
     }
 
-    return surrondingCoordinates;
-    
 
     //tiles on the left
-
+    surrondingCoordinates.push([leftCol, aboveRow]);
+    surrondingCoordinates.push([leftCol, shipRow]);
+    surrondingCoordinates.push([leftCol, belowRow]);
 
     //tiles on the right
+    surrondingCoordinates.push([rightCol, aboveRow]);
+    surrondingCoordinates.push([rightCol, shipRow]);
+    surrondingCoordinates.push([rightCol, belowRow]);
+
+    return surrondingCoordinates;
 
 
 
