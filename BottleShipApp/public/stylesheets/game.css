@@ -12,6 +12,11 @@
     text-align: center;
 }
 
+.headerField {
+    color:brown;
+    
+}
+
 * {
     box-sizing: border-box;
 }
