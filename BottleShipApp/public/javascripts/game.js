@@ -268,6 +268,39 @@ function calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates) {
 
 function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
 
+    var shipCol =shipCoordinates[0][0];
+    var surrondingCoordinates = new Array(shipCoordinates.length*2 + 6);
+
+    var prevCol = shipCol-1;
+    var nextCol = shipCol+1;
+
+    var rowAbove = shipCoordinates[0][1]-1;
+    var rowBelow = shipCoordinates[shipCoordinates.length-1][1]+1;
+
+    //tiles right next to the ship on the right and on the left
+    for(var i = 0; i<shipCoordinates.length; i++) {
+
+        var curRow = shipCoordinates[i][i];
+        var leftXY = [prevCol, curRow];
+        var rightXY = [nextCol, curRow];
+
+        surrondingCoordinates.push(leftXY);
+        surrondingCoordinates.push(rightXY);
+    }
+
+
+    //tiles on top
+    surrondingCoordinates.push([prevCol, rowAbove]);
+    surrondingCoordinates.push([shipCol, rowAbove]);
+    surrondingCoordinates.push([nextCol, rowAbove]);
+
+    //tiles in the bottom
+    surrondingCoordinates.push([prevCol, rowBelow]);
+    surrondingCoordinates.push([shipCol, rowBelow]);
+    surrondingCoordinates.push([nextCol, rowBelow]);
+
+    return surrondingCoordinates;
+
 };
 
 
