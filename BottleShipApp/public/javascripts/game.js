@@ -14,13 +14,16 @@ var tileSize = 50;
 var gameBoardContainer;
 var boardArray;
 
+// get the container for the board
+var gameBoardContainer1 = document.getElementById("board1");
+var gameBoardContainer2 = document.getElementById("board2");
+
+//create the two grids in the html
+makeGrid(gameBoardContainer1);
+makeGrid(gameBoardContainer2);
 
 (function createBoardArray() {
     
-
-    // get the container for the board
-    gameBoardContainer = document.getElementById("board1");
-
 
     //create 2D array for internal representation of the board
     boardArray = Array(rows);
@@ -77,7 +80,7 @@ function renderTilesFromArray(boardArray) {
     
 };
 
-(function(){
+function makeGrid(gameBoardContainer){
     //make the grid
     for (var i = 0; i<cols; i++) {
         for(var e = 0; e<rows; e++) {
@@ -111,7 +114,7 @@ function renderTilesFromArray(boardArray) {
 
 }
 
-})();
+};
 
 
 
