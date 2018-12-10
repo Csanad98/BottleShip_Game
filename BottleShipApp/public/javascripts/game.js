@@ -204,6 +204,20 @@ function calculateVerticalShipTileCoordinates(startCoordinate, length) {
 };
 
 function calculateHorizontalShipTileCoordinates(startCoordinate, length) {
+    var col = startCoordinate[0];
+    var row = startCoordinate[1];
+    var shipCoordinates = new Array(length);
+
+    for(var i = 0; i< length; i++) {
+        var newCol = col;
+        newCol += i;
+        
+        var currentXY = [newCol, row];
+        shipCoordinates.push(currentXY);
+    };
+
+    return shipCoordinates;
+
 
 };
 
