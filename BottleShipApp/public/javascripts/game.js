@@ -157,6 +157,10 @@ var allShipProperties = [[2,5], [3,4], [4,3], [5,3], [6,2], [7,2], [8,1], [9,1]]
 5c: surroundings of ships cannot cover other ships (follows from the previous two)
 
 
+Notes: all checks/calculations should be done on the 2D array, once we find the spot to be correct we render the tiles to change their color
+If we find the click to be invalid, then alert the user with this without rerendering anything
+
+
 
 
 
