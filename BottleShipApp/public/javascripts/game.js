@@ -226,6 +226,36 @@ function calculateHorizontalShipTileCoordinates(startCoordinate, length) {
 //returns an array of the coordinates of the surrounding tiles
 function calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates) {
 
+    var shipRow =shipCoordinates[0][1];
+    var surrondingCoordinates = new Array(shipCoordinates.length*2 + 6);
+
+    var belowRow = shipRow-1;
+    var aboveRow = shipRow+1;
+
+    //tiles right above and below the ship
+    for(var i = 0; i<shipCoordinates.length; i++) {
+
+        var curCol = shipCoordinates[i][0];
+        var aboveXY = [curCol, aboveRow];
+        var belowXY = [curCol, belowRow];
+
+        surrondingCoordinates.push(aboveXY);
+        surrondingCoordinates.push(belowXY);
+        
+
+    }
+
+    return surrondingCoordinates;
+    
+
+    //tiles on the left
+
+
+    //tiles on the right
+
+
+
+
 };
 
 
@@ -236,13 +266,22 @@ function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
 
 //returns true if the ship's coordinates are on the board
 //false if any of the coordinates are outside of the board
-function checkIfShipIsOnBoard(shipCoordinates) {
+//board: 2d array of board
+function checkIfShipIsOnBoard(shipCoordinates, board) {
 
 };
 
 //returns true if the given ship coordinates are all zero on the board
 //false otherwise
-function checkIfShipIsOnZeros(shipCoordinates) {
+//board: 2D array of the board
+function checkIfShipIsOnZeros(shipCoordinates, board) {
+
+};
+
+//removes all the coordinates from the surrounding coordinates which are outside
+//of the board
+//returns the cleaned shipSurrounding Coordinates
+function removeSurroundingsOutsideTheBoard(shipSurroundingCoordinates, board) {
 
 };
 
