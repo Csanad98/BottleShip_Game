@@ -6,3 +6,13 @@ var app = express();
 
 app.use(express.static(__dirname + "/public"));
 http.createServer(app).listen(port);
+
+app.get("/",(req,res) => {
+    res.sendFile("splash.html", {root: "./public"})
+});
+
+/* Pressing the 'Start the Game' button, returns this page */
+
+app.get("/play",(req,res) => {
+    res.sendFile("game.html", {root: "./public"})
+});
