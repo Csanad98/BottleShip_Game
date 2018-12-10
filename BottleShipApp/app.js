@@ -1,6 +1,8 @@
 var express = require("express");
 var http = require("http");
 
+var indexRouter = require("./routes/index");
+
 var port = process.argv[2];
 var app = express();
 
@@ -13,6 +15,7 @@ app.get("/",(req,res) => {
 
 /* Pressing the 'Start the Game' button, returns this page */
 
-app.get("/play",(req,res) => {
-    res.sendFile("game.html", {root: "./public"})
-});
+// app.get("/play",(req,res) => {
+//     res.sendFile("game.html", {root: "./public"})
+// });
+app.get("/play", indexRouter);
