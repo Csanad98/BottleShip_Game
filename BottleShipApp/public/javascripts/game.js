@@ -138,6 +138,34 @@ var shipsPlaced = 0;
 //declare the (shipID, length_of_ship) array
 var allShipProperties = [[2,5], [3,4], [4,3], [5,3], [6,2], [7,2], [8,1], [9,1]]
 
+
+//how to place a ship
+/*
+
+1. we get the id of the cell which was clicked on the board
+
+2. we have a global variable which determines if the ship is to be placed horizontally or vertically
+
+3. we have the 2D array of the board: with positive numbers where there is a ship, negative where it's the surrounding of a ship, zero where it is empty
+
+4a. we need to calculate the list of the tiles where the ship would be placed
+4b: need to calculate the tiles which are the surrondings of the to be placed ship
+
+5. rules to check:
+5a: a ship can be placed only on zeros
+5b: surroundings of ships can overlap
+5c: surroundings of ships cannot cover other ships (follows from the previous two)
+
+
+
+
+
+*/
+
+
+
+
+
 function placeCurrentShip(tileId) {
     //check whether there are any ships left to place
     if (shipsPlaced<allShipProperties.length){
