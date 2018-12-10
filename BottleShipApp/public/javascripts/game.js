@@ -171,8 +171,13 @@ If we find the click to be invalid, then alert the user with this without rerend
 
 
 */
-//returns the start coordinat pair from tileid(String)
+//returns the start coordinat pair from tileid(String) format t31
+//where 3 is the column and 1 is the row
 function calculateStartCoordinate(tileId) {
+    column = parseInt(tileId.charAt(1));
+    row = parseInt(tileId.charAt(2));
+
+    return [column, row];
 
 };
 
@@ -180,11 +185,25 @@ function calculateStartCoordinate(tileId) {
 //returns an array of the ship's tile coordinates, where it would be placed based on the
 //provided coordinate
 //startCoordinate: [col, row]
-function calculateVerticalShipTileCoordinates(startCoordinate) {
+//length: integer value: num of tiles the ship should take
+function calculateVerticalShipTileCoordinates(startCoordinate, length) {
+    var col = startCoordinate[0];
+    var row = startCoordinate[1];
+    var shipCoordinates = new Array(length);
+
+    for(var i = 0; i< length; i++) {
+        var newRow = row;
+        newRow += i;
+        
+        var currentXY = [col, newRow];
+        shipCoordinates.push(currentXY);
+    };
+
+    return shipCoordinates;
 
 };
 
-function calculateHorizontalShipTileCoordinates(startCoordinate) {
+function calculateHorizontalShipTileCoordinates(startCoordinate, length) {
 
 };
 
@@ -212,6 +231,8 @@ function checkIfShipIsOnBoard(shipCoordinates) {
 function checkIfShipIsOnZeros(shipCoordinates) {
 
 };
+
+
 
 
 
