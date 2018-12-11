@@ -12,21 +12,22 @@ var rows = 10;
 var cols = 10;
 var tileSize = 50;
 var gameBoardContainer;
-var boardArray;
+
+
 
 // get the container for the board
 var gameBoardContainer1 = document.getElementById("board1");
-var gameBoardContainer2 = document.getElementById("board2");
+//var gameBoardContainer2 = document.getElementById("board2");
 
 //create the two grids in the html
-makeGrid(gameBoardContainer1);
-makeGrid(gameBoardContainer2);
+makeGrid(gameBoardContainer1, "a");
+//makeGrid(gameBoardContainer2, "b");
 
-(function createBoardArray() {
+function createBoardArray() {
     
 
     //create 2D array for internal representation of the board
-    boardArray = Array(rows);
+    var boardArray = Array(rows);
 
     for (var i = 0; i<rows; i++) {
         boardArray[i] = Array(cols);
@@ -38,7 +39,16 @@ makeGrid(gameBoardContainer2);
             boardArray[i][e] = 0;
         }
     }
-})();
+
+    return boardArray;
+};
+
+var boardArray = createBoardArray();
+
+
+function createTheTwoBoards(stringId1, stringId2) {
+
+};
 
 
 
@@ -53,11 +63,11 @@ makeGrid(gameBoardContainer2);
 //<0: surronding of a ship: ship number with a minus, identifies the each ships' surronding 
 //separately
 //modifies the class of the tile based on the internal state of the board
-function renderTilesFromArray(boardArray) {
+function renderTilesFromArray(boardArray, idString) {
     for (var r = 0; r<boardArray.length; r++) {
         for(var c = 0; c<boardArray[r].length; c++ ) {
 
-            var curTileId = "t" + c + r;
+            var curTileId = idString + c + r;
             var curTile = document.getElementById(curTileId);
             //alert(curTileId);
 
@@ -80,7 +90,7 @@ function renderTilesFromArray(boardArray) {
     
 };
 
-function makeGrid(gameBoardContainer){
+function makeGrid(gameBoardContainer, idString){
     //make the grid
     for (var i = 0; i<cols; i++) {
         for(var e = 0; e<rows; e++) {
@@ -90,7 +100,7 @@ function makeGrid(gameBoardContainer){
             gameBoardContainer.appendChild(tile);
 
             //add unique ids for each element based on row and column numbers
-            tile.id = "t" + i + e;
+            tile.id = idString + i + e;
 
             tile.setAttribute("class", "yourBoardCell");
 
@@ -442,6 +452,45 @@ function putShipSurroundingsOnBoard(shipId, shipSurroundingCoordinates, board){
 
 };
 
+//alerts user that she cannot place a ship here
+function cannotPlaceShipHere() {
+    alert("Sorry but you cannot place a ship here. Try elsewhere.");
+};
+
+
+function placeAShip(tileId) {
+    //check whether there are any ships left to place
+    if (shipsPlaced<allShipProperties.length){
+
+        //get ship ID
+        currentID = allShipProperties[shipsPlaced][0];
+        //get ship size
+        currentSize = allShipProperties[shipsPlaced][1];
+
+        //get coordinates of the tile which was clicked
+        var startXY = calculateStartCoordinate(tileId);
+
+        //if global variable is currently true
+        if (vertical) {
+
+            //calculate vertical ship coordinates
+            var shipCoordinates = calculateVerticalShipTileCoordinates(startXY,currentSize);
+
+            //if(checkIfShipIsOnBoard(shipCoordinates,))
+
+
+        //if horizontal
+        } else {
+
+        }
+
+
+
+    } else {
+        alert("All your ships have been placed. Press start to start the game.");
+    }
+}
+
 
 
 
@@ -630,48 +679,6 @@ function placeCurrentShip(tileId) {
                 }
 
 
-                    
-
-
-
-                
-
-                //add surroundingTiles
-                // manipulate row and column values to find neightbours if current cell is not an edge cell
-                
-                /* if(column == 9 ){
-                    var upColumn = column;
-                }else{
-                    var upColumn = column + 1;
-                }
-
-                if(column == 0){
-                    var downColumn = column;
-                } else{
-                    var downColumn = column - 1;
-                }
-   
-                if(row == 9){
-                    var upRow = row;
-                } else{
-                    var upRow = row + 1;
-                }
-
-                if(row == 0){
-                    var downRow = row;
-                } else{
-                    var downRow = row-1;
-                }
-
-                currentShipSurroundingTiles.push(("t" + downColumn + downRow));
-                currentShipSurroundingTiles.push(("t" + downColumn + row));
-                currentShipSurroundingTiles.push(("t" + downColumn + upRow ));
-                currentShipSurroundingTiles.push(("t" + column + downRow));
-                currentShipSurroundingTiles.push(("t" + column + upRow ));
-                currentShipSurroundingTiles.push(("t" + upColumn + downRow));
-                currentShipSurroundingTiles.push(("t" + upColumn + row));
-                currentShipSurroundingTiles.push(("t" + upColumn + upRow ));
- */
             }
             
             //filter out duplicants in currentShipSurroundingTiles
@@ -706,7 +713,7 @@ function placeCurrentShip(tileId) {
             newShip = new ShipObject(currentID,currentSize,currentShipTiles, currentShipSurroundingTiles, currentShipHitTiles, vertical)
             //increment ships placed to go to the next ship
             shipsPlaced += 1;
-            renderTilesFromArray(boardArray);
+            renderTilesFromArray(boardArray, "a");
             {nextShip()};
         }
 } else{
@@ -730,20 +737,6 @@ var rotate = function() {
     }
 }
 
-//returns true if the ship's neightbouring cells are free
-//false otherwise
-function getNeighbours(currentShipTiles, vertical) {
-
-    //array of tileids that surround the ship, the ship is described by the ids of the tiles
-    //which are stored in the currentShipTiles
-    var neighbours = Array(2*currentShipTiles.length+6);
-
-    for(let i = 0; i<currentShipTiles.length; i++) {
-
-
-
-    }
-};
 
 //display length of next ship
 function nextShip(){
@@ -761,13 +754,3 @@ function nextShip(){
     }
     
 };
-// for (var i = 0; i<varShipIDs.length; i++) {
-// myHelloShip = new ShipObject(12,2,myshipTiles, myshipTilesSurrounding, myshiphitTiles, true)
-// var myshipTiles = [1, 2];
-// var myshipTilesSurrounding = [3, 11, 12, 13];
-// var myshiphitTiles = [1];
-// myHelloShip = new ShipObject(12,2,myshipTiles, myshipTilesSurrounding, myshiphitTiles, true)
-
-// var yourShips = function() {
-//     alert("You have a ship with ID "+ myHelloShip.shipID + " size " + myHelloShip.shipSize + " tiles " + myHelloShip.shipTiles + " sour.tiles " + myHelloShip.surroundingTiles + " hit " + myHelloShip.hitTiles + " vertical " + myHelloShip.verticalOrientation);
-// }
