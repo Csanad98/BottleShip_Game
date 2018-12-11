@@ -557,6 +557,10 @@ function placeAShip(tileId) {
 
         }
 
+        //increment ships placed to go to the next ship
+        shipsPlaced += 1;
+        {nextShip()};
+
 
 
     } else {
@@ -568,7 +572,7 @@ function placeAShip(tileId) {
 
 
 
-function placeCurrentShip(tileId) {
+/* function placeCurrentShip(tileId) {
     //check whether there are any ships left to place
     if (shipsPlaced<allShipProperties.length){
 
@@ -792,7 +796,7 @@ function placeCurrentShip(tileId) {
 } else{
     alert("All your ships have been placed. Press start to start the game.");
 }
-}
+} */
 
 var vertical= false;
 
