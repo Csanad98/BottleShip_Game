@@ -44,7 +44,7 @@ function createBoardArray() {
 };
 
 var boardArray = createBoardArray();
-alert(boardArray);
+//alert(boardArray);
 
 
 
@@ -60,22 +60,22 @@ alert(boardArray);
 //separately
 //modifies the class of the tile based on the internal state of the board
 function renderTilesFromArray(boardArray, idString) {
-    for (var r = 0; r<boardArray.length; r++) {
-        for(var c = 0; c<boardArray[r].length; c++ ) {
+    for (var c = 0; c<boardArray.length; c++) {
+        for(var r = 0; r<boardArray[c].length; r++ ) {
 
             var curTileId = idString + c + r;
             var curTile = document.getElementById(curTileId);
             //alert(curTileId);
 
 
-            if (boardArray[r][c] == 0 || boardArray[r][c] == undefined) {
+            if (boardArray[c][r] == 0 || boardArray[c][r] == undefined) {
                 curTile.setAttribute("class", "yourBoardCell");
 
 
-            } else if (boardArray[r][c] > 0) {
+            } else if (boardArray[c][r] > 0) {
                 curTile.setAttribute("class", "placedShip");
                 
-            } else if (boardArray[r][c] < 0) {
+            } else if (boardArray[c][r] < 0) {
                 curTile.setAttribute("class", "placedShipSurronding");
 
             }
@@ -206,6 +206,7 @@ function calculateVerticalShipTileCoordinates(startCoordinate, length) {
         
         var currentXY = [col, newRow];
         shipCoordinates.push(currentXY);
+        //console.log(currentXY);
     };
     
     return shipCoordinates;
