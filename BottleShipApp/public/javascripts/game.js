@@ -283,11 +283,13 @@ function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
 
     var rowAbove = shipCoordinates[0][1]-1;
     var rowBelow = shipCoordinates[shipCoordinates.length-1][1]+1;
+    //console.log(shipCoordinates);
 
     //tiles right next to the ship on the right and on the left
     for(var i = 0; i<shipCoordinates.length; i++) {
+        //console.log(shipCoordinates[i]);
 
-        var curRow = shipCoordinates[i][i];
+        var curRow = shipCoordinates[i][1];
         var leftXY = [prevCol, curRow];
         var rightXY = [nextCol, curRow];
 
@@ -305,6 +307,8 @@ function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
     surrondingCoordinates.push([prevCol, rowBelow]);
     surrondingCoordinates.push([shipCol, rowBelow]);
     surrondingCoordinates.push([nextCol, rowBelow]);
+
+    console.log(surrondingCoordinates);
 
     return surrondingCoordinates;
 
