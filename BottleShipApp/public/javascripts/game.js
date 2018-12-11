@@ -44,11 +44,7 @@ function createBoardArray() {
 };
 
 var boardArray = createBoardArray();
-
-
-function createTheTwoBoards(stringId1, stringId2) {
-
-};
+alert(boardArray);
 
 
 
@@ -110,7 +106,7 @@ function makeGrid(gameBoardContainer, idString){
         
             //tile.addEventListener("click", placeShip);
             //tile.onclick(placeShip());
-            tile.onclick = function () {placeCurrentShip(this.id)};
+            tile.onclick = function () {placeAShip(this.id)};
  
 // // /// tile.onclick = function () {placeLongShips(this.id, 3, false)};
            //tile.onclick = function() {renderTilesFromArray(boardArray)};
@@ -198,18 +194,20 @@ function calculateStartCoordinate(tileId) {
 //startCoordinate: [col, row]
 //length: integer value: num of tiles the ship should take
 function calculateVerticalShipTileCoordinates(startCoordinate, length) {
+    
     var col = startCoordinate[0];
     var row = startCoordinate[1];
-    var shipCoordinates = new Array(length);
+    var shipCoordinates = [];
 
     for(var i = 0; i< length; i++) {
+        
         var newRow = row;
         newRow += i;
         
         var currentXY = [col, newRow];
         shipCoordinates.push(currentXY);
     };
-
+    
     return shipCoordinates;
 
 };
@@ -217,7 +215,7 @@ function calculateVerticalShipTileCoordinates(startCoordinate, length) {
 function calculateHorizontalShipTileCoordinates(startCoordinate, length) {
     var col = startCoordinate[0];
     var row = startCoordinate[1];
-    var shipCoordinates = new Array(length);
+    var shipCoordinates = [];
 
     for(var i = 0; i< length; i++) {
         var newCol = col;
@@ -239,7 +237,7 @@ function calculateHorizontalShipTileCoordinates(startCoordinate, length) {
 function calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates) {
 
     var shipRow =shipCoordinates[0][1];
-    var surrondingCoordinates = new Array(shipCoordinates.length*2 + 6);
+    var surrondingCoordinates = [];
 
     var belowRow = shipRow-1;
     var aboveRow = shipRow+1;
@@ -277,7 +275,7 @@ function calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates) {
 function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
 
     var shipCol =shipCoordinates[0][0];
-    var surrondingCoordinates = new Array(shipCoordinates.length*2 + 6);
+    var surrondingCoordinates = [];
 
     var prevCol = shipCol-1;
     var nextCol = shipCol+1;
@@ -316,7 +314,11 @@ function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
 //false if any of the coordinates are outside of the board
 //board: 2d array of board, at least 2x2
 function checkIfShipIsOnBoard(shipCoordinates, board) {
+    //console.log(shipCoordinates);
+    //console.log(shipCoordinates[5]);
+    //console.log(shipCoordinates[0].length);
 
+    //indexing starts at 5 if the length is 10
     for(var i = 0; i<shipCoordinates.length; i++) {
         for(var j = 0; j <shipCoordinates[i].length; j++) {
 
@@ -475,8 +477,39 @@ function placeAShip(tileId) {
 
             //calculate vertical ship coordinates
             var shipCoordinates = calculateVerticalShipTileCoordinates(startXY,currentSize);
+            //console.log(shipCoordinates);
+            //check if ship is on the board
+            if(!checkIfShipIsOnBoard(shipCoordinates, boardArray)) {
+                cannotPlaceShipHere();
+                return;
+            }
 
-            //if(checkIfShipIsOnBoard(shipCoordinates,))
+            //check if ship can be placed here - no other ships are in place
+            if(!checkIfShipIsOnZeros(shipCoordinates, boardArray)) {
+                cannotPlaceShipHere();
+                return;
+            }
+
+            //we get here if ship can be placed at the given location
+            //take care of the surrounding tiles
+
+            //calculate the surrounding tile coordinates
+            var surroundingTiles = calculateVerticalShipSurroundingTileCoordinates(shipCoordinates);
+
+            //remove Surroundings Outside of The Board
+            var surroundingTiles = removeSurroundingsOutsideTheBoard(surroundingTiles, boardArray);
+
+            //all set
+            //place the ship on the board - modify the array
+            boardArray = putShipOnBoard(currentID, shipCoordinates, boardArray);
+
+
+            //place the surrounding tiles
+            boardArray = putShipSurroundingsOnBoard(currentID,surroundingTiles,boardArray);
+
+
+            //rerender the html file
+            renderTilesFromArray(boardArray,"a");
 
 
         //if horizontal
