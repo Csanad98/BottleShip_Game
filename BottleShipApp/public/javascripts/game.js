@@ -367,8 +367,20 @@ function checkIfShipIsOnZeros(shipCoordinates, board) {
 
 //removes all the coordinates from the surrounding coordinates which are outside
 //of the board
-//returns the cleaned shipSurrounding Coordinates
+//returns the cleaned shipSurrounding Coordinates which are on the board
 function removeSurroundingsOutsideTheBoard(shipSurroundingCoordinates, board) {
+
+    var shipSurroundingCoordinatesOnBoard =[];
+    //iterate through the surrounding cell coorinates
+    for(var i = 0; i<shipSurroundingCoordinates.length; i++) {
+
+        //if it's on the board then add it to the new array which will be returned
+        if(isCoordinateOnBoard(shipSurroundingCoordinates[i], board)) {
+            shipSurroundingCoordinatesOnBoard.push(shipSurroundingCoordinates[i]);
+        }
+    }
+
+    return shipSurroundingCoordinatesOnBoard;
 
 
 };
