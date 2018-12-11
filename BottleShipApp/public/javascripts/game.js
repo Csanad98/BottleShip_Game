@@ -19,12 +19,9 @@ var gameBoardContainer;
 var gameBoardContainer1 = document.getElementById("board1");
 //var gameBoardContainer2 = document.getElementById("board2");
 
-//create the two grids in the html
-makeGrid(gameBoardContainer1, "a");
-//makeGrid(gameBoardContainer2, "b");
+
 
 function createBoardArray() {
-    
 
     //create 2D array for internal representation of the board
     var boardArray = Array(rows);
@@ -44,13 +41,11 @@ function createBoardArray() {
 };
 
 var boardArray = createBoardArray();
-//alert(boardArray);
 
+//create the two grids in the html
+makeGrid(gameBoardContainer1, "a");
+//makeGrid(gameBoardContainer2, "b");
 
-
-
-
-//boardArray[2][1] = -1;
 
 //render the tiles based on the internal representation
 //0: free/empty tile
@@ -87,8 +82,8 @@ function renderTilesFromArray(boardArray, idString) {
 
 function makeGrid(gameBoardContainer, idString){
     //make the grid
-    for (var i = 0; i<cols; i++) {
-        for(var e = 0; e<rows; e++) {
+    for (var i = 0; i<boardArray.length; i++) {
+        for(var e = 0; e<boardArray[i].length; e++) {
 
             //create new html element (div) and add it to the gameboard
             var tile = document.createElement("div");
@@ -102,24 +97,22 @@ function makeGrid(gameBoardContainer, idString){
             //set each grid tile's coordinates: multiples of the current row or column number
 		    var topPosition = e * tileSize;
             var leftPosition = i * tileSize;
+            
         
-            //tile.addEventListener("click", placeShip);
-            //tile.onclick(placeShip());
             tile.onclick = function () {placeAShip(this.id)};
  
-// // /// tile.onclick = function () {placeLongShips(this.id, 3, false)};
-           //tile.onclick = function() {renderTilesFromArray(boardArray)};
-
             // use CSS absolute positioning to place each grid tile on the page
 		    tile.style.top = topPosition + 'px';
             tile.style.left = leftPosition + 'px';
-            
-
+    
     }
 
 }
 
 };
+
+
+
 
 
 
