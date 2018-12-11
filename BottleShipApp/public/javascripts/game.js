@@ -146,7 +146,8 @@ var allShipProperties = [[2,5], [3,4], [4,3], [5,3], [6,2], [7,2], [8,1], [9,1]]
 
 2. we have a global variable which determines if the ship is to be placed horizontally or vertically
 
-3. we have the 2D array of the board: with positive numbers where there is a ship, negative where it's the surrounding of a ship, zero where it is empty
+3. we have the 2D array of the board: with positive numbers where there is a ship, 
+negative where it's the surrounding of a ship, zero where it is empty
 
 4a. we need to calculate the list of the tiles where the ship would be placed
 4b: need to calculate the tiles which are the surrondings of the to be placed ship
@@ -406,6 +407,38 @@ function isCoordinateOnBoard(coordinate, board) {
     }
 
     return true;
+
+};
+
+//modifies the board: puts the shipId as value to the board's coordinates which
+//match with the shipCoordinates
+function putShipOnBoard(shipId, shipCoordinates, board){
+
+    for(var i = 0; i<shipCoordinates.length; i++) {
+        var col = shipCoordinates[i][0];
+        var row = shipCoordinates[i][1];
+        board[col][row] = shipId;
+    }
+
+
+    return board;
+
+};
+
+//modifies the board: puts the shipId*(-1) as value to the board's coordinates which
+//match with the shipSurroundingCoordinates
+function putShipSurroundingsOnBoard(shipId, shipSurroundingCoordinates, board){
+
+    var surId = -1*shipId;
+
+    for(var i = 0; i<shipSurroundingCoordinates.length; i++) {
+        var col = shipSurroundingCoordinates[i][0];
+        var row = shipSurroundingCoordinates[i][1];
+        board[col][row] = surId;
+    }
+
+
+    return board;
 
 };
 
