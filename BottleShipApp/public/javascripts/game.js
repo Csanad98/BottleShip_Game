@@ -370,6 +370,31 @@ function checkIfShipIsOnZeros(shipCoordinates, board) {
 //returns the cleaned shipSurrounding Coordinates
 function removeSurroundingsOutsideTheBoard(shipSurroundingCoordinates, board) {
 
+
+};
+
+//returns true if the given coordinate is contained in the board
+//false otherwise
+//coordinate [col, row]
+//board: [[],[],[]]
+function isCoordinateOnBoard(coordinate, board) {
+    var col = coordinate[0];
+    var row = coordinate[1];
+
+    if(col < 0 || row < 0) {
+        return false;
+    }
+
+    if(col >= board.length) {
+        return false;
+    }
+
+    if(row >= board[col].length) {
+        return false;
+    }
+
+    return true;
+
 };
 
 
