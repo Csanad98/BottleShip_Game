@@ -146,7 +146,8 @@ var allShipProperties = [[2,5], [3,4], [4,3], [5,3], [6,2], [7,2], [8,1], [9,1]]
 
 2. we have a global variable which determines if the ship is to be placed horizontally or vertically
 
-3. we have the 2D array of the board: with positive numbers where there is a ship, negative where it's the surrounding of a ship, zero where it is empty
+3. we have the 2D array of the board: with positive numbers where there is a ship, 
+negative where it's the surrounding of a ship, zero where it is empty
 
 4a. we need to calculate the list of the tiles where the ship would be placed
 4b: need to calculate the tiles which are the surrondings of the to be placed ship
@@ -260,9 +261,6 @@ function calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates) {
 
     return surrondingCoordinates;
 
-
-
-
 };
 
 
@@ -344,14 +342,103 @@ function checkIfShipIsOnBoard(shipCoordinates, board) {
 //returns true if the given ship coordinates are all zero on the board
 //false otherwise
 //board: 2D array of the board
+//assumes that the ship coordinates are on the board
 function checkIfShipIsOnZeros(shipCoordinates, board) {
+
+    //iterate through all the ship tile coordinates
+    for(var i = 0; i<shipCoordinates.length; i++) {
+       
+            //get column
+            var curCol = shipCoordinates[i][0];
+
+            //get row
+            var curRow = shipCoordinates[i][1];
+
+            //alert(curCol + ", "+ curRow);
+            if(board[curCol][curRow] !== 0) {
+                return false;
+            }
+
+    }
+
+    return true;
+
 
 };
 
 //removes all the coordinates from the surrounding coordinates which are outside
 //of the board
-//returns the cleaned shipSurrounding Coordinates
+//returns the cleaned shipSurrounding Coordinates which are on the board
 function removeSurroundingsOutsideTheBoard(shipSurroundingCoordinates, board) {
+
+    var shipSurroundingCoordinatesOnBoard =[];
+    //iterate through the surrounding cell coorinates
+    for(var i = 0; i<shipSurroundingCoordinates.length; i++) {
+
+        //if it's on the board then add it to the new array which will be returned
+        if(isCoordinateOnBoard(shipSurroundingCoordinates[i], board)) {
+            shipSurroundingCoordinatesOnBoard.push(shipSurroundingCoordinates[i]);
+        }
+    }
+
+    return shipSurroundingCoordinatesOnBoard;
+
+
+};
+
+//returns true if the given coordinate is contained in the board
+//false otherwise
+//coordinate [col, row]
+//board: [[],[],[]]
+function isCoordinateOnBoard(coordinate, board) {
+    var col = coordinate[0];
+    var row = coordinate[1];
+
+    if(col < 0 || row < 0) {
+        return false;
+    }
+
+    if(col >= board.length) {
+        return false;
+    }
+
+    if(row >= board[col].length) {
+        return false;
+    }
+
+    return true;
+
+};
+
+//modifies the board: puts the shipId as value to the board's coordinates which
+//match with the shipCoordinates
+function putShipOnBoard(shipId, shipCoordinates, board){
+
+    for(var i = 0; i<shipCoordinates.length; i++) {
+        var col = shipCoordinates[i][0];
+        var row = shipCoordinates[i][1];
+        board[col][row] = shipId;
+    }
+
+
+    return board;
+
+};
+
+//modifies the board: puts the shipId*(-1) as value to the board's coordinates which
+//match with the shipSurroundingCoordinates
+function putShipSurroundingsOnBoard(shipId, shipSurroundingCoordinates, board){
+
+    var surId = -1*shipId;
+
+    for(var i = 0; i<shipSurroundingCoordinates.length; i++) {
+        var col = shipSurroundingCoordinates[i][0];
+        var row = shipSurroundingCoordinates[i][1];
+        board[col][row] = surId;
+    }
+
+
+    return board;
 
 };
 
