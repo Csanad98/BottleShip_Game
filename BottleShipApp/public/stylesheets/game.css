@@ -12,6 +12,14 @@
     text-align: center;
 }
 
+header {
+    height: 100px;
+    width: 100%;
+    text-align: center;
+}
+
+
+
 .headerField {
     color:brown;
     
