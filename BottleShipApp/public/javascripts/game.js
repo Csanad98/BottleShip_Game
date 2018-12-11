@@ -283,12 +283,10 @@ function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
 
     var rowAbove = shipCoordinates[0][1]-1;
     var rowBelow = shipCoordinates[shipCoordinates.length-1][1]+1;
-    //console.log(shipCoordinates);
 
     //tiles right next to the ship on the right and on the left
     for(var i = 0; i<shipCoordinates.length; i++) {
-        //console.log(shipCoordinates[i]);
-
+        
         var curRow = shipCoordinates[i][1];
         var leftXY = [prevCol, curRow];
         var rightXY = [nextCol, curRow];
@@ -519,6 +517,43 @@ function placeAShip(tileId) {
 
         //if horizontal
         } else {
+
+            //calculate horizontal ship coordinates
+            var shipCoordinates = calculateHorizontalShipTileCoordinates(startXY,currentSize);
+            
+
+            //check if ship is on the board
+            if(!checkIfShipIsOnBoard(shipCoordinates, boardArray)) {
+                cannotPlaceShipHere();
+                return;
+            }
+
+            //check if ship can be placed here - no other ships are in place
+            if(!checkIfShipIsOnZeros(shipCoordinates, boardArray)) {
+                cannotPlaceShipHere();
+                return;
+            }
+
+            //we get here if ship can be placed at the given location
+            //take care of the surrounding tiles
+
+            //calculate the surrounding tile coordinates
+            var surroundingTiles = calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates);
+
+            //remove Surroundings Outside of The Board
+            var surroundingTiles = removeSurroundingsOutsideTheBoard(surroundingTiles, boardArray);
+
+            //all set
+            //place the ship on the board - modify the array
+            boardArray = putShipOnBoard(currentID, shipCoordinates, boardArray);
+
+
+            //place the surrounding tiles
+            boardArray = putShipSurroundingsOnBoard(currentID,surroundingTiles,boardArray);
+
+
+            //rerender the html file
+            renderTilesFromArray(boardArray,"a");
 
         }
 
