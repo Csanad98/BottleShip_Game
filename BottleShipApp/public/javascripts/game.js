@@ -65,7 +65,6 @@ function renderTilesFromArray(boardArray, idString) {
 
             var curTileId = idString + c + r;
             var curTile = document.getElementById(curTileId);
-            //alert(curTileId);
 
 
             if (boardArray[c][r] == 0 || boardArray[c][r] == undefined) {
@@ -206,7 +205,7 @@ function calculateVerticalShipTileCoordinates(startCoordinate, length) {
         
         var currentXY = [col, newRow];
         shipCoordinates.push(currentXY);
-        //console.log(currentXY);
+        
     };
     
     return shipCoordinates;
@@ -306,8 +305,6 @@ function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
     surrondingCoordinates.push([shipCol, rowBelow]);
     surrondingCoordinates.push([nextCol, rowBelow]);
 
-    console.log(surrondingCoordinates);
-
     return surrondingCoordinates;
 
 };
@@ -317,9 +314,7 @@ function calculateVerticalShipSurroundingTileCoordinates(shipCoordinates) {
 //false if any of the coordinates are outside of the board
 //board: 2d array of board, at least 2x2
 function checkIfShipIsOnBoard(shipCoordinates, board) {
-    //console.log(shipCoordinates);
-    //console.log(shipCoordinates[5]);
-    //console.log(shipCoordinates[0].length);
+    
 
     //indexing starts at 5 if the length is 10
     for(var i = 0; i<shipCoordinates.length; i++) {
@@ -480,7 +475,7 @@ function placeAShip(tileId) {
 
             //calculate vertical ship coordinates
             var shipCoordinates = calculateVerticalShipTileCoordinates(startXY,currentSize);
-            //console.log(shipCoordinates);
+          
             //check if ship is on the board
             if(!checkIfShipIsOnBoard(shipCoordinates, boardArray)) {
                 cannotPlaceShipHere();
