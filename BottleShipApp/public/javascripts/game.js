@@ -260,9 +260,6 @@ function calculateHorizontalShipSurroundingTileCoordinates(shipCoordinates) {
 
     return surrondingCoordinates;
 
-
-
-
 };
 
 
@@ -344,7 +341,27 @@ function checkIfShipIsOnBoard(shipCoordinates, board) {
 //returns true if the given ship coordinates are all zero on the board
 //false otherwise
 //board: 2D array of the board
+//assumes that the ship coordinates are on the board
 function checkIfShipIsOnZeros(shipCoordinates, board) {
+
+    //iterate through all the ship tile coordinates
+    for(var i = 0; i<shipCoordinates.length; i++) {
+       
+            //get column
+            var curCol = shipCoordinates[i][0];
+
+            //get row
+            var curRow = shipCoordinates[i][1];
+
+            //alert(curCol + ", "+ curRow);
+            if(board[curCol][curRow] !== 0) {
+                return false;
+            }
+
+    }
+
+    return true;
+
 
 };
 
