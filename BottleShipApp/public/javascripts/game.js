@@ -819,3 +819,26 @@ function nextShip(){
     }
     
 };
+
+
+
+/*
+Game functionalities
+
+1. Start the game
+- create enemy board
+possibility of disabling onclick on the tile - based on turns
+disable own board clicks
+
+- different class/styles for tiles if they are hit/missed
+
+-Guess: onclick function 
+ ->send coordinate
+ ->get back from server: true false value:
+ ->depending on hit/miss update the 2D array and rerender the board
+
+- update own board: diff class/style for these tiles, depending on updates from server
+rerender the board (but no need to touch the 2d array)
+
+
+*/
