@@ -43,7 +43,7 @@ function createBoardArray() {
 var boardArray = createBoardArray();
 
 //create the two grids in the html
-makeGrid(gameBoardContainer1, "a");
+makeGrid(gameBoardContainer1, "a", true);
 //makeGrid(gameBoardContainer2, "b");
 
 
@@ -871,10 +871,17 @@ Handles click event by the user on the startGame button
 replaces the right column with the enemy board
 */
 function startGame() {
+
+    if (shipsPlaced === allShipProperties.length) {
+        var enemyBoard = document.getElementById("board2");
     
-    var enemyBoard = document.getElementById("board2");
+        createEnemyBoard(enemyBoard);
+    } else {
+        alert("Place all your ships first to start the game.");
+    }
+
     
-    createEnemyBoard(enemyBoard);
+    
 };
 
 
@@ -900,6 +907,8 @@ function createEnemyBoard(enemyBoardContainer) {
 
 //event handler for on clicks for guessing enemy ship locations
 function guessAShip(tileId) {
+
+    var tileXY = calculateStartCoordinate(tileId);
     //todo
 };
 
