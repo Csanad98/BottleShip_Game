@@ -852,13 +852,37 @@ rerender the board (but no need to touch the 2d array)
 
 */
 
+/*
+Handles click event by the user on the startGame button
+replaces the right column with the enemy board
+*/
 function startGame() {
-    var curRightColumn = document.getElementById("enemyColumn");
-    var enemyBoard = document.createElement("div");
-    enemyBoard.setAttribute("class", "column");
-    enemyBoard.innerHTML = "<b>Hello World!</b>";
+    
+    var enemyBoard = document.getElementById("board2");
+    
+    createEnemyBoard(enemyBoard);
+};
 
-    curRightColumn.parentNode.replaceChild(enemyBoard, curRightColumn);
+
+/*
+Construct enemy board
+param: document-div element
+returns: enemy board atatched to the given div 
+*/
+
+//create the 2D array for the local, internal representation of the enemy board
+//initalize all items to zero
+var enemyBoardArray = createBoardArray();
+
+function createEnemyBoard(enemyBoardContainer) {
+
+    enemyBoardContainer.setAttribute("class", "gameBoard");
+
+    //create the html grid
+    makeGrid(enemyBoardContainer, "b");
 
 };
+
+
+
 
