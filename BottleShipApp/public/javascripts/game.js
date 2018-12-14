@@ -891,7 +891,7 @@ param: document-div element
 returns: enemy board atatched to the given div 
 */
 
-//create the 2D array for the local, internal representation of the enemy board
+//create the 2D array for the client based, internal representation of the enemy board
 //initalize all items to zero
 var enemyBoardArray = createBoardArray();
 
@@ -910,6 +910,24 @@ function guessAShip(tileId) {
 
     var tileXY = calculateStartCoordinate(tileId);
     //todo
+};
+
+
+/*
+function for updating 2D array and then rerendering tiles of a board when a tile is hit
+params: 
+isEnemyBoard: boolean: true if enemy board was hit at the given tile, 
+false if own ship was hit at the given point
+
+tileId: id of tile which was hit
+*/
+
+function tileHit(isEnemyBoard, tileId) {
+
+    var curTile = document.getElementById(tileId);
+    curTile.setAttribute("class", "hitTile");
+
+
 };
 
 
