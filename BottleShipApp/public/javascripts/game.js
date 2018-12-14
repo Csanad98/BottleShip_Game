@@ -80,7 +80,14 @@ function renderTilesFromArray(boardArray, idString) {
     
 };
 
-function makeGrid(gameBoardContainer, idString){
+/*
+param: isPlaceShip
+if true: assign placeAShip function to tile onclick
+if false: assign guessAShip function to tile onclick
+
+*/
+
+function makeGrid(gameBoardContainer, idString, isPlaceShip){
     //make the grid
     for (var i = 0; i<boardArray.length; i++) {
         for(var e = 0; e<boardArray[i].length; e++) {
@@ -98,8 +105,15 @@ function makeGrid(gameBoardContainer, idString){
 		    var topPosition = e * tileSize;
             var leftPosition = i * tileSize;
             
-        
-            tile.onclick = function () {placeAShip(this.id)};
+            if (isPlaceShip) {
+             
+                tile.onclick = function () {placeAShip(this.id)};
+            
+            } else {
+
+                tile.onclick = function () {guessAShip(this.id)};
+            }
+            
  
             // use CSS absolute positioning to place each grid tile on the page
 		    tile.style.top = topPosition + 'px';
@@ -881,6 +895,12 @@ function createEnemyBoard(enemyBoardContainer) {
     //create the html grid
     makeGrid(enemyBoardContainer, "b");
 
+};
+
+
+//event handler for on clicks for guessing enemy ship locations
+function guessAShip(tileId) {
+    //todo
 };
 
 
