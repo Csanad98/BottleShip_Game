@@ -823,7 +823,7 @@ function nextShip(){
 
 
 /*
-Game functionalities
+Game functionalities overview
 
 1. Start the game
 - create enemy board
@@ -832,6 +832,7 @@ disable own board clicks
 
 - different class/styles for tiles if they are hit/missed
 
+2.Play
 -Guess: onclick function 
  ->send coordinate
  ->get back from server: true false value:
@@ -842,3 +843,22 @@ rerender the board (but no need to touch the 2d array)
 
 
 */
+
+
+/*
+1. Starting the game steps
+- replace the right column with the enemy board
+
+
+*/
+
+function startGame() {
+    var curRightColumn = document.getElementById("enemyColumn");
+    var enemyBoard = document.createElement("div");
+    enemyBoard.setAttribute("class", "column");
+    enemyBoard.innerHTML = "<b>Hello World!</b>";
+
+    curRightColumn.parentNode.replaceChild(enemyBoard, curRightColumn);
+
+};
+
