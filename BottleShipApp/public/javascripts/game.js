@@ -926,13 +926,12 @@ function guessAShip(tileId) {
 /*
 function for updating 2D array and then rerendering tiles of a board when a tile is hit
 params: 
-isEnemyBoard: boolean: true if enemy board was hit at the given tile, 
-false if own ship was hit at the given tile
+
 
 tileId: id of tile which was hit
 */
 
-function tileHit(isEnemyBoard, tileId) {
+function tileHit(tileId) {
 
     var curTile = document.getElementById(tileId);
     curTile.setAttribute("class", "hitTile");
@@ -940,13 +939,37 @@ function tileHit(isEnemyBoard, tileId) {
 
 };
 
+function isTileHit(boardArray, tileId) {
 
-function tileMissed(isEnemyBoard, tileId) {
+    var tileXY = calculateStartCoordinate(tileId);
+    var C = tileXY[0];
+    var R = tileXY[1];
+
+    //empty cell
+    if (boardArray[C][R] === 0) {
+        return false;
+
+        //cell witha ship
+    } else if (boardArray[C][R] > 0) {
+
+        return true;
+
+        //cell with ship surrounding
+    } else {
+        return false;
+    }
+}
+
+
+function tileMissed(tileId) {
+
+    var curTile = document.getElementById(tileId);
+    curTile.setAttribute("class", "missedTile");
 
 };
 
 
-//disable clicks of a board
+//disable clicks of a board (also disable hover)
 function disableOnClickForTiles(boardArray, idString) {
 
     for (var c = 0; c<boardArray.length; c++) {
@@ -963,12 +986,6 @@ function disableOnClickForTiles(boardArray, idString) {
 
 
             }
-            
-
-
-
         }
     }
-
- 
 }
