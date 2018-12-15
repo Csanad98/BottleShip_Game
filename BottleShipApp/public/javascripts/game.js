@@ -877,6 +877,8 @@ function startGame() {
     
         createEnemyBoard(enemyBoard);
 
+        disableOnClickForTiles(boardArray, "a");
+
 
         //todo
         //send my board array to server
@@ -944,5 +946,29 @@ function tileMissed(isEnemyBoard, tileId) {
 };
 
 
+//disable clicks of a board
+function disableOnClickForTiles(boardArray, idString) {
+
+    for (var c = 0; c<boardArray.length; c++) {
+        for(var r = 0; r<boardArray[c].length; r++ ) {
+
+            var curTileId = idString + c + r;
+            var curTile = document.getElementById(curTileId);
+
+            curTile.onclick = null;
+
+            //if the tile has no ship, then change its class to disable hover
+            if (boardArray[c][r] == 0 || boardArray[c][r] == undefined) {
+                curTile.setAttribute("class", "yourBoardCellNoHover");
 
 
+            }
+            
+
+
+
+        }
+    }
+
+ 
+}
