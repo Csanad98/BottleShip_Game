@@ -876,6 +876,12 @@ function startGame() {
         var enemyBoard = document.getElementById("board2");
     
         createEnemyBoard(enemyBoard);
+
+
+        //todo
+        //send my board array to server
+        //also a collection of ship objects
+
     } else {
         alert("Place all your ships first to start the game.");
     }
@@ -910,6 +916,8 @@ function guessAShip(tileId) {
 
     var tileXY = calculateStartCoordinate(tileId);
     //todo
+    //send query to server to check if there is an enemy ship there
+
 };
 
 
@@ -917,7 +925,7 @@ function guessAShip(tileId) {
 function for updating 2D array and then rerendering tiles of a board when a tile is hit
 params: 
 isEnemyBoard: boolean: true if enemy board was hit at the given tile, 
-false if own ship was hit at the given point
+false if own ship was hit at the given tile
 
 tileId: id of tile which was hit
 */
@@ -927,6 +935,11 @@ function tileHit(isEnemyBoard, tileId) {
     var curTile = document.getElementById(tileId);
     curTile.setAttribute("class", "hitTile");
 
+
+};
+
+
+function tileMissed(isEnemyBoard, tileId) {
 
 };
 
