@@ -135,6 +135,11 @@ function makeGrid(gameBoardContainer, idString, isPlaceShip){
 
 // ship objects
 // Initializing a class 
+/*
+shipId: integer
+shipSize: int, number of tiles it takes
+shipTiles, surroundingTiles, hitTiles: array of tile coordinate arrays
+*/
 class ShipObject {
     constructor(shipID, shipSize, shipTiles, surroundingTiles, hitTiles) {
         this.shipID = shipID;
@@ -568,6 +573,9 @@ function placeAShip(tileId) {
         shipsPlaced += 1;
         {nextShip()};
 
+        //create ship object and add it to the array of ship objects
+        var curShipObj = new ShipObject(currentID, currentSize, shipCoordinates, surroundingTiles,[]);
+        shipObjects.push(curShipObj);
 
 
     } else {
@@ -695,6 +703,8 @@ var enemyBoardArray = createBoardArray();
 
 //enemy board organization is the same as the own board (for now)
 var enemyBoardArray = boardArray.slice(0); // create shallow copy
+
+var enemyShipObjects = JSON.parse(JSON.stringify(shipObjects)); //create deep copy of ship objects
 
 var myTurn = true;
 
