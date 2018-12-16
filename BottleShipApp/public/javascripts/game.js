@@ -583,9 +583,6 @@ function placeAShip(tileId) {
     }
 }
 
-
-
-
 var vertical= false;
 
 var rotate = function() {
@@ -691,10 +688,10 @@ var enemyBoardArray = createBoardArray();
 
 //some functionalities will be moved to the server but for now they are here
 
-//enemy board organization is the same as the own board (for now)
-var enemyBoardArray = boardArray.slice(0); // create shallow copy
 
-var enemyShipObjects = JSON.parse(JSON.stringify(shipObjects)); //create deep copy of ship objects
+
+
+
 
 var myTurn = true;
 
@@ -706,11 +703,18 @@ function createEnemyBoard(enemyBoardContainer) {
     //create the html grid
     makeGrid(enemyBoardContainer, "b");
 
+    //global variable of enemy ship objects
+    enemyShipObjects = JSON.parse(JSON.stringify(shipObjects)); //create deep copy of ship objects
+
+    //enemy board organization is the same as the own board (for now)
+    enemyBoardArray = boardArray.slice(0); // create shallow copy
 };
 
 var userMissedMessage = "You missed, no enemy ship is on this coordinate.";
 //event handler for on clicks for guessing enemy ship locations
 function guessAShip(tileId) {
+
+    var shipId = shipIdFromTileId(tileId, enemyBoardArray);
 
    
     //todo
@@ -720,7 +724,19 @@ function guessAShip(tileId) {
 
     //if the guessed tile has enemy ship
     if(isTileHit(enemyBoardArray, tileId)){
-        tileHit(tileId); //then update the UI
+        tileHit(tileId); //then update the UI + add tileid to hittiles of ship obj
+
+        //check if ship has been destroyed
+        if(checkIfHitShipIsDone(enemyShipObjects, shipId)) {
+            //if yes then reveal surrounding tiles
+            reveralSurroundingTiles(enemyShipObjects, shipId);
+
+            //check if all ships have been destroyed
+            if(checkIfAllShipsAreHit(enemyShipObjects)) {
+                alert("You won, all ships have been destroyed.");
+            }
+
+        }
     
         //otheriwse alert the user that she missed
     } else {
@@ -733,8 +749,7 @@ function guessAShip(tileId) {
 
 /*
 function for updating 2D array and then rerendering tiles of a board when a tile is hit
-params: 
-
+also adds the hit tile to the corresponding ship object
 
 tileId: id of tile which was hit
 */
@@ -745,6 +760,8 @@ function tileHit(tileId) {
     curTile.setAttribute("class", "hitTile");
     curTile.onclick = function() {alreadyClickedOnTile(tileId)};
 
+    //update ship object
+    addHitTileToShipObj(enemyShipObjects, tileId);
 
 };
 
@@ -777,7 +794,7 @@ function isTileHit(boardArray, tileId) {
 
 function alreadyClickedOnTile(tileId) {
 
-    alert("You already clicked on this tile, try another one.");
+    alert("You cannot guess this tile again, try another one.");
 };
 
 
@@ -807,9 +824,9 @@ I need functions to deal with ship objects:
 - determine shipID from hit tile
 - add hit tile to the ship object
 - check if any unhit tiles are left from the ship
-- disable onclicks for tiles that are hit
+- disable onclicks for tiles that are hit/missed
 - reveal surrounding tiles once all ship tiles have been hit, 
-disable onclicks for tehse tiles
+disable onclicks for these tiles
 
 
 */
@@ -817,7 +834,7 @@ disable onclicks for tehse tiles
 //returns the id of the ship which is on this tile
 //boardArray: which contains the ship
 function shipIdFromTileId(tileId, boardArray) {
-    var curXY = startCoordinate(tileId);
+    var curXY = calculateStartCoordinate(tileId);
     var C = curXY[0];
     var R = curXY[1];
     var shipId = boardArray[C][R];
@@ -827,10 +844,10 @@ function shipIdFromTileId(tileId, boardArray) {
 
 /*
 adds the tile id to the correct ship's ship object's hittiles array
-returns: the updated shipObejcts array
+returns: the updated shipObjects array
 */
 function addHitTileToShipObj(shipObjects, tileId) {
-    var curShipId = shipIdFromTileId(tileId);
+    var curShipId = shipIdFromTileId(tileId, enemyBoardArray);
     var curShip = shipObjects[curShipId-1];
     curShip.hitTiles.push(tileId);
 
@@ -867,6 +884,43 @@ function checkIfAllShipsAreHit(shipObjects) {
 
     return true;
 };
+
+/*
+updates UI with the ship's surrounding tiles - with missedTile class
+also "disables" onclick event with alreadyClickedOnTile function
+*/
+function reveralSurroundingTiles(shipObjects, shipId) {
+
+    var curShip = shipObjects[shipId-1];
+    var surroundingTileIds = curShip.surroundingTiles;
+
+    for(var i = 0; i<surroundingTileIds.length; i++) {
+        console.log(surroundingTileIds);
+
+        var curTileId = surroundingTileIds[i];
+        console.log(curTileId);
+        var curTile = document.getElementById(curTileId);
+        curTile.setAttribute("class", "missedTile");
+        curTile.onclick = function() {alreadyClickedOnTile(tileId)};
+    }
+};
+
+//returns a tileId string from an XY Coordinate array and the idstring(1 letter)
+function XYToTileId(XYCoordinate, idString) {
+
+    return idString + XYCoordinate[0] + XYCoordinate[1];
+}
+
+function XYCollectionToTileIds(XYCoordinates, idString) {
+    var tileIds = [];
+
+    for(var i = 0; i<XYCoordinates.length; i++) {
+        var curTileId = XYToTileId(XYCoordinates[i], idString);
+        tileIds.push(curTileId);
+    }
+
+    return tileIds;
+}
 
 
 
