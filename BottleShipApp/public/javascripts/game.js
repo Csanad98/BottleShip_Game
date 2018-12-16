@@ -837,6 +837,24 @@ function addHitTileToShipObj(shipObjects, tileId) {
     return shipObjects;
 };
 
+/*
+returns true if all tiles of a ship has been hit
+false otherwise
+*/
+function checkIfHitShipIsDone(shipObjects, shipId) {
+    var curShip = shipObjects[shipId-1];
+    if(curShip.shipTiles.length === curShip.hitTiles.length) {
+        return true;
+    }
+
+    return false;
+    
+
+}
+
+
+
+
 
 
 
