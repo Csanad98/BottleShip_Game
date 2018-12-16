@@ -814,6 +814,19 @@ disable onclicks for tehse tiles
 
 */
 
+//returns the id of the ship which is on this tile
+//boardArray: which contains the ship
+function shipIdFromTileId(tileId, boardArray) {
+    var curXY = startCoordinate(tileId);
+    var C = curXY[0];
+    var R = curXY[1];
+
+    var shipId = boardArray[C][R];
+
+    return shipId;
+
+}
+
 
 
 
