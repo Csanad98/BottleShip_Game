@@ -12,6 +12,8 @@
 <body>
   <header>
 
+    <h2>BottleShip Game</h2>
+
       <span id = "onlinePlayers" class="headerField">Players online: 7 </span>
      
       <span id = "yourSteps" class="headerField">Steps taken: 0</span>
@@ -24,26 +26,31 @@
         <div class="row">
           <div class="column" style="background-color:#aaa;">
 
+            <br>
+
             <div class ="gameBoard" id="board1">
             </div>
                 
           </div>
 
-          <div class ="gameBoard" id="board2">
-            </div>
+          <div id = "enemyColumn" class="column" style="background-color:#ccc;">
+
+            <div id = "board2">
+
+                <button id="Button" onclick="startGame()">start the game</button>
+                <br>
+                <br>
+                <button id="Button" onclick="rotate()">Change Ship Rotation</button>
           
-          <div class="column" style="background-color:#ccc;">
+                  <div id = "nextShip">Next ship's length is 5</div>
+          
+                  <div id = "curRotation">Current rotation is: Horizontal</div>
+                
+                <br>
+
+            </div>
+
             
-            <button id="Button" onclick="startGame()">start the game</button>
-            <br>
-            <br>
-            <button id="Button" onclick="rotate()">Change Ship Rotation</button>
-      
-      <div id = "nextShip">Next ship's length is 5</div>
-      
-      <div id = "curRotation">Current rotation is: Horizontal</div>
-            
-            <br>
     
           </div>
         </div>
