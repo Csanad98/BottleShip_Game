@@ -13,6 +13,9 @@ var cols = 10;
 var tileSize = 50;
 var gameBoardContainer;
 
+//empty array to store ship objects
+var shipObjects = [];
+
 
 
 // get the container for the board
@@ -515,6 +518,8 @@ function placeAShip(tileId) {
 
             //rerender the html file
             renderTilesFromArray(boardArray,"a");
+
+            //create the ship object and add it to the array of ship objects
 
 
         //if horizontal
