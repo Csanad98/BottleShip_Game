@@ -839,6 +839,7 @@ function addHitTileToShipObj(shipObjects, tileId) {
 
 /*
 returns true if all tiles of a ship has been hit
+assumes that the shipTiles and hitTiles arrays don't contain duplicates
 false otherwise
 */
 function checkIfHitShipIsDone(shipObjects, shipId) {
@@ -848,9 +849,24 @@ function checkIfHitShipIsDone(shipObjects, shipId) {
     }
 
     return false;
-    
+};
 
-}
+
+/*
+returns true if all ships have been hit 
+assumes that the shipTiles and hitTiles arrays don't contain duplicates
+returns false otherwise
+*/
+function checkIfAllShipsAreHit(shipObjects) {
+    for(var i = 0; i<shipObjects.length; i++) {
+        var curShip = shipObjects[i];
+        if(curShip.shipTiles.length !== curShip.hitTiles.length) {
+            return false;
+        }
+    }
+
+    return true;
+};
 
 
 
