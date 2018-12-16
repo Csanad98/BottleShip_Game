@@ -13,6 +13,10 @@ var cols = 10;
 var tileSize = 50;
 var gameBoardContainer;
 
+//will be sent from server, one player is 'a' the other is 'b'
+//their tile ids will contain this string as idString
+var playerID = "a";
+
 //empty array to store ship objects
 var shipObjects = [];
 
@@ -46,7 +50,7 @@ function createBoardArray() {
 var boardArray = createBoardArray();
 
 //create the two grids in the html
-makeGrid(gameBoardContainer1, "a", true);
+makeGrid(gameBoardContainer1, playerID, true);
 //makeGrid(gameBoardContainer2, "b");
 
 
@@ -138,7 +142,7 @@ function makeGrid(gameBoardContainer, idString, isPlaceShip){
 /*
 shipId: integer
 shipSize: int, number of tiles it takes
-shipTiles, surroundingTiles, hitTiles: array of tile coordinate arrays
+shipTiles, surroundingTiles, hitTiles: array of tileid arrays
 */
 class ShipObject {
     constructor(shipID, shipSize, shipTiles, surroundingTiles, hitTiles) {
@@ -573,8 +577,11 @@ function placeAShip(tileId) {
         shipsPlaced += 1;
         {nextShip()};
 
+        var shipTileIds = XYCollectionToTileIds(shipCoordinates, "a");
+        var surrondingTileIds = XYCollectionToTileIds(surroundingTiles, "a");
+
         //create ship object and add it to the array of ship objects
-        var curShipObj = new ShipObject(currentID, currentSize, shipCoordinates, surroundingTiles,[]);
+        var curShipObj = new ShipObject(currentID, currentSize, shipTileIds, surrondingTileIds,[]);
         shipObjects.push(curShipObj);
 
 
@@ -709,6 +716,41 @@ function createEnemyBoard(enemyBoardContainer) {
     //enemy board organization is the same as the own board (for now)
     enemyBoardArray = boardArray.slice(0); // create shallow copy
 };
+
+
+//helper function to make the game work without server
+//modify enemyShipObjects array so the tileids start with b instead of a
+
+function switchTileIdInShipObjectsArray(shipObjects, newStringId) {
+
+    for(var i = 0; i<shipObejcts.length; i++) {
+        var curShipObj = shipObjects[i];
+        var curShipTiles = curShipObj.shipTiles;
+        var curShipSurroundings = curShipObj.surroundingTiles;
+
+        switchTileIdInTiles(curShipTiles, newStringId);
+        switchTileIdInTiles(curShipSurroundings, newStringId);
+    }
+
+};
+
+
+
+
+function switchTileIdInTiles(shipTiles, newStringId) {
+
+    for (var i = 0; i<shipTiles.length; i++) {
+        var curShipTileId = shipTiles[i];
+        var curXY = calculateStartCoordinate(curShipTileId);
+        var newTileId = XYToTileId(curXY, newStringId);
+        shipTiles[i] = newTileId;
+    }
+};
+
+
+
+
+
 
 var userMissedMessage = "You missed, no enemy ship is on this coordinate.";
 //event handler for on clicks for guessing enemy ship locations
