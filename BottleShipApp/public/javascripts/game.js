@@ -136,13 +136,12 @@ function makeGrid(gameBoardContainer, idString, isPlaceShip){
 // ship objects
 // Initializing a class 
 class ShipObject {
-    constructor(shipID, shipSize, shipTiles, surroundingTiles, hitTiles, verticalOrientation ) {
+    constructor(shipID, shipSize, shipTiles, surroundingTiles, hitTiles) {
         this.shipID = shipID;
         this.shipSize = shipSize;
         this.shipTiles = shipTiles;
         this.surroundingTiles = surroundingTiles;
         this.hitTiles = hitTiles;
-        this.verticalOrientation = verticalOrientation;
     }
 }
 
