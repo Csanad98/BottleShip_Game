@@ -1,4 +1,4 @@
-var player = function (socket, playerID) {
+playerObject = function (socket, playerID) {
     this.socket;
     this.playerID;
 };
