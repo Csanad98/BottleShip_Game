@@ -713,6 +713,8 @@ function createEnemyBoard(enemyBoardContainer) {
     //global variable of enemy ship objects
     enemyShipObjects = JSON.parse(JSON.stringify(shipObjects)); //create deep copy of ship objects
 
+    switchTileIdInShipObjectsArray(enemyShipObjects, "b");
+
     //enemy board organization is the same as the own board (for now)
     enemyBoardArray = boardArray.slice(0); // create shallow copy
 };
@@ -723,7 +725,7 @@ function createEnemyBoard(enemyBoardContainer) {
 
 function switchTileIdInShipObjectsArray(shipObjects, newStringId) {
 
-    for(var i = 0; i<shipObejcts.length; i++) {
+    for(var i = 0; i<shipObjects.length; i++) {
         var curShipObj = shipObjects[i];
         var curShipTiles = curShipObj.shipTiles;
         var curShipSurroundings = curShipObj.surroundingTiles;
@@ -937,13 +939,10 @@ function reveralSurroundingTiles(shipObjects, shipId) {
     var surroundingTileIds = curShip.surroundingTiles;
 
     for(var i = 0; i<surroundingTileIds.length; i++) {
-        console.log(surroundingTileIds);
-
         var curTileId = surroundingTileIds[i];
-        console.log(curTileId);
         var curTile = document.getElementById(curTileId);
         curTile.setAttribute("class", "missedTile");
-        curTile.onclick = function() {alreadyClickedOnTile(tileId)};
+        curTile.onclick = function() {alreadyClickedOnTile(this.tileId)};
     }
 };
 
