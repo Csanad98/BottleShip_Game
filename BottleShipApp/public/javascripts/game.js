@@ -820,12 +820,22 @@ function shipIdFromTileId(tileId, boardArray) {
     var curXY = startCoordinate(tileId);
     var C = curXY[0];
     var R = curXY[1];
-
     var shipId = boardArray[C][R];
-
     return shipId;
 
-}
+};
+
+/*
+adds the tile id to the correct ship's ship object's hittiles array
+returns: the updated shipObejcts array
+*/
+function addHitTileToShipObj(shipObjects, tileId) {
+    var curShipId = shipIdFromTileId(tileId);
+    var curShip = shipObjects[curShipId-1];
+    curShip.hitTiles.push(tileId);
+
+    return shipObjects;
+};
 
 
 
