@@ -586,16 +586,6 @@ function placeAShip(tileId) {
 
 
 
-
-/*
-            newShip = new ShipObject(currentID,currentSize,currentShipTiles, currentShipSurroundingTiles, currentShipHitTiles, vertical)
-            //increment ships placed to go to the next ship
-            shipsPlaced += 1;
-            renderTilesFromArray(boardArray, "a");
-            {nextShip()};
-   
-} */
-
 var vertical= false;
 
 var rotate = function() {
@@ -753,6 +743,7 @@ function tileHit(tileId) {
 
     var curTile = document.getElementById(tileId);
     curTile.setAttribute("class", "hitTile");
+    curTile.onclick = function() {alreadyClickedOnTile(tileId)};
 
 
 };
@@ -761,6 +752,7 @@ function tileHit(tileId) {
 function tileMissed(tileId) {
     var curTile = document.getElementById(tileId);
     curTile.setAttribute("class", "missedTile");
+    curTile.onclick = function() {alreadyClickedOnTile(tileId)};
 }
 
 //checks the given tile coordinates on the given boardArray
@@ -783,11 +775,9 @@ function isTileHit(boardArray, tileId) {
 }
 
 
-function tileMissed(tileId) {
+function alreadyClickedOnTile(tileId) {
 
-    var curTile = document.getElementById(tileId);
-    curTile.setAttribute("class", "missedTile");
-
+    alert("You already clicked on this tile, try another one.");
 };
 
 
@@ -809,6 +799,20 @@ function disableOnClickAndHoverForTiles(boardArray, idString) {
         }
     }
 }
+
+
+/*
+I need functions to deal with ship objects:
+
+- determine shipID from hit tile
+- add hit tile to the ship object
+- check if any unhit tiles are left from the ship
+- disable onclicks for tiles that are hit
+- reveal surrounding tiles once all ship tiles have been hit, 
+disable onclicks for tehse tiles
+
+
+*/
 
 
 
