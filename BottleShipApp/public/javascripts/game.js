@@ -903,6 +903,14 @@ returns: enemy board atatched to the given div
 //initalize all items to zero
 var enemyBoardArray = createBoardArray();
 
+//some functionalities will be moved to the server but for now they are here
+
+//enemy board organization is the same as the own board (for now)
+var enemyBoardArray = boardArray.slice(0); // create shallow copy
+
+var myTurn = true;
+
+
 function createEnemyBoard(enemyBoardContainer) {
 
     enemyBoardContainer.setAttribute("class", "gameBoard");
@@ -912,13 +920,25 @@ function createEnemyBoard(enemyBoardContainer) {
 
 };
 
-
+var userMissedMessage = "You missed, no enemy ship is on this coordinate.";
 //event handler for on clicks for guessing enemy ship locations
 function guessAShip(tileId) {
 
-    var tileXY = calculateStartCoordinate(tileId);
+   
     //todo
     //send query to server to check if there is an enemy ship there
+
+    //for now use local enemyboard 
+
+    //if the guessed tile has enemy ship
+    if(isTileHit(enemyBoardArray, tileId)){
+        tileHit(tileId); //then update the UI
+    
+        //otheriwse alert the user that she missed
+    } else {
+        tileMissed(tileId);
+        alert(userMissedMessage);
+    }
 
 };
 
@@ -939,22 +959,26 @@ function tileHit(tileId) {
 
 };
 
+//update UI tile element if it was guessed but no ship was there
+function tileMissed(tileId) {
+    var curTile = document.getElementById(tileId);
+    curTile.setAttribute("class", "missedTile");
+}
+
+//checks the given tile coordinates on the given boardArray
+//returns true if there is a ship placed there
+//false otherwise
 function isTileHit(boardArray, tileId) {
 
     var tileXY = calculateStartCoordinate(tileId);
     var C = tileXY[0];
     var R = tileXY[1];
 
-    //empty cell
-    if (boardArray[C][R] === 0) {
-        return false;
-
-        //cell witha ship
-    } else if (boardArray[C][R] > 0) {
-
+    //cell with ship
+    if (boardArray[C][R] > 0) {
         return true;
 
-        //cell with ship surrounding
+    //cell with ship surrounding  or empty cell
     } else {
         return false;
     }
@@ -970,7 +994,7 @@ function tileMissed(tileId) {
 
 
 //disable clicks of a board (also disable hover)
-function disableOnClickForTiles(boardArray, idString) {
+function disableOnClickAndHoverForTiles(boardArray, idString) {
 
     for (var c = 0; c<boardArray.length; c++) {
         for(var r = 0; r<boardArray[c].length; r++ ) {
@@ -983,9 +1007,17 @@ function disableOnClickForTiles(boardArray, idString) {
             //if the tile has no ship, then change its class to disable hover
             if (boardArray[c][r] == 0 || boardArray[c][r] == undefined) {
                 curTile.setAttribute("class", "yourBoardCellNoHover");
-
-
             }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
