@@ -663,7 +663,7 @@ function startGame() {
     
         createEnemyBoard(enemyBoard);
 
-        disableOnClickForTiles(boardArray, "a");
+        disableOnClickAndHoverForTiles(boardArray, "a");
 
 
         //todo
