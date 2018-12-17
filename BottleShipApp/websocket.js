@@ -4,10 +4,18 @@ const WebSocket = require('ws');
 const WebServer = WebSocket.Server;
 const Cookie = require('cookie');
 const Database = require('./database');
+const gameController = require('./gameController');
 
 module.exports = (server) => {
     OnLoad(new WebServer({server}));
 };
+
+//messageTypes
+// to connect to server:  messageType = "connect"
+// to enter a game messageType = "readyToPlay"
+// to finish the game messageType = "gameOver"
+// to forward the guessmessageType = "guess"
+// to forward the reply to the hit MessageType = "guessReply"
 
 let OnLoad = (CurrentServer) => {
     let logging = config.websocket.logging;
@@ -17,14 +25,27 @@ let OnLoad = (CurrentServer) => {
 
         if (payload.messageType) {
             if (payload.messageType === "connect") {
+                //add user to database.json
                 Database.addUser(ws.clientId, ws);
+                //debug line for testing
                 if (logging) console.log('Connected: %s from Client %s', message, ws.clientId);
+            } else if (payload.messageType === "readyToPlay"){
+                if (logging) console.log('ReadyToPlay: Client %s', ws.clientId);
+                gameController.addPlayerToWaitingRoom(Database.getPlayer(ws.clientId));
+                //evoke the game method, add user to waitingroom
+            } else if (payload.messageType === "guess" || payload.messageType === "guessReply"){
+                gameController.forwardMessageToOpponent(Database.getPlayer(ws.clientId), message);
+            } else if (payload.messageType === "gameOver"){
+                if (logging) console.log('Game over: Client %s', ws.clientId);
+                //end the game
+                gameController.gameOver(Database.getPlayer(ws.clientId));
             }
         } else {
             console.error("No message type set for socket message: " + message);
         }
 
     }
+
 
     let onConnect = (ws, req) => {
 
@@ -37,13 +58,9 @@ let OnLoad = (CurrentServer) => {
         }
 
         ws.isAlive = true;
-
+        //server recieves a message
         ws.on('message', (message) => {
             processMessage(ws, message);
-
-            if (message === "test") {
-                CurrentServer.broadcast(`A new user has joined: ${ws.clientId}`);
-            }
             // ws.send(`Hello, you sent -> ${message}`);
         });
 
