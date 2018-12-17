@@ -27,6 +27,7 @@ var socket = new WebSocket("ws://localhost:3000");
                 document.getElementById("hello").innerHTML = event.data;
             }
             socket.onopen = function(){
-                socket.send("Hello from the client!");
+                socket.send(JSON.stringify({messageType: "connect"}));
+                socket.send(JSON.stringify({messageType: "readyToPlay"}));
                 document.getElementById("hello").innerHTML = "Sending a first message to the server ...";
             };

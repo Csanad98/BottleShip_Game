@@ -6,6 +6,7 @@ let Player = function (playerId, socket) {
     this.plays = 0;
 
     this.addOpponent = (player) => {
+        //user can't play agianst itself
         if(this.playerId === player.playerId) {
             console.error("Trying to add same player as opponent");
         }
