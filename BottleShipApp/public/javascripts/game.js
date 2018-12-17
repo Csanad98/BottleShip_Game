@@ -79,7 +79,7 @@ function renderTilesFromArray(boardArray, idString) {
             } else if (boardArray[c][r] < 0) {
                 curTile.setAttribute("class", "placedShipSurronding");
 
-            }
+            } 
 
             
         }

@@ -18,7 +18,7 @@
      */
 
     /*
-     * Server to client A and client B: place your ships
+     * Server to client A and client B: place your ships (Optional)
      */
     
     /*
@@ -38,7 +38,7 @@
      */
 
     /* 
-     * server to Player A or Player B: guessed/sunken ship
+     * server to Player A or Player B: your hit hit/sunken ship
      */
 
     /* 
