@@ -1,60 +1,46 @@
-// (function(exports){
 
-//     /* 
-//      * 1. Client to server: game is complete, the winner is ... 
-//      */
 
-//     /*
-//      * 2. Server to client: abort game (e.g. if second player exited the game) 
-//      */
+    /*
+    *  Server to Client: set as player A 
+    */
 
-//     /*
-//      * 3. Server to client A and client B: place your ships
-//      */
+    /* 
+    *  Server to Client: set as player B 
+    */
+
+    /* 
+    *  Server to Client: game starts (client A and B are paired)
+    */
+
+
+    /*
+     * Server to client: abort game (e.g. if second player exited the game) 
+     */
+
+    /*
+     * Server to client A and client B: place your ships
+     */
     
-//     /*
-//      *  4. Server to client: set as player A 
-//      */
-//     exports.T_PLAYER_TYPE = "PLAYER-TYPE";
-//     exports.O_PLAYER_A = {                            
-//         type: exports.T_PLAYER_TYPE,
-//         data: "A"
-//     };
-//     exports.S_PLAYER_A = JSON.stringify(exports.O_PLAYER_A);
+    /*
+    * Client A and B to Server: ready to start playing, ships placed
+    */
 
-//     /* 
-//      * 5. Server to client: set as player B 
-//      */
-//     exports.O_PLAYER_B = {                            
-//         type: exports.T_PLAYER_TYPE,
-//         data: "B"
-//     };
-//     exports.S_PLAYER_B = JSON.stringify(exports.O_PLAYER_B);
+    /* 
+     * Server to Player A OR Player B: your turn to hit
+     */
 
-//     /* 
-//      * 6. Player A to server OR Player B to server: selected cell to hit
-//      */
+    /* 
+     * Player A to server OR Player B to server: selected cell to hit
+     */
 
+    /* 
+     * Server to Player A AND Player B: display updated board after a hit
+     */
 
-//     /* 
-//      * server to Player A or Player B: guessed/sunken ship
-//      */
-//     exports.T_MAKE_A_GUESS = "MAKE-A-GUESS";         
-//     exports.O_MAKE_A_GUESS = {
-//         type: exports.T_MAKE_A_GUESS,
-//         data: null
-//     };
-//     //exports.S_MAKE_A_GUESS does not exist, as data needs to be set
+    /* 
+     * server to Player A or Player B: guessed/sunken ship
+     */
 
-//     /* 
-//      * Server to Player A AND B: game over with result won/loss 
-//      */
-//     exports.T_GAME_OVER = "GAME-OVER";              
-//     exports.O_GAME_OVER = {
-//         type: exports.T_GAME_OVER,
-//         data: null
-//     };
-
-
-// }(typeof exports === "undefined" ? this.Messages = {} : exports));
-// //if exports is undefined, we are on the client; else the server
+    /* 
+     * Server to Player A AND B: game over with result won/loss 
+     */
