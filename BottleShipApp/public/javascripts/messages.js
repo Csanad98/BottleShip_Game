@@ -12,18 +12,56 @@ function sendMessage(message) {
     ws.send(JSON.stringify(message));
 }
 
+
+//sends readyToPlay message to server
 function readyToStartGame() {
 
+    let message = {messageType: "readyToPlay"};
+    ws.send(JSON.stringify(message));
+
 }
+
+//client tells the server if the client's ships are all down - game is over, 
+//other player wins
+function sendGameOver() {
+
+    let message = {messageType: "gameOver"};
+    ws.send(JSON.stringify(message));
+};
+
+//you won
+function receiveGameOver() {
+
+};
+
+
 
 function receivedMessage(message) {
     let serverMessage = JSON.parse(message);
 
     switch(serverMessage.messageType) {
+
+        //gameStarted received once you are paired with an oponent
+        case "gameStarted":
+
+            //youStart parameter boolean
+            game.gameStarts(serverMessage.youStart);
+
+
         case "guess":
             receieveGuess(serverMessage.tileId)
+
         case "guessReply":
             receieveGuessReply(serverMessage.payload)
+
+
+        case "gameOver":
+
+            receiveGameOver();
+            //if you receive this then it means you won
+            //(When you send it, it means that you lost)
+
+            
         /// other stuff
     }
 }

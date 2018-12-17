@@ -946,5 +946,14 @@ function XYCollectionToTileIds(XYCoordinates, idString) {
 }
 
 
+//connected with messages.js
+/*
+params:
+thisPlayerStarts: boolean
+
+*/
+function gameStarts(thisPlayerStarts) {
+
+};
 
 
