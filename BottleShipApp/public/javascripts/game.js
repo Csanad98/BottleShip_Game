@@ -1,7 +1,10 @@
+const Messages = require('./messages');
 
 
 
-var isMyTurn = true;
+var isMyTurn = false;
+
+
 
 
 
@@ -774,6 +777,14 @@ function guessAShip(tileId) {
     var message = {messageType: "guessTile", tile: tileId};
     messages.sendGuess(message);
 
+    //if the guessed tile has enemy ship
+
+
+    //otheriwse alert the user that she missed
+
+
+
+
 };
 
 
@@ -952,8 +963,19 @@ params:
 thisPlayerStarts: boolean
 
 */
-function gameStarts(thisPlayerStarts) {
 
-};
+
+
+
+
+/*
+Messages part included here so
+
+
+*/
+
+
+module.exports = {};
+
 
 

@@ -1,13 +1,24 @@
+const Game = require('./game');
+
 const ws = new WebSocket("ws://localhost:3000");
 
-ws.onopen(connect);
-ws.onmessage(receivedMessage);
+
+//when ws connection is established send a message to server about this
+ws.onopen(connect); 
 
 function connect() {
     let message = {messageType: "connect"};
     sendMessage(message);
-}
+};
 
+
+ws.onmessage(receivedMessage); //when a message is received from server,
+//the function receivedMessage gets called
+
+
+/*
+converts message object to JSON and sends it to the server
+*/
 function sendMessage(message) {
     ws.send(JSON.stringify(message));
 }
@@ -17,7 +28,7 @@ function sendMessage(message) {
 function readyToStartGame() {
 
     let message = {messageType: "readyToPlay"};
-    ws.send(JSON.stringify(message));
+    sendMessage(message);
 
 }
 
@@ -29,13 +40,17 @@ function sendGameOver() {
     ws.send(JSON.stringify(message));
 };
 
-//you won
+//when executed it means that this player won
 function receiveGameOver() {
 
 };
 
+function gameStarts(thisPlayerStarts) {
+
+};
 
 
+//whenever a message is received this gets executed
 function receivedMessage(message) {
     let serverMessage = JSON.parse(message);
 
@@ -45,7 +60,7 @@ function receivedMessage(message) {
         case "gameStarted":
 
             //youStart parameter boolean
-            game.gameStarts(serverMessage.youStart);
+            gameStarts(serverMessage.youStart);
 
 
         case "guess":
@@ -61,7 +76,7 @@ function receivedMessage(message) {
             //if you receive this then it means you won
             //(When you send it, it means that you lost)
 
-            
+
         /// other stuff
     }
 }
@@ -108,3 +123,7 @@ function receieveGuessReply(payload) {
     }
 
 }
+
+
+
+module.exports = {}; //function names to be exported, separated by commas
