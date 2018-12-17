@@ -1,12 +1,5 @@
 
-
-
-
 var isMyTurn = false;
-
-
-
-
 
 //global variables to store essential data about the board
 var rows = 10;
@@ -18,7 +11,7 @@ var gameBoardContainer;
 //their tile ids will contain this string as idString
 var playerID = "a";
 
-//empty array to store ship objects
+//empty array to store ship objects of current client
 var shipObjects = [];
 
 
@@ -651,9 +644,16 @@ function startGame() {
         disableOnClickAndHoverForTiles(boardArray, "a");
 
 
-        //todo
-        //send my board array to server
-        //also a collection of ship objects
+        
+
+        //first establish ws connection
+        establishWSConnection();
+
+
+        //send message to server that this client is ready to play
+        readyToStartGame();
+
+        
 
     } else {
         alert("Place all your ships first to start the game.");
@@ -674,14 +674,12 @@ returns: enemy board atatched to the given div
 //initalize all items to zero
 var enemyBoardArray = createBoardArray();
 
-//some functionalities will be moved to the server but for now they are here
 
 
 
 
 
 
-var myTurn = true;
 
 
 function createEnemyBoard(enemyBoardContainer) {
@@ -774,13 +772,22 @@ var userMissedMessage = "You missed, no enemy ship is on this coordinate.";
 
 function guessAShip(tileId) {
 
-    var message = {messageType: "guessTile", tile: tileId};
-    messages.sendGuess(message);
+    if (isMyTurn === true) {
 
-    //if the guessed tile has enemy ship
+        var message = {messageType: "guessTile", tile: tileId};
+        messages.sendGuess(message);
+
+        //if the guessed tile has enemy ship
 
 
-    //otheriwse alert the user that she missed
+        //otheriwse alert the user that she missed
+
+    } else {
+
+        alert("Please wait for your turn.");
+    }
+
+    
 
 
 
@@ -969,18 +976,22 @@ thisPlayerStarts: boolean
 
 
 /*
-Messages part included here so
+Messages part -  included here so functions can be easily accessed between the two parts
 
 
 */
 
+const ws;
 
+//establish web socket connection with the server
+function establishWSConnection() {
 
-const ws = new WebSocket("ws://localhost:3000");
+    ws = new WebSocket("ws://localhost:3000"); //open web socket
 
+    //when ws connection is established send a message to server about this
+    ws.onopen(connect); 
+};
 
-//when ws connection is established send a message to server about this
-ws.onopen(connect); 
 
 function connect() {
     let message = {messageType: "connect"};
@@ -988,8 +999,12 @@ function connect() {
 };
 
 
-ws.onmessage(receivedMessage); //when a message is received from server,
-//the function receivedMessage gets called
+ 
+//when a message is received from server,
+//the function receivedMessage gets called to determine what type of
+// message has been received
+ws.onmessage(receivedMessage);
+
 
 
 /*
@@ -1021,8 +1036,12 @@ function receiveGameOver() {
 
 };
 
+
+
 function gameStarts(thisPlayerStarts) {
 
+    //based on param: update who starts the game
+    isMyTurn = thisPlayerStarts;
 };
 
 
@@ -1063,6 +1082,9 @@ params:
 tileId: string of tileid which was guessed
 */
 function sendGuess(tileId) {
+
+    isMyTurn = false;
+
     let message = {messageType: "guess", tileId: tileId}
     send(message);
 }
@@ -1073,7 +1095,52 @@ uses correct and incorrect Guess functions to send replies
 
 */
 function receieveGuess(tileId) {
+
+
+     //if the guessed tileid by the user has one of the current user's ship
+     if(isTileHit(boardArray, tileId)){
+        tileHit(tileId); //then update the UI + add tileid to hittiles of ship obj
+
+        //check if ship has been destroyed
+        if(checkIfHitShipIsDone(shipObjects, shipId)) {
+
+            //if yes then reveal surrounding tiles for this client
+            reveralSurroundingTiles(shipObjects, shipId);
+
+            
+
+            //check if all ships have been destroyed
+            if(checkIfAllShipsAreHit(shipObjects)) {
+                alert("You won, all ships have been destroyed.");
+            }
+
+
+            /*send message back to other player through the server to indicate that 
+            the ship is destroyed - send the whole ship object
+
+            */
+        }
+    
+        //otheriwse alert the user that she missed
+    } else {
+        //update local version
+        tileMissed(tileId);
+        alert(userMissedMessage);
+
+        //send it to other player that she missed
+        incorrectGuess();
+
+
+    }
+
+    
+
     //Check in game if something is on tileId
+
+
+
+    //it's your turn again
+    isMyTurn = true;
 }
 
 function correctGuess() {
