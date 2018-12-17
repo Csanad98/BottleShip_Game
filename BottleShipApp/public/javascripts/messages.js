@@ -64,10 +64,10 @@ function receivedMessage(message) {
 
 
         case "guess":
-            receieveGuess(serverMessage.tileId)
+            receieveGuess(serverMessage.tileId);
 
         case "guessReply":
-            receieveGuessReply(serverMessage.payload)
+            receieveGuessReply(serverMessage.payload);
 
 
         case "gameOver":
