@@ -932,6 +932,9 @@ function checkIfAllShipsAreHit(shipObjects) {
 /*
 updates UI with the ship's surrounding tiles - with missedTile class
 also "disables" onclick event with alreadyClickedOnTile function
+
+!!!!this only works correctly for the enemyboard of the client 
+because of onclick and params
 */
 function reveralSurroundingTiles(shipObjects, shipId) {
 
@@ -944,6 +947,23 @@ function reveralSurroundingTiles(shipObjects, shipId) {
         curTile.setAttribute("class", "missedTile");
         curTile.onclick = function() {alreadyClickedOnTile(this.tileId)};
     }
+};
+
+/*
+updates UI with the ship's surrounding tiles - with missedTile class
+doesn't modify onlick as those are already disabled
+
+!!!!this only works correctly for the own board of the client 
+because of onclick and params
+*/
+function revealSurroundingTilesOwnBoard(surrondingTileIds) {
+    for(var i = 0; i<surroundingTileIds.length; i++) {
+        var curTileId = surroundingTileIds[i];
+        var curTile = document.getElementById(curTileId);
+        curTile.setAttribute("class", "missedTile");
+        
+    }
+
 };
 
 //returns a tileId string from an XY Coordinate array and the idstring(1 letter)
@@ -961,6 +981,15 @@ function XYCollectionToTileIds(XYCoordinates, idString) {
     }
 
     return tileIds;
+}
+
+//returns the array of the given ship's surrounding tile ids
+function getSurroundingTileIds(shipObjects, shipId) {
+    var curShip = shipObjects[shipId-1];
+    return curShip.surroundingTiles;
+
+
+
 }
 
 
@@ -1096,9 +1125,22 @@ uses correct and incorrect Guess functions to send replies
 */
 function receieveGuess(tileId) {
 
+    //convert tileid prefix string from b to a - when receiving a guess, you check
+    //ship on your own board
+    var tileXY = calculateStartCoordinate(tileId);
+    var tileId = XYToTileId(tileXY, "a");
+
+
+    
+
 
      //if the guessed tileid by the user has one of the current user's ship
      if(isTileHit(boardArray, tileId)){
+
+
+        //then there is a ship, get the id of that ship
+        var shipId = shipIdFromTileId(tileId, boardArray);
+
         tileHit(tileId); //then update the UI + add tileid to hittiles of ship obj
 
         //check if ship has been destroyed
@@ -1111,17 +1153,42 @@ function receieveGuess(tileId) {
 
             //check if all ships have been destroyed
             if(checkIfAllShipsAreHit(shipObjects)) {
-                alert("You won, all ships have been destroyed.");
+                //alert("You won, all ships have been destroyed.");
+
+                //signal it to the other user that him/her won
+                sendGameOver();
+
+                //notify this user that she lost and bring her to the splash screen
+                alert("All your ships have been destroyed. You lost.")
+                window.open("splash.html", "_self");
+
+
+
+                //exit the function, so the rest of the code doesn't get executed
+                return;
             }
 
 
             /*send message back to other player through the server to indicate that 
-            the ship is destroyed - send the whole ship object
+            the ship is destroyed 
 
             */
+
+            //get the surrounding tiles, and send them with the ws message
+            var surrondingTilesToSend = getSurroundingTileIds(boardArray, shipId);
+           correctGuessWithShipDestroy(surrondingTilesToSend);
+
+
+           //it's your turn again
+            isMyTurn = true;
+            //exit the function, so the rest of the function doesn't get executed
+            return;
         }
+
+        //this gets executed when ship was hit, but not the whole ship has been destroyed
+        correctGuessNoShipDestroy();
     
-        //otheriwse alert the user that she missed
+    //otheriwse alert the user that she missed
     } else {
         //update local version
         tileMissed(tileId);
@@ -1143,13 +1210,18 @@ function receieveGuess(tileId) {
     isMyTurn = true;
 }
 
-function correctGuess() {
-    let message = {messageType: "guessReply", payload: {hit: true, extra: "What tiles to reveal"}}
+function correctGuessWithShipDestroy(surrondingTileIds) {
+    let message = {messageType: "guessReply", payload: {hit: true, shipDestroyed: true, surrondingTiles: surrondingTileIds, tileId: tileId }};
     sendMessage(message);
 };
 
-function incorrectGuess() {
-    let message = {messageType: "guessReply", payload: {hit: false}};
+function correctGuessNoShipDestroy(tileId) {
+    let message = {messageType: "guessReply", payload: {hit: true, shipDestroyed: false, tileId: tileId}};
+    sendMessage(message);
+};
+
+function incorrectGuess(tileId) {
+    let message = {messageType: "guessReply", payload: {hit: false, tileId: tileId}};
     sendMessage(message);
 };
 
@@ -1161,13 +1233,29 @@ reply contains info if the guessed tile was hit or not
 function receieveGuessReply(payload) {
     if(payload.hit) {
         // Hit a ship
+
+        //if the ship was destroyed 
+        if(payload.shipDestroyed) {
+            tileHit(tileId); //then update the UI + add tileid to hittiles of ship obj
+            //also reveal surroundings
+            revealSurroundingTilesOwnBoard(payload.surrondingTiles);
+
+            //otherwise only part of ship was hit
+        } else {
+            tileHit(tileId);
+        }
     } else {
         // Guessed incorrectly
+
+        //tell the user who guessed, that she missed, also mark the tile as missed
+        tileMissed(payload.tileId);
+        alert(userMissedMessage);
+
     }
 
+
+
+
+
+
 }
-
-
-
-
-
