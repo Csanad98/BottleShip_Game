@@ -1,5 +1,5 @@
 
-
+    //client side communication used when something needs to be sent to the server
     /*
     *  Server to Client: set as player A 
     */
