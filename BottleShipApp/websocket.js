@@ -16,6 +16,7 @@ module.exports = (server) => {
 // to finish the game messageType = "gameOver"
 // to forward the guessmessageType = "guess"
 // to forward the reply to the hit MessageType = "guessReply"
+// if player quits unexpectidly MessageType = "playerQuit"
 
 let OnLoad = (CurrentServer) => {
     let logging = config.websocket.logging;
@@ -29,17 +30,25 @@ let OnLoad = (CurrentServer) => {
                 Database.addUser(ws.clientId, ws);
                 //debug line for testing
                 if (logging) console.log('Connected: %s from Client %s', message, ws.clientId);
+                
             } else if (payload.messageType === "readyToPlay"){
                 if (logging) console.log('ReadyToPlay: Client %s', ws.clientId);
                 gameController.addPlayerToWaitingRoom(Database.getPlayer(ws.clientId));
                 //evoke the game method, add user to waitingroom
+            
             } else if (payload.messageType === "guess" || payload.messageType === "guessReply"){
                 gameController.forwardMessageToOpponent(Database.getPlayer(ws.clientId), message);
+            
             } else if (payload.messageType === "gameOver"){
                 if (logging) console.log('Game over: Client %s', ws.clientId);
                 //end the game
                 gameController.gameOver(Database.getPlayer(ws.clientId));
+
+            }else if (payload.messageType === "playerQuit"){
+                gameController.RemovePlayer(Database.getPlayer(ws.clientId), message);
+                if (logging) console.log('Client quit uneqpectedly: Client %s', ws.clientId);
             }
+
         } else {
             console.error("No message type set for socket message: " + message);
         }

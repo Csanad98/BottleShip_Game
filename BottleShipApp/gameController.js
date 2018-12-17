@@ -9,12 +9,14 @@ var playersReadyToStart = [];
 
 function addPlayerToWaitingRoom(player){
     if(playersReadyToStart.length >= 1){
-        startNewGame(player, playersReadyToStart[0]);
+        if(player === playersReadyToStart[0]) {
+            console.log("Same player send message again");
+        } else {
+            startNewGame(player, playersReadyToStart[0]);
+        }
+    } else {
+        playersReadyToStart.push(player);
     }
-
-
-    playersReadyToStart.push(player);
-
 }
 
 function startNewGame(playerA, playerB) {
@@ -22,7 +24,7 @@ function startNewGame(playerA, playerB) {
     playerA.addOpponent(playerB);
     playerB.addOpponent(playerA);
     sendPlayerStartMessage(playerA, playerB);
-    sendPlayerStartMessage(playerB);
+    console.log("Game has started!");
 }
 
 function sendPlayerStartMessage(playerA, playerB){
@@ -35,7 +37,17 @@ function forwardMessageToOpponent(player, message){
 }
 
 function gameOver(player){
-    player.opponent.socket(JSON.stringify({messegeType: "GameOver"}));
+    player.opponent.socket(JSON.stringify({messegeType: "gameOver", abortedGame: false}));
 }
 
-module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver}
+function RemovePlayer(player){
+    if (player.opponent != null){
+        abortGame(player);
+    }
+}
+
+function abortGame(player){
+    player.opponent.socket(JSON.stringify({messegeType: "gameOver", abortedGame: true}));
+}
+
+module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver, RemovePlayer}
