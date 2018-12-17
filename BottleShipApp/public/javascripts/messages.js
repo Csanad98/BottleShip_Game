@@ -1,4 +1,4 @@
-const Game = require('./game');
+
 
 const ws = new WebSocket("ws://localhost:3000");
 
@@ -124,6 +124,3 @@ function receieveGuessReply(payload) {
 
 }
 
-
-
-module.exports = {}; //function names to be exported, separated by commas
