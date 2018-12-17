@@ -1,9 +1,9 @@
-/* var startGame = function() {
-    alert("You are starting the game!");
-    //TODO
-    //iff all ships have been placed then:
-    window.open("game.html", "_self");
-} */
+
+
+
+var isMyTurn = true;
+
+
 
 //global variables to store essential data about the board
 var rows = 10;
@@ -734,7 +734,7 @@ function switchTileIdInTiles(shipTiles, newStringId) {
 
 var userMissedMessage = "You missed, no enemy ship is on this coordinate.";
 //event handler for on clicks for guessing enemy ship locations
-function guessAShip(tileId) {
+/* function guessAShip(tileId) {
 
     var shipId = shipIdFromTileId(tileId, enemyBoardArray);
 
@@ -765,6 +765,14 @@ function guessAShip(tileId) {
         tileMissed(tileId);
         alert(userMissedMessage);
     }
+
+}; */
+
+
+function guessAShip(tileId) {
+
+    var message = {messageType: "guessTile", tile: tileId};
+    messages.sendGuess(message);
 
 };
 

@@ -1,46 +1,72 @@
+const ws = new WebSocket("ws://localhost:3000");
 
-    //client side communication used when something needs to be sent to the server
-    /*
-    *  Server to Client: set as player A 
-    */
+ws.onopen(connect);
+ws.onmessage(receivedMessage);
 
-    /* 
-    *  Server to Client: set as player B 
-    */
+function connect() {
+    let message = {messageType: "connect"};
+    sendMessage(message);
+}
 
-    /* 
-    *  Server to Client: game starts (client A and B are paired)
-    */
+function sendMessage(message) {
+    ws.send(JSON.stringify(message));
+}
 
+function readyToStartGame() {
 
-    /*
-     * Server to client: abort game (e.g. if second player exited the game) 
-     */
+}
 
-    /*
-     * Server to client A and client B: place your ships (Optional)
-     */
-    
-    /*
-    * Client A and B to Server: ready to start playing, ships placed
-    */
+function receivedMessage(message) {
+    let serverMessage = JSON.parse(message);
 
-    /* 
-     * Server to Player A OR Player B: your turn to hit
-     */
+    switch(serverMessage.messageType) {
+        case "guess":
+            receieveGuess(serverMessage.tileId)
+        case "guessReply":
+            receieveGuessReply(serverMessage.payload)
+        /// other stuff
+    }
+}
 
-    /* 
-     * Player A to server OR Player B to server: selected cell to hit
-     */
+/*
+function for sending tileid to server which was clicked
+params:
+tileId: string of tileid which was guessed
+*/
+function sendGuess(tileId) {
+    let message = {messageType: "guess", tileId: tileId}
+    send(message);
+}
 
-    /* 
-     * Server to Player A AND Player B: display updated board after a hit
-     */
+/*
+receive the tile id which was guess by the other player
+uses correct and incorrect Guess functions to send replies
 
-    /* 
-     * server to Player A or Player B: your hit hit/sunken ship
-     */
+*/
+function receieveGuess(tileId) {
+    //Check in game if something is on tileId
+}
 
-    /* 
-     * Server to Player A AND B: game over with result won/loss 
-     */
+function correctGuess() {
+    let message = {messageType: "guessReply", payload: {hit: true, extra: "What tiles to reveal"}}
+    sendMessage(message);
+};
+
+function incorrectGuess() {
+    let message = {messageType: "guessReply", payload: {hit: false}};
+    sendMessage(message);
+};
+
+/*
+reply to server after received a guess, 
+reply contains info if the guessed tile was hit or not
+
+*/
+function receieveGuessReply(payload) {
+    if(payload.hit) {
+        // Hit a ship
+    } else {
+        // Guessed incorrectly
+    }
+
+}
