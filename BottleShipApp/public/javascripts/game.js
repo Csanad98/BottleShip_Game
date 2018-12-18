@@ -1010,15 +1010,18 @@ Messages part -  included here so functions can be easily accessed between the t
 
 */
 
-const ws;
+const ws = new WebSocket("ws://localhost:3000"); //open web socket
 
 //establish web socket connection with the server
 function establishWSConnection() {
 
-    ws = new WebSocket("ws://localhost:3000"); //open web socket
+    //ws = new WebSocket("ws://localhost:3000"); //open web socket
 
     //when ws connection is established send a message to server about this
-    ws.onopen(connect); 
+    ws.onopen = function() {
+        connect();
+
+    }
 };
 
 
@@ -1032,7 +1035,9 @@ function connect() {
 //when a message is received from server,
 //the function receivedMessage gets called to determine what type of
 // message has been received
-ws.onmessage(receivedMessage);
+ws.onmessage = function () {
+    receivedMessage(ws.message);
+};
 
 
 
