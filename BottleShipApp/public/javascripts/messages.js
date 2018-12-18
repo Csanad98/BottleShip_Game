@@ -1,4 +1,4 @@
-
+/*
 
 const ws = new WebSocket("ws://localhost:3000");
 
@@ -20,7 +20,7 @@ ws.onmessage(receivedMessage); //when a message is received from server,
 converts message object to JSON and sends it to the server
 */
 
-
+/*
 function sendMessage(message) {
     ws.send(JSON.stringify(message));
 }
@@ -97,7 +97,7 @@ function sendGuess(tileId) {
 receive the tile id which was guess by the other player
 uses correct and incorrect Guess functions to send replies
 
-*/
+*//*
 function receieveGuess(tileId) {
     //Check in game if something is on tileId
 }
@@ -116,7 +116,7 @@ function incorrectGuess() {
 reply to server after received a guess, 
 reply contains info if the guessed tile was hit or not
 
-*/
+*//*
 function receieveGuessReply(payload) {
     if(payload.hit) {
         // Hit a ship
@@ -126,3 +126,4 @@ function receieveGuessReply(payload) {
 
 }
 
+*/

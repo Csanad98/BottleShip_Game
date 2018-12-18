@@ -10,7 +10,7 @@ const config = {
         port: Number(process.env.PORT || '3000')
     },
     websocket: {
-        timeInterval: 10000,
+        timeInterval: 100000,
         logging: true
     },
     cookie: {

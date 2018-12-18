@@ -8,6 +8,7 @@ var playersReadyToStart = [];
 // end game (if its aborted or won)
 
 function addPlayerToWaitingRoom(player){
+    console.log(player);
     if(playersReadyToStart.length >= 1){
         if(player === playersReadyToStart[0]) {
             console.log("Same player send message again");

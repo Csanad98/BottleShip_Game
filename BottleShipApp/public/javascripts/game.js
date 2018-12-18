@@ -180,6 +180,7 @@ If we find the click to be invalid, then alert the user with this without rerend
 //returns the start coordinat pair from tileid(String) format t31
 //where 3 is the column and 1 is the row
 function calculateStartCoordinate(tileId) {
+    //console.log(tileId);
     column = parseInt(tileId.charAt(1));
     row = parseInt(tileId.charAt(2));
 
@@ -775,7 +776,7 @@ function guessAShip(tileId) {
     if (isMyTurn === true) {
 
         var message = {messageType: "guessTile", tile: tileId};
-        messages.sendGuess(message);
+        sendGuess(message);
 
         //if the guessed tile has enemy ship
 
@@ -1018,10 +1019,10 @@ function establishWSConnection() {
     //ws = new WebSocket("ws://localhost:3000"); //open web socket
 
     //when ws connection is established send a message to server about this
-    ws.onopen = function() {
+    (ws.onopen = function() {
         connect();
 
-    }
+    })();
 };
 
 
@@ -1035,8 +1036,9 @@ function connect() {
 //when a message is received from server,
 //the function receivedMessage gets called to determine what type of
 // message has been received
-ws.onmessage = function () {
-    receivedMessage(ws.message);
+ws.onmessage = function (event) {
+    //console.log("onmessage received: ", event.data);
+    receivedMessage(event.data);
 };
 
 
@@ -1076,27 +1078,35 @@ function gameStarts(thisPlayerStarts) {
 
     //based on param: update who starts the game
     isMyTurn = thisPlayerStarts;
+    alert("You can start the game!");
 };
 
 
 //whenever a message is received this gets executed
 function receivedMessage(message) {
+    //console.log(message);
     let serverMessage = JSON.parse(message);
+    console.log(serverMessage.messageType);
 
     switch(serverMessage.messageType) {
 
         //gameStarted received once you are paired with an oponent
         case "gameStarted":
+            console.log("inside gameStarts case");
 
             //youStart parameter boolean
             gameStarts(serverMessage.youStart);
+            break;
 
 
         case "guess":
-            receieveGuess(serverMessage.tileId);
+            console.log(serverMessage.tileId.tile);
+            receieveGuess(serverMessage.tileId.tile);
+            break;
 
         case "guessReply":
             receieveGuessReply(serverMessage.payload);
+            break;
 
 
         case "gameOver":
@@ -1104,6 +1114,7 @@ function receivedMessage(message) {
             receiveGameOver();
             //if you receive this then it means you won
             //(When you send it, it means that you lost)
+            break;
 
 
         /// other stuff
@@ -1120,7 +1131,7 @@ function sendGuess(tileId) {
     isMyTurn = false;
 
     let message = {messageType: "guess", tileId: tileId}
-    send(message);
+    sendMessage(message);
 }
 
 /*

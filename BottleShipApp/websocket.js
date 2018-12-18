@@ -22,6 +22,7 @@ let OnLoad = (CurrentServer) => {
     let logging = config.websocket.logging;
 
     function processMessage(ws, message) {
+        console.log(message);
         let payload = JSON.parse(message);
 
         if (payload.messageType) {
@@ -69,6 +70,7 @@ let OnLoad = (CurrentServer) => {
         ws.isAlive = true;
         //server recieves a message
         ws.on('message', (message) => {
+            //console.log(message);
             processMessage(ws, message);
             // ws.send(`Hello, you sent -> ${message}`);
         });
