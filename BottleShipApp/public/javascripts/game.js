@@ -775,8 +775,8 @@ function guessAShip(tileId) {
 
     if (isMyTurn === true) {
 
-        var message = {messageType: "guessTile", tile: tileId};
-        sendGuess(message);
+        var payload = {messageType: "guessTile", tile: tileId};
+        sendGuess(payload);
 
         //if the guessed tile has enemy ship
 
@@ -803,6 +803,7 @@ tileId: id of tile which was hit
 */
 
 function tileHit(tileId) {
+    console.log(tileId);
 
     var curTile = document.getElementById(tileId);
     curTile.setAttribute("class", "hitTile");
@@ -1100,8 +1101,8 @@ function receivedMessage(message) {
 
 
         case "guess":
-            console.log(serverMessage.tileId.tile);
-            receieveGuess(serverMessage.tileId.tile);
+            console.log(serverMessage.payload.tile);
+            receieveGuess(serverMessage.payload.tile);
             break;
 
         case "guessReply":
@@ -1126,11 +1127,11 @@ function for sending tileid to server which was clicked
 params:
 tileId: string of tileid which was guessed
 */
-function sendGuess(tileId) {
+function sendGuess(payload) {
 
     isMyTurn = false;
 
-    let message = {messageType: "guess", tileId: tileId}
+    let message = {messageType: "guess", payload: payload}
     sendMessage(message);
 }
 
@@ -1141,23 +1142,27 @@ uses correct and incorrect Guess functions to send replies
 */
 function receieveGuess(tileId) {
 
+    
+
     //convert tileid prefix string from b to a - when receiving a guess, you check
     //ship on your own board
     var tileXY = calculateStartCoordinate(tileId);
-    var tileId = XYToTileId(tileXY, "a");
+    var conertedTileId = XYToTileId(tileXY, "a");
+
+    console.log("This tile was guessed by the other player: " + conertedTileId);
 
 
     
 
 
      //if the guessed tileid by the user has one of the current user's ship
-     if(isTileHit(boardArray, tileId)){
+     if(isTileHit(boardArray, conertedTileId)){
 
 
         //then there is a ship, get the id of that ship
-        var shipId = shipIdFromTileId(tileId, boardArray);
+        var shipId = shipIdFromTileId(conertedTileId, boardArray);
 
-        tileHit(tileId); //then update the UI + add tileid to hittiles of ship obj
+        tileHit(conertedTileId); //then update the UI + add tileid to hittiles of ship obj
 
         //check if ship has been destroyed
         if(checkIfHitShipIsDone(shipObjects, shipId)) {
@@ -1202,7 +1207,7 @@ function receieveGuess(tileId) {
         }
 
         //this gets executed when ship was hit, but not the whole ship has been destroyed
-        correctGuessNoShipDestroy();
+        correctGuessNoShipDestroy(tileId);
     
     //otheriwse alert the user that she missed
     } else {
@@ -1232,6 +1237,8 @@ function correctGuessWithShipDestroy(surrondingTileIds) {
 };
 
 function correctGuessNoShipDestroy(tileId) {
+    console.log("inside correctGuessNoShipDestroy");
+    console.log("inside correctGuessNoShipDestroy the tile id is: " + tileId);
     let message = {messageType: "guessReply", payload: {hit: true, shipDestroyed: false, tileId: tileId}};
     sendMessage(message);
 };
@@ -1248,23 +1255,26 @@ reply contains info if the guessed tile was hit or not
 */
 function receieveGuessReply(payload) {
     if(payload.hit) {
+
         // Hit a ship
 
         //if the ship was destroyed 
         if(payload.shipDestroyed) {
-            tileHit(tileId); //then update the UI + add tileid to hittiles of ship obj
+            tileHit(payload.tile); //then update the UI + add tileid to hittiles of ship obj
             //also reveal surroundings
             revealSurroundingTilesOwnBoard(payload.surrondingTiles);
 
             //otherwise only part of ship was hit
         } else {
-            tileHit(tileId);
+            console.log("I received this" + payload);
+            tileHit(payload.tile);
         }
     } else {
         // Guessed incorrectly
 
         //tell the user who guessed, that she missed, also mark the tile as missed
-        tileMissed(payload.tileId);
+        console.log(payload);
+        tileMissed(payload.tile);
         alert(userMissedMessage);
 
     }
