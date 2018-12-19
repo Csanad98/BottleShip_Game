@@ -867,6 +867,21 @@ function disableOnClickAndHoverForTiles(boardArray, idString) {
 };
 
 
+function disableOnClickOfEnemyBoard() {
+
+    for (var c = 0; c<10; c++) {
+        for(var r = 0; r<10; r++ ) {
+
+            var curTileId = "b" + c + r;
+            var curTile = document.getElementById(curTileId);
+
+            curTile.onclick = null;
+        }
+    }
+
+}
+
+
 
 
 /*
@@ -1086,6 +1101,7 @@ function sendGameOver(tileId, shipId, surrondingTilesToSend) {
 function receiveGameOver(payload) {
 
     receieveGuessReply(payload);
+    disableOnClickOfEnemyBoard();
 
 
 
@@ -1097,7 +1113,7 @@ function receiveGameOver(payload) {
     //establishWSConnection();
     setTimeout(function(){ 
         window.open("splash", "_self");
-     }, 3000);
+     }, 7000);
 
 
     
@@ -1227,6 +1243,7 @@ function receieveGuess(tileId) {
             
             //correctGuessWithShipDestroy(tileId, shipId, surrondingTilesToSend);
                 sendGameOver(tileId, shipId, surrondingTilesToSend);
+                disableOnClickOfEnemyBoard();
 
 
 
@@ -1240,7 +1257,7 @@ function receieveGuess(tileId) {
                 //establishWSConnection();
                 setTimeout(function(){ 
                     window.open("splash", "_self");
-                ; }, 3000);
+                ; }, 7000);
                 //exit the function, so the rest of the code doesn't get executed
                 return;
             }
