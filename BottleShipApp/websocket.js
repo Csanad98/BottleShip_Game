@@ -37,14 +37,14 @@ let OnLoad = (CurrentServer) => {
                 gameController.addPlayerToWaitingRoom(Database.getPlayer(ws.clientId));
                 //evoke the game method, add user to waitingroom
             
-            } else if (payload.messageType === "guess" || payload.messageType === "guessReply"){
+            } else if (payload.messageType === "guess" || payload.messageType === "guessReply" || payload.messageType == "gameOver"){
                 gameController.forwardMessageToOpponent(Database.getPlayer(ws.clientId), message);
-            
-            } else if (payload.messageType === "gameOver"){
-                if (logging) console.log('Game over: Client %s', ws.clientId);
-                //end the game
-                gameController.gameOver(Database.getPlayer(ws.clientId));
 
+                if (payload.messageType === "gameOver"){
+                    if (logging) console.log('Game over: Client %s', ws.clientId);
+                    //end the game
+                gameController.gameOver(Database.getPlayer(ws.clientId));
+                }
             }else if (payload.messageType === "playerQuit"){
                 gameController.RemovePlayer(Database.getPlayer(ws.clientId), message);
                 if (logging) console.log('Client quit uneqpectedly: Client %s', ws.clientId);

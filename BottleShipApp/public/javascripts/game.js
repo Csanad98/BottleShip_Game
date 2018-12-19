@@ -1085,9 +1085,11 @@ function sendGameOver() {
 
 //when executed it means that this player won
 function receiveGameOver() {
-    alert("You won! Congratulations!");
-    alert("Now you will be redirected to the splash screen.");
-    window.open("splash", "_self");
+    changeTextOnMessageBoard("You won! Congratulations!");
+    
+    //alert("You won! Congratulations!");
+    //alert("Now you will be redirected to the splash screen.");
+    //window.open("splash", "_self");
 
 
 };
@@ -1099,10 +1101,10 @@ function gameStarts(thisPlayerStarts) {
     //based on param: update who starts the game
     isMyTurn = thisPlayerStarts;
     if(isMyTurn) {
-        alert("You can start the game!");
+        //alert("You can start the game!");
         changeTextOnMessageBoard("It's Your Turn");
     } else {
-        alert("The other player starts the game. Wait for your turn.");
+        //alert("The other player starts the game. Wait for your turn.");
         changeTextOnMessageBoard("Opponent's Turn");
     }
     
@@ -1207,13 +1209,14 @@ function receieveGuess(tileId) {
             if(checkIfAllShipsAreHit(shipObjects)) {
                 //alert("You won, all ships have been destroyed.");
 
+                changeTextOnMessageBoard("All your ships have been destroyed. You lost.");
+
                 //signal it to the other user that him/her won
                 sendGameOver();
 
                 //notify this user that she lost and bring her to the splash screen
-                alert("All your ships have been destroyed. You lost.");
-                alert("Now you will be redirected to the splash screen.");
-                window.open("splash", "_self");
+                //alert("Now you will be redirected to the splash screen.");
+                //window.open("splash", "_self");
 
 
 
