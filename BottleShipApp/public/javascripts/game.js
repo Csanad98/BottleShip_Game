@@ -640,21 +640,16 @@ function startGame() {
     if (shipsPlaced === allShipProperties.length) {
         var enemyBoard = document.getElementById("board2");
     
+        //create the enemy board in the html
         createEnemyBoard(enemyBoard);
 
         disableOnClickAndHoverForTiles(boardArray, "a");
 
-
-        
-
         //first establish ws connection
         establishWSConnection();
 
-
         //send message to server that this client is ready to play
         readyToStartGame();
-
-        
 
     } else {
         alert("Place all your ships first to start the game.");
@@ -691,12 +686,10 @@ function createEnemyBoard(enemyBoardContainer) {
     makeGrid(enemyBoardContainer, "b");
 
     //global variable of enemy ship objects
-    enemyShipObjects = JSON.parse(JSON.stringify(shipObjects)); //create deep copy of ship objects
+    //enemyShipObjects = JSON.parse(JSON.stringify(shipObjects)); //create deep copy of ship objects
 
-    switchTileIdInShipObjectsArray(enemyShipObjects, "b");
+    //switchTileIdInShipObjectsArray(enemyShipObjects, "b");
 
-    //enemy board organization is the same as the own board (for now)
-    enemyBoardArray = boardArray.slice(0); // create shallow copy
 };
 
 
@@ -778,21 +771,10 @@ function guessAShip(tileId) {
         var payload = {tile: tileId};
         sendGuess(payload);
 
-        //if the guessed tile has enemy ship
-
-
-        //otheriwse alert the user that she missed
-
     } else {
 
         alert("Please wait for your turn.");
     }
-
-    
-
-
-
-
 };
 
 
@@ -802,15 +784,15 @@ also adds the hit tile to the corresponding ship object
 tileId: id of tile which was hit
 */
 
-function tileHit(tileId) {
-    console.log(tileId);
+function tileHit(tileId, shipId) {
+    console.log("tileid received to process as hit: "+tileId);
 
     var curTile = document.getElementById(tileId);
     curTile.setAttribute("class", "hitTile");
-    curTile.onclick = function() {alreadyClickedOnTile(tileId)};
+    curTile.onclick = function() {alreadyClickedOnTile()};
 
     //update ship object
-    addHitTileToShipObj(shipObjects, tileId);
+    addHitTileToShipObj(shipObjects, tileId, shipId);
 
 };
 
@@ -818,7 +800,7 @@ function tileHit(tileId) {
 function tileMissed(tileId) {
     var curTile = document.getElementById(tileId);
     curTile.setAttribute("class", "missedTile");
-    curTile.onclick = function() {alreadyClickedOnTile(tileId)};
+    curTile.onclick = function() {alreadyClickedOnTile()};
 }
 
 //checks the given tile coordinates on the given boardArray
@@ -841,7 +823,7 @@ function isTileHit(boardArray, tileId) {
 }
 
 
-function alreadyClickedOnTile(tileId) {
+function alreadyClickedOnTile() {
 
     alert("You cannot guess this tile again, try another one.");
 };
@@ -896,10 +878,16 @@ function shipIdFromTileIdUsingShipObjects(tileId, shipObjects) {
 adds the tile id to the correct ship's ship object's hittiles array
 returns: the updated shipObjects array
 */
-function addHitTileToShipObj(shipObjects, tileId) {
+function addHitTileToShipObj(shipObjects, tileId, shipId) {
+    console.log("shipObjects: "+ shipObjects);
     console.log("addHitTileToShipObj params: ", shipObjects, tileId)
     //console.log("boardArray: " + boardArray);
-    var curShipId = shipIdFromTileId(tileId, boardArray);
+    
+    var curShipId = shipId;
+    
+        //var curShipId = shipIdFromTileId(tileId, boardArray);
+    
+    
     console.log("curShipId is: " + curShipId);
     var curShip = shipObjects[curShipId-1];
     curShip.hitTiles.push(tileId);
@@ -956,7 +944,7 @@ function revealSurroundingTiles(shipObjects, shipId) {
         var curTileId = surroundingTileIds[i];
         var curTile = document.getElementById(curTileId);
         curTile.setAttribute("class", "missedTile");
-        curTile.onclick = function() {alreadyClickedOnTile(this.tileId)};
+        curTile.onclick = function() {alreadyClickedOnTile()};
     }
 };
 
@@ -1178,12 +1166,12 @@ function receieveGuess(tileId) {
         //then there is a ship, get the id of that ship
         var shipId = shipIdFromTileId(convertedTileId, boardArray);
 
-        tileHit(convertedTileId); //then update the UI + add tileid to hittiles of ship obj
+        tileHit(convertedTileId, shipId); //then update the UI + add tileid to hittiles of ship obj
 
         //check if ship has been destroyed
-        console.log("shipObjects: " + shipObjects);
-        console.log("shipId: " + shipId);
-        console.log("checkIfHitShipIsDone(shipObjects, shipId): " + checkIfHitShipIsDone(shipObjects, shipId));
+        //console.log("shipObjects: " + shipObjects);
+        //console.log("shipId: " + shipId);
+        //console.log("checkIfHitShipIsDone(shipObjects, shipId): " + checkIfHitShipIsDone(shipObjects, shipId));
         if(checkIfHitShipIsDone(shipObjects, shipId)) {
 
             //if yes then reveal surrounding tiles for this client
@@ -1217,7 +1205,7 @@ function receieveGuess(tileId) {
             //get the surrounding tiles, and send them with the ws message
             var surrondingTilesToSend = convertSurroundingTileIdsForEnemyBoard(getSurroundingTileIds(shipObjects, shipId));
             console.log("surrondingTilesToSend: " + surrondingTilesToSend);
-           correctGuessWithShipDestroy(tileId, surrondingTilesToSend);
+            correctGuessWithShipDestroy(tileId, shipId, surrondingTilesToSend);
 
 
           
@@ -1226,7 +1214,7 @@ function receieveGuess(tileId) {
         }
 
         //this gets executed when ship was hit, but not the whole ship has been destroyed
-        correctGuessNoShipDestroy(tileId);
+        correctGuessNoShipDestroy(tileId, shipId);
     
     //otheriwse alert the user that she missed
     } else {
@@ -1262,15 +1250,15 @@ function convertSurroundingTileIdsForEnemyBoard(surrondingTileIds) {
     return newSurroundingTileIds;
 }
 
-function correctGuessWithShipDestroy(tileId, surrondingTileIds) {
-    let message = {messageType: "guessReply", payload: {hit: true, shipDestroyed: true, surrondingTiles: surrondingTileIds, tileId: tileId }};
+function correctGuessWithShipDestroy(tileId, shipId, surrondingTileIds) {
+    let message = {messageType: "guessReply", payload: {hit: true, shipDestroyed: true, surrondingTiles: surrondingTileIds, tileId: tileId, shipId: shipId }};
     sendMessage(message);
 };
 
-function correctGuessNoShipDestroy(tileId) {
+function correctGuessNoShipDestroy(tileId, shipId) {
     console.log("inside correctGuessNoShipDestroy");
     console.log("inside correctGuessNoShipDestroy the tile id is: " + tileId);
-    let message = {messageType: "guessReply", payload: {hit: true, shipDestroyed: false, tileId: tileId}};
+    let message = {messageType: "guessReply", payload: {hit: true, shipDestroyed: false, tileId: tileId, shipId: shipId}};
     sendMessage(message);
 };
 
@@ -1295,14 +1283,14 @@ function receieveGuessReply(payload) {
 
         //if the ship was destroyed 
         if(payload.shipDestroyed) {
-            tileHit(payload.tileId); //then update the UI + add tileid to hittiles of ship obj
+            tileHit(payload.tileId, payload.shipId); //then update the UI + add tileid to hittiles of ship obj
             //also reveal surroundings
             revealSurroundingTilesOwnBoard(payload.surrondingTiles);
 
             //otherwise only part of ship was hit
         } else {
             console.log("I received this payload: " + payload);
-            tileHit(payload.tileId);
+            tileHit(payload.tileId, payload.shipId);
         }
 
         //it's your turn again
