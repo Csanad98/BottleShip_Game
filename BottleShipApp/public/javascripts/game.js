@@ -1256,7 +1256,7 @@ function receieveGuess(tileId) {
             if(checkIfAllShipsAreHit(shipObjects)) {
                 //alert("You won, all ships have been destroyed.");
 
-                changeTextOnMessageBoard("All your ships have been destroyed. You lost.");
+                changeTextOnMessageBoard("All your ships have been destroyed. You lost. You will be redirected to the splash screen.");
 
                 //signal it to the other user that him/her won
                 var surrondingTilesToSend = convertSurroundingTileIdsForEnemyBoard(getSurroundingTileIds(shipObjects, shipId));
@@ -1277,7 +1277,7 @@ function receieveGuess(tileId) {
                 //establishWSConnection();
                 setTimeout(function(){ 
                     window.open("splash", "_self");
-                ; }, 70000);
+                ; }, 7000);
                 //exit the function, so the rest of the code doesn't get executed
                 return;
             }
