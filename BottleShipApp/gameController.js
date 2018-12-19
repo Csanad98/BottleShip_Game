@@ -1,5 +1,6 @@
 const Game = require('./models/game');
-const Player = require('./models/player')
+const Player = require('./models/player');
+const Database = require('./database');
 
 // add players to waitingroom
 var playersReadyToStart = [];
@@ -11,9 +12,10 @@ function addPlayerToWaitingRoom(player){
     console.log(player);
     if(playersReadyToStart.length >= 1){
         if(player === playersReadyToStart[0]) {
-            console.log("Same player send message again");
+            console.log("Same player sent message again");
         } else {
             startNewGame(player, playersReadyToStart[0]);
+            playersReadyToStart.pop(playersReadyToStart[0]);
         }
     } else {
         playersReadyToStart.push(player);
@@ -39,6 +41,9 @@ function forwardMessageToOpponent(player, message){
 
 function gameOver(player){
     player.opponent.socket.send(JSON.stringify({messegeType: "gameOver", abortedGame: false}));
+    // delete both player objects from the database
+    Database.removePlayer(player.playerId);
+    Database.removePlayer(player.opponent.playerId);
 }
 
 function RemovePlayer(player){

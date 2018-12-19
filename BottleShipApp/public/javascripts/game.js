@@ -1021,10 +1021,10 @@ Messages part -  included here so functions can be easily accessed between the t
 
 
 */
-
+//establish web socket connection with the server
 const ws = new WebSocket("ws://localhost:3000"); //open web socket
 
-//establish web socket connection with the server
+//send connection message to server
 function establishWSConnection() {
 
     //ws = new WebSocket("ws://localhost:3000"); //open web socket
@@ -1077,6 +1077,8 @@ function sendGameOver(tileId, shipId, surrondingTilesToSend) {
 
     let message = {messageType: "gameOver", payload: {hit: true, shipDestroyed: true, surrondingTiles: surrondingTilesToSend, tileId: tileId, shipId: shipId }};
     ws.send(JSON.stringify(message));
+
+    
 };
 
 //when executed it means that this player won
@@ -1090,7 +1092,11 @@ function receiveGameOver(payload) {
     
     alert("You won! Congratulations!");
     alert("Now you will be redirected to the splash screen.");
+    //send connection message
+    establishWSConnection();
     window.open("splash", "_self");
+
+    
 
 
 };
@@ -1218,12 +1224,14 @@ function receieveGuess(tileId) {
             //correctGuessWithShipDestroy(tileId, shipId, surrondingTilesToSend);
                 sendGameOver(tileId, shipId, surrondingTilesToSend);
 
+
+
                 //notify this user that she lost and bring her to the splash screen
                 alert("All your ships have been destroyed. You lost.");
                 alert("Now you will be redirected to the splash screen.");
+                //send connection message
+                establishWSConnection();
                 window.open("splash", "_self");
-
-
 
                 //exit the function, so the rest of the code doesn't get executed
                 return;
