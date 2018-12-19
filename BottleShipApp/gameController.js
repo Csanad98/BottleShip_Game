@@ -54,6 +54,16 @@ function RemovePlayer(player){
 
 function abortGame(player){
     player.opponent.socket.send(JSON.stringify({messegeType: "gameOver", abortedGame: true}));
+    removeOpponent(player);
+}
+
+function removeOpponent(player){
+    if (player.opponent != null){
+        if (player.opponent.opponent !=null){
+            player.opponent.opponent = null;
+        }
+        player.opponent = null;
+    }
 }
 
 module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver, RemovePlayer}

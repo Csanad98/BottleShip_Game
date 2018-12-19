@@ -76,9 +76,12 @@ let OnLoad = (CurrentServer) => {
         });
 
         ws.on('close', () => {
+            Database.getPlayer(ws.clientId).socket = null;
+            gameController.RemovePlayer;
             if (logging) console.log("Client %s closed the connection.", ws.clientId);
         });
 
+        //to respond to ping (with a pong)
         ws.on('pong', () => {
             ws.isAlive = true;
         });
@@ -92,30 +95,9 @@ let OnLoad = (CurrentServer) => {
 
         ws.isAlive = false;
         ws.ping();
-        //Should game be aborted here?
-        //gameController.RemovePlayer(Database.getPlayer(ws.clientId), message);
-        //if (logging) console.log('Client quit uneqpectedly: Client %s', ws.clientId);
-    };
-
-    let sendBroadcastToOthers = (ws, data) => {
-        CurrentServer.clients.forEach((client) => {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
-                client.send(data);
-            }
-        })
-    };
-
-    let sendBroadcast = (data) => {
-        console.log(`Sending broadcast with following data: ${data}`);
-        CurrentServer.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(data);
-            }
-        })
     };
 
     CurrentServer.on('connection', onConnect);
-    CurrentServer.broadcast = sendBroadcast;
-
+    
     const interval = setInterval(() => CurrentServer.clients.forEach(sendPing), config.websocket.timeInterval);
 };
