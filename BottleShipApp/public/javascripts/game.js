@@ -1213,8 +1213,8 @@ function receieveGuess(tileId) {
     //otheriwse alert the user that she missed
     } else {
         //update local version
-        tileMissed(tileId);
-        alert(userMissedMessage);
+        tileMissed(convertedTileId);
+        //alert(userMissedMessage);
 
         //send it to other player that she missed
         incorrectGuess(tileId);
