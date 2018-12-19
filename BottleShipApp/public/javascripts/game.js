@@ -1091,7 +1091,7 @@ function readyToStartGame() {
 //other player wins
 function sendGameOver(tileId, shipId, surrondingTilesToSend) {
 
-    let message = {messageType: "gameOver", payload: {hit: true, shipDestroyed: true, surrondingTiles: surrondingTilesToSend, tileId: tileId, shipId: shipId }};
+    let message = {messageType: "gameOver", payload: {hit: true, shipDestroyed: true, surrondingTiles: surrondingTilesToSend, tileId: tileId, shipId: shipId, abortedGame: false }};
     ws.send(JSON.stringify(message));
 
     
@@ -1102,29 +1102,32 @@ function receiveGameOver(payload) {
 
     
 
-    if(payload.abortedGame) {
+    if(!payload.abortedGame) {
 
-        changeTextOnMessageBoard("You won! ...since the other player quit.");
+        receieveGuessReply(payload);
+        disableOnClickOfEnemyBoard();
+
+
+
+        changeTextOnMessageBoard("You won! Congratulations!");
+    
+        //alert("You won! Congratulations!");
+        //alert("Now you will be redirected to the splash screen.");
+        //send connection message
+        //establishWSConnection();
         setTimeout(function(){ 
             window.open("splash", "_self");
-         }, 7000);
+        }, 7000);
 
     }
 
-    receieveGuessReply(payload);
+    changeTextOnMessageBoard("You won! ...since the other player quit. You will be redirected to the splash screen.");
     disableOnClickOfEnemyBoard();
-
-
-
-    changeTextOnMessageBoard("You won! Congratulations!");
-    
-    //alert("You won! Congratulations!");
-    //alert("Now you will be redirected to the splash screen.");
-    //send connection message
-    //establishWSConnection();
     setTimeout(function(){ 
         window.open("splash", "_self");
-     }, 7000);
+    }, 7000);
+
+    
 
 
     
@@ -1270,7 +1273,7 @@ function receieveGuess(tileId) {
                 //establishWSConnection();
                 setTimeout(function(){ 
                     window.open("splash", "_self");
-                ; }, 7000);
+                ; }, 70000);
                 //exit the function, so the rest of the code doesn't get executed
                 return;
             }
