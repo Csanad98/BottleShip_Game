@@ -43,7 +43,7 @@ let OnLoad = (CurrentServer) => {
                 if (payload.messageType === "gameOver"){
                     if (logging) console.log('Game over: Client %s', ws.clientId);
                     //end the game
-                gameController.gameOver(Database.getPlayer(ws.clientId));
+                    gameController.gameOver(Database.getPlayer(ws.clientId));
                 }
             }else if (payload.messageType === "playerQuit"){
                 gameController.RemovePlayer(Database.getPlayer(ws.clientId), message);
