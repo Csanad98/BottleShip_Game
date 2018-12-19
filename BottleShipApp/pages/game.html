@@ -11,9 +11,7 @@
 </head>
 <body>
   <header>
-
-    <div class = "subTitle">BottleShip Game<div></div>
-
+    <div class = "title">BottleShip Game<div></div>
       <span id = "onlinePlayers" class="headerField">Players online: 7 </span>
      
       <span id = "yourSteps" class="headerField">Steps taken: 0</span>
@@ -23,16 +21,16 @@
       
       
   </header>
-
-  <div id = "messageBoard">Place your ships on the board.</div>
-        
+  
+    <div id = "messageBoard">Place your ships on the board.</div>
 
         <div class="row">
           <div class="column" style="background-color:#aaa;">
 
             <br>
-            <h2 class = "boardTitle">Your Board</h2>
-
+            <div class = "descriptionTexts">
+            <h2 class = "description">Your Board</h2>
+            </div>
             <div class ="gameBoard" id="board1">
             </div>
                 
@@ -48,9 +46,11 @@
                 <br>
                 <br>
                 <button id="Button" onclick="rotate()">Change Ship Rotation</button>
-          
+                <br>
+                <br>
+                <div class = "descriptionAnimated">
                   <div id = "nextShip">Next ship's length is 5</div>
-          
+                </div>
                   <div id = "curRotation">Current rotation is: Horizontal</div>
                 
                 <br>

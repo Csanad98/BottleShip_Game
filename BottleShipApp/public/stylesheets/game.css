@@ -147,9 +147,10 @@ body {
 }
 
 #messageBoard {
-    background-color: #d37d7d;
+    background-color: #dba8a8;
     font-size: 25px;
     text-align: center;
+    position: relative;
 }
 
 
