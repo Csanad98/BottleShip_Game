@@ -1091,11 +1091,14 @@ function receiveGameOver(payload) {
 
     changeTextOnMessageBoard("You won! Congratulations!");
     
-    alert("You won! Congratulations!");
-    alert("Now you will be redirected to the splash screen.");
+    //alert("You won! Congratulations!");
+    //alert("Now you will be redirected to the splash screen.");
     //send connection message
-    establishWSConnection();
-    window.open("splash", "_self");
+    //establishWSConnection();
+    setTimeout(function(){ 
+        window.open("splash", "_self");
+     }, 3000);
+
 
     
 
@@ -1228,12 +1231,16 @@ function receieveGuess(tileId) {
 
 
                 //notify this user that she lost and bring her to the splash screen
-                alert("All your ships have been destroyed. You lost.");
-                alert("Now you will be redirected to the splash screen.");
-                //send connection message
-                establishWSConnection();
-                window.open("splash", "_self");
 
+                //changeTextOnMessageBoard("All your ships have been destroyed. You lost.");
+                //alert("All your ships have been destroyed. You lost.");
+                //alert("Now you will be redirected to the splash screen.");
+
+                //send connection message
+                //establishWSConnection();
+                setTimeout(function(){ 
+                    window.open("splash", "_self");
+                ; }, 3000);
                 //exit the function, so the rest of the code doesn't get executed
                 return;
             }
