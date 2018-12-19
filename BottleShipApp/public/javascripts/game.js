@@ -570,9 +570,14 @@ function placeAShip(tileId) {
         var curShipObj = new ShipObject(currentID, currentSize, shipTileIds, surrondingTileIds,[]);
         shipObjects.push(curShipObj);
 
+        if (shipsPlaced === allShipProperties.length) {
+            changeTextOnMessageBoard("All your ships have been placed. You can start the game.");
+    
+        }
+
 
     } else {
-        alert("All your ships have been placed. Press start to start the game.");
+        alert("All your ships have been placed. You can start the game.");
     }
 }
 
@@ -653,6 +658,8 @@ function startGame() {
 
         //send message to server that this client is ready to play
         readyToStartGame();
+
+        changeTextOnMessageBoard("Waiting for Opponent to place ships");
 
     } else {
         alert("Place all your ships first to start the game.");
@@ -773,6 +780,8 @@ function guessAShip(tileId) {
 
         var payload = {tile: tileId};
         sendGuess(payload);
+        
+
 
     } else {
 
@@ -1091,8 +1100,10 @@ function gameStarts(thisPlayerStarts) {
     isMyTurn = thisPlayerStarts;
     if(isMyTurn) {
         alert("You can start the game!");
+        changeTextOnMessageBoard("It's Your Turn");
     } else {
         alert("The other player starts the game. Wait for your turn.");
+        changeTextOnMessageBoard("Opponent's Turn");
     }
     
 };
@@ -1146,6 +1157,7 @@ tileId: string of tileid which was guessed
 function sendGuess(payload) {
 
     isMyTurn = false;
+    
 
     let message = {messageType: "guess", payload: payload}
     sendMessage(message);
@@ -1240,6 +1252,7 @@ function receieveGuess(tileId) {
 
         //it's your turn again
         isMyTurn = true;
+        changeTextOnMessageBoard("It's Your Turn");
 
 
     }
@@ -1291,6 +1304,7 @@ function receieveGuessReply(payload) {
     //console.log("Received payload with stringify and parse: " + JSON.parse(JSON.stringify(payload)));
     //payload = JSON.parse(JSON.stringify(payload));
     if(payload.hit) {
+        
 
         // Hit a ship
 
@@ -1308,13 +1322,16 @@ function receieveGuessReply(payload) {
 
         //it's your turn again
         isMyTurn = true;
+        changeTextOnMessageBoard("It's Your Turn");
+
     } else {
+        changeTextOnMessageBoard("Opponent's Turn");
         // Guessed incorrectly
 
         //tell the user who guessed, that she missed, also mark the tile as missed
         console.log("this should be the payload's tileid " + payload.tileId);
         tileMissed(payload.tileId);
-        alert(userMissedMessage);
+        //alert(userMissedMessage);
 
     }
 
