@@ -1,11 +1,10 @@
 
-
+@import 'style.css';
 
 
 .headerField {
     color:brown;
     font-size: 18px;
-    font-family: 'Open Sans', sans-serif;
     text-decoration: none;
     text-transform: none;
     font-weight: none;
