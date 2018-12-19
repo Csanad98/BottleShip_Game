@@ -888,11 +888,17 @@ function shipIdFromTileId(tileId, boardArray) {
 
 };
 
+function shipIdFromTileIdUsingShipObjects(tileId, shipObjects) {
+
+};
+
 /*
 adds the tile id to the correct ship's ship object's hittiles array
 returns: the updated shipObjects array
 */
 function addHitTileToShipObj(shipObjects, tileId) {
+    console.log("addHitTileToShipObj params: ", shipObjects, tileId)
+    //console.log("boardArray: " + boardArray);
     var curShipId = shipIdFromTileId(tileId, boardArray);
     console.log("curShipId is: " + curShipId);
     var curShip = shipObjects[curShipId-1];
@@ -1083,7 +1089,12 @@ function gameStarts(thisPlayerStarts) {
 
     //based on param: update who starts the game
     isMyTurn = thisPlayerStarts;
-    alert("You can start the game!");
+    if(isMyTurn) {
+        alert("You can start the game!");
+    } else {
+        alert("The other player starts the game. Wait for your turn.");
+    }
+    
 };
 
 
