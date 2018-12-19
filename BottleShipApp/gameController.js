@@ -39,27 +39,33 @@ function forwardMessageToOpponent(player, message){
 }
 
 function gameOver(player){
-    player.opponent.socket.send(JSON.stringify({messegeType: "gameOver", abortedGame: false}));
+    player.opponent.socket.send(JSON.stringify({messageType: "gameOver", abortedGame: false}));
 }
 
 function RemovePlayer(player){
+    console.log("removeplayer function s");
     if (player.opponent != null){
         abortGame(player);
     }
+    console.log("removeplayer function e");
 }
 
 function abortGame(player){
-    player.opponent.socket.send(JSON.stringify({messegeType: "gameOver", abortedGame: true}));
+    console.log("abortgame function s");
+    player.opponent.socket.send(JSON.stringify({messageType: "gameOver", payload: {abortedGame: true}}));
     removeOpponent(player);
+    console.log("abortgame function e");
 }
 
 function removeOpponent(player){
+    console.log("removeopponent function s");
     if (player.opponent != null){
         if (player.opponent.opponent !=null){
             player.opponent.opponent = null;
         }
         player.opponent = null;
     }
+    console.log("removeopponent function e");
 }
 
 module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver, RemovePlayer}

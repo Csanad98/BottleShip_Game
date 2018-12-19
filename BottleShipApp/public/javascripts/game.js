@@ -1081,15 +1081,34 @@ function sendGameOver(tileId, shipId, surrondingTilesToSend) {
 //when executed it means that this player won
 function receiveGameOver(payload) {
 
+    
+
+    if(payload.abortedGame) {
+
+        changeTextOnMessageBoard("You won! ...since the other player quit.");
+        setTimeout(function(){ 
+            window.open("splash", "_self");
+         }, 7000);
+
+    }
+
     receieveGuessReply(payload);
+    disableOnClickOfEnemyBoard();
 
 
 
     changeTextOnMessageBoard("You won! Congratulations!");
     
-    alert("You won! Congratulations!");
-    alert("Now you will be redirected to the splash screen.");
-    window.open("splash", "_self");
+    //alert("You won! Congratulations!");
+    //alert("Now you will be redirected to the splash screen.");
+    //send connection message
+    //establishWSConnection();
+    setTimeout(function(){ 
+        window.open("splash", "_self");
+     }, 7000);
+
+
+    
 
 
 };
@@ -1140,6 +1159,8 @@ function receivedMessage(message) {
 
 
         case "gameOver":
+
+            console.log(serverMessage.payload);
 
             receiveGameOver(serverMessage.payload);
             //if you receive this then it means you won
