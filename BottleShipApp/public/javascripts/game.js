@@ -1100,6 +1100,17 @@ function sendGameOver(tileId, shipId, surrondingTilesToSend) {
 //when executed it means that this player won
 function receiveGameOver(payload) {
 
+    
+
+    if(payload.abortedGame) {
+
+        changeTextOnMessageBoard("You won! ...since the other player quit.");
+        setTimeout(function(){ 
+            window.open("splash", "_self");
+         }, 7000);
+
+    }
+
     receieveGuessReply(payload);
     disableOnClickOfEnemyBoard();
 
@@ -1167,6 +1178,8 @@ function receivedMessage(message) {
 
 
         case "gameOver":
+
+            console.log(serverMessage.payload);
 
             receiveGameOver(serverMessage.payload);
             //if you receive this then it means you won

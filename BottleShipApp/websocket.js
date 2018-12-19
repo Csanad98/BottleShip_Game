@@ -46,7 +46,6 @@ let OnLoad = (CurrentServer) => {
                     gameController.gameOver(Database.getPlayer(ws.clientId));
                 }
             }else if (payload.messageType === "playerQuit"){
-                gameController.RemovePlayer(Database.getPlayer(ws.clientId), message);
                 if (logging) console.log('Client quit uneqpectedly: Client %s', ws.clientId);
             }
 
@@ -77,7 +76,9 @@ let OnLoad = (CurrentServer) => {
 
         ws.on('close', () => {
             Database.getPlayer(ws.clientId).socket = null;
-            gameController.RemovePlayer;
+            console.log("player quit");
+            gameController.RemovePlayer(Database.getPlayer(ws.clientId));
+            //gameController.RemovePlayer;
             if (logging) console.log("Client %s closed the connection.", ws.clientId);
         });
 

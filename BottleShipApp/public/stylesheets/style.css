@@ -1,9 +1,14 @@
+
+html, body, main {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
 .title {
     margin: auto;
     text-align: center;
-
-
-    font-family: 'Open Sans', sans-serif;
     color: #555;
     text-decoration: none;
     text-transform: uppercase;
@@ -12,15 +17,13 @@
     letter-spacing: -3px;
     line-height: 1;
     text-shadow: #EDEDED 3px 2px 0;
-    position: relative;
 }
+  
+
 
 .subTitle {
     margin: auto;
     text-align: center;
-
-
-    font-family: 'Open Sans', sans-serif;
     color: #555;
     text-decoration: none;
     text-transform: uppercase;
@@ -38,9 +41,8 @@
     display: inline-block;
     z-index: 3;
     padding: 0 20px 0 20px;
-    color: grey;
+    color: #555;
     position: relative;
-    font-family: calibri;
     font-weight: lighter;
     margin: 0;
 }
@@ -48,7 +50,6 @@
 #Button {
     background: grey;
     color: #fff;
-    font-family: Sans-serif;
     font-size: 20px;
     height: 60px;
     width: 250px;
@@ -68,4 +69,109 @@
 /* active pseudo class*/
 #Button:active {
     color: goldenrod;
+}
+/* animation*/
+.descriptionAnimated{
+      
+    text-align: center;
+    width: auto;
+    position: relative;
+    display: inline-block;
+    z-index: 3;
+    padding: 0 20px 0 20px;
+    color: grey;
+    font-weight: lighter;
+    margin: 0;
+
+    -webkit-animation:colorchange 20s infinite alternate;
+    
+    
+  }
+
+  @-webkit-keyframes colorchange {
+    0% {
+      
+      color: #000000;
+    }
+    
+    10% {
+      
+      color: #33312f;
+    }
+    
+    20% {
+      
+      color: #49473f;
+    }
+    
+    30% {
+      
+      color: #6d6855;
+    }
+    
+    40% {
+      
+      color: #847c5f;
+    }
+    
+    50% {
+      
+      color: #baaa71;
+    }
+    
+    60% {
+      
+      color: #b59c46;
+    }
+    
+    70% {
+      
+      color: #af9128;
+    }
+    80% {
+   
+      color: #ad890c;
+    }
+    
+    90% {
+   
+      color: #d3a504;
+    }
+    
+    100% {
+      
+      color: #f4be02;
+    }
+  }
+
+  /* before pseudo class */
+.description::before {
+    display:inline-block;
+    height:20px;
+    width:15px;
+    margin-right: 5px;
+    content: "";
+    background:url('../images/2ship.jpg') no-repeat 0 0;
+    background-size: 15px 20px;
+  }
+
+/* after pseudo class */
+.description::after {
+    display:inline-block;
+    height:20px;
+    width:15px;
+    margin-right: 5px;
+    content: "";
+    background:url('../images/2ship.jpg') no-repeat 0 0;
+    background-size: 15px 20px;
+}
+
+.descriptionTexts{
+  text-align: center;
+}
+
+.authors{
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
