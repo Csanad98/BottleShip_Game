@@ -92,6 +92,9 @@ let OnLoad = (CurrentServer) => {
 
         ws.isAlive = false;
         ws.ping();
+        //Should game be aborted here?
+        //gameController.RemovePlayer(Database.getPlayer(ws.clientId), message);
+        //if (logging) console.log('Client quit uneqpectedly: Client %s', ws.clientId);
     };
 
     let sendBroadcastToOthers = (ws, data) => {
