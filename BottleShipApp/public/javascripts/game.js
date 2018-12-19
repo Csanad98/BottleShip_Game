@@ -14,6 +14,9 @@ var playerID = "a";
 //empty array to store ship objects of current client
 var shipObjects = [];
 
+//empty array to store enemy ship objects 
+var enemyShipObjects = [];
+
 
 
 // get the container for the board
@@ -796,6 +799,18 @@ function tileHit(tileId, shipId) {
 
 };
 
+function tileHitWithoutAddingHitTilesToShipObj(tileId, shipId) {
+    console.log("tileid received to process as hit: "+tileId);
+
+    var curTile = document.getElementById(tileId);
+    curTile.setAttribute("class", "hitTile");
+    curTile.onclick = function() {alreadyClickedOnTile()};
+
+    //update ship object
+    //addHitTileToShipObj(shipObjects, tileId, shipId);
+
+};
+
 //update UI tile element if it was guessed but no ship was there
 function tileMissed(tileId) {
     var curTile = document.getElementById(tileId);
@@ -870,9 +885,7 @@ function shipIdFromTileId(tileId, boardArray) {
 
 };
 
-function shipIdFromTileIdUsingShipObjects(tileId, shipObjects) {
 
-};
 
 /*
 adds the tile id to the correct ship's ship object's hittiles array
@@ -881,16 +894,11 @@ returns: the updated shipObjects array
 function addHitTileToShipObj(shipObjects, tileId, shipId) {
     console.log("shipObjects: "+ shipObjects);
     console.log("addHitTileToShipObj params: ", shipObjects, tileId)
-    //console.log("boardArray: " + boardArray);
     
-    var curShipId = shipId;
-    
-        //var curShipId = shipIdFromTileId(tileId, boardArray);
-    
-    
-    console.log("curShipId is: " + curShipId);
-    var curShip = shipObjects[curShipId-1];
+    console.log("curShipId is: " + shipId);
+    var curShip = shipObjects[shipId-1];
     curShip.hitTiles.push(tileId);
+    console.log("Current ship's hittiles: "+ curShip.hitTiles);
 
     return shipObjects;
 };
@@ -1283,14 +1291,14 @@ function receieveGuessReply(payload) {
 
         //if the ship was destroyed 
         if(payload.shipDestroyed) {
-            tileHit(payload.tileId, payload.shipId); //then update the UI + add tileid to hittiles of ship obj
+            tileHitWithoutAddingHitTilesToShipObj(payload.tileId, payload.shipId); //then update the UI + add tileid to hittiles of ship obj
             //also reveal surroundings
             revealSurroundingTilesOwnBoard(payload.surrondingTiles);
 
             //otherwise only part of ship was hit
         } else {
             console.log("I received this payload: " + payload);
-            tileHit(payload.tileId, payload.shipId);
+            tileHitWithoutAddingHitTilesToShipObj(payload.tileId, payload.shipId);
         }
 
         //it's your turn again
