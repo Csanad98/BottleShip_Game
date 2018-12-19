@@ -5,7 +5,7 @@ html, body, main {
     padding: 0px;
     font-family: 'Open Sans', sans-serif;
   }
-  
+
 .title {
     margin: auto;
     text-align: center;
@@ -168,4 +168,10 @@ html, body, main {
 
 .descriptionTexts{
   text-align: center;
+}
+
+.authors{
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
