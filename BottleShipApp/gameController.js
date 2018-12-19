@@ -8,6 +8,7 @@ var playersReadyToStart = [];
 // end game (if its aborted or won)
 
 function addPlayerToWaitingRoom(player){
+    console.log(player);
     if(playersReadyToStart.length >= 1){
         if(player === playersReadyToStart[0]) {
             console.log("Same player send message again");
@@ -37,7 +38,7 @@ function forwardMessageToOpponent(player, message){
 }
 
 function gameOver(player){
-    player.opponent.socket(JSON.stringify({messegeType: "gameOver", abortedGame: false}));
+    player.opponent.socket.send(JSON.stringify({messegeType: "gameOver", abortedGame: false}));
 }
 
 function RemovePlayer(player){
@@ -47,7 +48,7 @@ function RemovePlayer(player){
 }
 
 function abortGame(player){
-    player.opponent.socket(JSON.stringify({messegeType: "gameOver", abortedGame: true}));
+    player.opponent.socket.send(JSON.stringify({messegeType: "gameOver", abortedGame: true}));
 }
 
 module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver, RemovePlayer}
