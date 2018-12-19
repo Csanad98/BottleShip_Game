@@ -661,6 +661,8 @@ function startGame() {
 
         changeTextOnMessageBoard("Waiting for Opponent to place ships");
 
+        setEnemyBoardTitle();
+
     } else {
         alert("Place all your ships first to start the game.");
     }
@@ -1352,4 +1354,12 @@ function changeTextOnMessageBoard(message) {
 
     var messageBoard = document.getElementById("messageBoard");
     messageBoard.innerHTML = message;
+};
+
+
+
+function setEnemyBoardTitle() {
+
+    document.getElementById("enemyBoardTitle").innerHTML = "Enemy Board";
+
 };
