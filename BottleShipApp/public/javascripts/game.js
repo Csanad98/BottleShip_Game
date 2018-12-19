@@ -660,7 +660,7 @@ function startGame() {
         //send message to server that this client is ready to play
         readyToStartGame();
 
-        changeTextOnMessageBoard("Waiting for Opponent to place ships");
+        changeTextOnMessageBoard("Waiting for an Opponent to join the game and place ships");
 
         setEnemyBoardTitle();
 
