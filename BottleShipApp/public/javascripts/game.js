@@ -1323,4 +1323,13 @@ function receieveGuessReply(payload) {
 
 
 
-}
+};
+
+/*
+changes the text displayed on the messageBoard in the html with the given string
+*/
+function changeTextOnMessageBoard(message) {
+
+    var messageBoard = document.getElementById("messageBoard");
+    messageBoard.innerHTML = message;
+};
