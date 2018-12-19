@@ -775,7 +775,7 @@ function guessAShip(tileId) {
 
     if (isMyTurn === true) {
 
-        var payload = {messageType: "guessTile", tile: tileId};
+        var payload = {tile: tileId};
         sendGuess(payload);
 
         //if the guessed tile has enemy ship
@@ -1102,13 +1102,13 @@ function gameStarts(thisPlayerStarts) {
 function receivedMessage(message) {
     //console.log(message);
     let serverMessage = JSON.parse(message);
-    console.log(serverMessage.messageType);
+    //console.log(serverMessage.messageType);
 
     switch(serverMessage.messageType) {
 
         //gameStarted received once you are paired with an oponent
         case "gameStarted":
-            console.log("inside gameStarts case");
+            //console.log("inside gameStarts case");
 
             //youStart parameter boolean
             gameStarts(serverMessage.youStart);
@@ -1116,12 +1116,12 @@ function receivedMessage(message) {
 
 
         case "guess":
-            console.log(serverMessage.payload.tile);
+            //console.log(serverMessage.payload.tile);
             receieveGuess(serverMessage.payload.tile);
             break;
 
         case "guessReply":
-            console.log("guessReply got the following serverMessage: " + serverMessage)
+            //console.log("guessReply got the following serverMessage: " + serverMessage)
             receieveGuessReply(serverMessage.payload);
             break;
 
