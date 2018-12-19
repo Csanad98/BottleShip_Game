@@ -655,6 +655,7 @@ function startGame() {
 
         //first establish ws connection
         establishWSConnection();
+        console.log("Inside startGame");
 
         //send message to server that this client is ready to play
         readyToStartGame();
