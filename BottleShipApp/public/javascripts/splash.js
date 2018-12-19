@@ -9,4 +9,3 @@ var socket = new WebSocket("ws://localhost:3000");
                 socket.send(JSON.stringify({messageType: "connect"}));
                 socket.send(JSON.stringify({messageType: "readyToPlay"}));
             };
-
