@@ -655,11 +655,12 @@ function startGame() {
 
         //first establish ws connection
         establishWSConnection();
+        console.log("Inside startGame");
 
         //send message to server that this client is ready to play
         readyToStartGame();
 
-        changeTextOnMessageBoard("Waiting for Opponent to place ships");
+        changeTextOnMessageBoard("Waiting for an Opponent to join the game and place ships");
 
         setEnemyBoardTitle();
 
@@ -866,6 +867,21 @@ function disableOnClickAndHoverForTiles(boardArray, idString) {
 };
 
 
+function disableOnClickOfEnemyBoard() {
+
+    for (var c = 0; c<10; c++) {
+        for(var r = 0; r<10; r++ ) {
+
+            var curTileId = "b" + c + r;
+            var curTile = document.getElementById(curTileId);
+
+            curTile.onclick = null;
+        }
+    }
+
+}
+
+
 
 
 /*
@@ -972,6 +988,7 @@ function revealSurroundingTilesOwnBoard(surroundingTileIds) {
         var curTileId = surroundingTileIds[i];
         var curTile = document.getElementById(curTileId);
         curTile.setAttribute("class", "missedTile");
+        curTile.onclick = function() {alreadyClickedOnTile()};
         
     }
 
@@ -1020,10 +1037,10 @@ Messages part -  included here so functions can be easily accessed between the t
 
 
 */
-
+//establish web socket connection with the server
 const ws = new WebSocket("ws://localhost:3000"); //open web socket
 
-//establish web socket connection with the server
+//send connection message to server
 function establishWSConnection() {
 
     //ws = new WebSocket("ws://localhost:3000"); //open web socket
@@ -1076,6 +1093,8 @@ function sendGameOver(tileId, shipId, surrondingTilesToSend) {
 
     let message = {messageType: "gameOver", payload: {hit: true, shipDestroyed: true, surrondingTiles: surrondingTilesToSend, tileId: tileId, shipId: shipId }};
     ws.send(JSON.stringify(message));
+
+    
 };
 
 //when executed it means that this player won
@@ -1237,14 +1256,21 @@ function receieveGuess(tileId) {
             
             //correctGuessWithShipDestroy(tileId, shipId, surrondingTilesToSend);
                 sendGameOver(tileId, shipId, surrondingTilesToSend);
+                disableOnClickOfEnemyBoard();
+
+
 
                 //notify this user that she lost and bring her to the splash screen
-                alert("All your ships have been destroyed. You lost.");
-                alert("Now you will be redirected to the splash screen.");
-                window.open("splash", "_self");
 
+                //changeTextOnMessageBoard("All your ships have been destroyed. You lost.");
+                //alert("All your ships have been destroyed. You lost.");
+                //alert("Now you will be redirected to the splash screen.");
 
-
+                //send connection message
+                //establishWSConnection();
+                setTimeout(function(){ 
+                    window.open("splash", "_self");
+                ; }, 7000);
                 //exit the function, so the rest of the code doesn't get executed
                 return;
             }
