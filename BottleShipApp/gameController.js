@@ -42,8 +42,8 @@ function forwardMessageToOpponent(player, message){
 function gameOver(player){
     player.opponent.socket.send(JSON.stringify({messegeType: "gameOver", abortedGame: false}));
     // delete both player objects from the database
-    Database.removePlayer(player.playerId);
-    Database.removePlayer(player.opponent.playerId);
+    //Database.removePlayer(player.playerId);
+    //Database.removePlayer(player.opponent.playerId);
 }
 
 function RemovePlayer(player){
