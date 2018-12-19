@@ -972,6 +972,7 @@ function revealSurroundingTilesOwnBoard(surroundingTileIds) {
         var curTileId = surroundingTileIds[i];
         var curTile = document.getElementById(curTileId);
         curTile.setAttribute("class", "missedTile");
+        curTile.onclick = function() {alreadyClickedOnTile()};
         
     }
 
