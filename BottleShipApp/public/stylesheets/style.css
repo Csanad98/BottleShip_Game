@@ -31,3 +31,30 @@
     text-shadow: #EDEDED 3px 2px 0;
     position: relative;
 }
+
+.description {
+    text-align: center;
+    width: auto;
+    display: inline-block;
+    z-index: 3;
+    padding: 0 20px 0 20px;
+    color: grey;
+    position: relative;
+    font-family: calibri;
+    font-weight: lighter;
+    margin: 0;
+}
+
+#Button {
+    background: grey;
+    color: #fff;
+    font-family: Sans-serif;
+    font-size: 20px;
+    height: 60px;
+    width: 150px;
+    line-height: 60px;
+    margin: 25px 25px;
+    text-align: center;
+    border: 0;
+    transition: all 0.3s ease 0s;
+}
