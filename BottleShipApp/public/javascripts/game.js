@@ -753,7 +753,7 @@ var userMissedMessage = "You missed, no enemy ship is on this coordinate.";
         //check if ship has been destroyed
         if(checkIfHitShipIsDone(enemyShipObjects, shipId)) {
             //if yes then reveal surrounding tiles
-            reveralSurroundingTiles(enemyShipObjects, shipId);
+            revealSurroundingTiles(enemyShipObjects, shipId);
 
             //check if all ships have been destroyed
             if(checkIfAllShipsAreHit(enemyShipObjects)) {
@@ -810,7 +810,7 @@ function tileHit(tileId) {
     curTile.onclick = function() {alreadyClickedOnTile(tileId)};
 
     //update ship object
-    addHitTileToShipObj(enemyShipObjects, tileId);
+    addHitTileToShipObj(shipObjects, tileId);
 
 };
 
@@ -893,7 +893,8 @@ adds the tile id to the correct ship's ship object's hittiles array
 returns: the updated shipObjects array
 */
 function addHitTileToShipObj(shipObjects, tileId) {
-    var curShipId = shipIdFromTileId(tileId, enemyBoardArray);
+    var curShipId = shipIdFromTileId(tileId, boardArray);
+    console.log("curShipId is: " + curShipId);
     var curShip = shipObjects[curShipId-1];
     curShip.hitTiles.push(tileId);
 
@@ -907,6 +908,8 @@ false otherwise
 */
 function checkIfHitShipIsDone(shipObjects, shipId) {
     var curShip = shipObjects[shipId-1];
+    console.log("curShip.shipTiles: "+curShip.shipTiles);
+    console.log("curShip stringify: "+JSON.stringify(curShip));
     if(curShip.shipTiles.length === curShip.hitTiles.length) {
         return true;
     }
@@ -938,7 +941,7 @@ also "disables" onclick event with alreadyClickedOnTile function
 !!!!this only works correctly for the enemyboard of the client 
 because of onclick and params
 */
-function reveralSurroundingTiles(shipObjects, shipId) {
+function revealSurroundingTiles(shipObjects, shipId) {
 
     var curShip = shipObjects[shipId-1];
     var surroundingTileIds = curShip.surroundingTiles;
@@ -958,7 +961,7 @@ doesn't modify onlick as those are already disabled
 !!!!this only works correctly for the own board of the client 
 because of onclick and params
 */
-function revealSurroundingTilesOwnBoard(surrondingTileIds) {
+function revealSurroundingTilesOwnBoard(surroundingTileIds) {
     for(var i = 0; i<surroundingTileIds.length; i++) {
         var curTileId = surroundingTileIds[i];
         var curTile = document.getElementById(curTileId);
@@ -1167,10 +1170,13 @@ function receieveGuess(tileId) {
         tileHit(convertedTileId); //then update the UI + add tileid to hittiles of ship obj
 
         //check if ship has been destroyed
+        console.log("shipObjects: " + shipObjects);
+        console.log("shipId: " + shipId);
+        console.log("checkIfHitShipIsDone(shipObjects, shipId): " + checkIfHitShipIsDone(shipObjects, shipId));
         if(checkIfHitShipIsDone(shipObjects, shipId)) {
 
             //if yes then reveal surrounding tiles for this client
-            reveralSurroundingTiles(shipObjects, shipId);
+            revealSurroundingTiles(shipObjects, shipId);
 
             
 
@@ -1198,7 +1204,8 @@ function receieveGuess(tileId) {
             */
 
             //get the surrounding tiles, and send them with the ws message
-            var surrondingTilesToSend = getSurroundingTileIds(boardArray, shipId);
+            var surrondingTilesToSend = convertSurroundingTileIdsForEnemyBoard(getSurroundingTileIds(shipObjects, shipId));
+            console.log("surrondingTilesToSend: " + surrondingTilesToSend);
            correctGuessWithShipDestroy(tileId, surrondingTilesToSend);
 
 
@@ -1225,6 +1232,23 @@ function receieveGuess(tileId) {
 
     }
     
+}
+
+/*
+converts an array of surrounding tile ids to have the prefix "b"
+needed for sending reply to other player so they can render the 
+right board with the surrounding tiles
+*/
+function convertSurroundingTileIdsForEnemyBoard(surrondingTileIds) {
+    var newSurroundingTileIds = [];
+    for (var i = 0; i<surrondingTileIds.length; i++) {
+        var tileXY = calculateStartCoordinate(surrondingTileIds[i]);
+        var convertedTileId = XYToTileId(tileXY, "b");
+        newSurroundingTileIds.push(convertedTileId);
+
+    }
+
+    return newSurroundingTileIds;
 }
 
 function correctGuessWithShipDestroy(tileId, surrondingTileIds) {
