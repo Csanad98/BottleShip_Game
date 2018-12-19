@@ -14,6 +14,7 @@ function addPlayerToWaitingRoom(player){
             console.log("Same player send message again");
         } else {
             startNewGame(player, playersReadyToStart[0]);
+            playersReadyToStart.pop(playersReadyToStart[0]);
         }
     } else {
         playersReadyToStart.push(player);
@@ -49,6 +50,16 @@ function RemovePlayer(player){
 
 function abortGame(player){
     player.opponent.socket.send(JSON.stringify({messegeType: "gameOver", abortedGame: true}));
+    removeOpponent(player);
+}
+
+function removeOpponent(player){
+    if (player.opponent != null){
+        if (player.opponent.opponent !=null){
+            player.opponent.opponent = null;
+        }
+        player.opponent = null;
+    }
 }
 
 module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver, RemovePlayer}

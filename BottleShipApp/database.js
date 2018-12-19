@@ -53,10 +53,11 @@ function addNewUser(playerId, socket) {
 function getPlayer(playerId) {
     return users[playerId];
 }
-
+/*
 function removePlayer(playerId) {
     delete users[playerId];
 }
+*/
 
 function getPlayerCount() {
     let size = 0;
@@ -66,4 +67,4 @@ function getPlayerCount() {
     return size;
 }
 
-module.exports = {addUser, getPlayer, removePlayer, getPlayerCount};
+module.exports = {addUser, getPlayer, getPlayerCount};

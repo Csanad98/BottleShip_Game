@@ -1,20 +1,9 @@
-.center {
+.general {
     margin: auto;
     width: 60%;
     padding: 10px;
 }
 
-
-/* CSS transition */
-
-#Button:hover {
-  box-shadow: inset 0 0 0 5px #555;
-}
-
-/* active pseudo class*/
-#Button:active {
-    color: goldenrod;
-}
 /* after pseudo class */
 .description::after {
     display:inline-block;
