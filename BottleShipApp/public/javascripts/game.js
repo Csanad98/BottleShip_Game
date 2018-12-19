@@ -1048,6 +1048,7 @@ ws.onmessage = function (event) {
 converts message object to JSON and sends it to the server
 */
 function sendMessage(message) {
+    console.log("Sending this message: " + JSON.stringify(message));
     ws.send(JSON.stringify(message));
 }
 
@@ -1106,6 +1107,7 @@ function receivedMessage(message) {
             break;
 
         case "guessReply":
+            console.log("guessReply got the following serverMessage: " + serverMessage)
             receieveGuessReply(serverMessage.payload);
             break;
 
@@ -1147,22 +1149,22 @@ function receieveGuess(tileId) {
     //convert tileid prefix string from b to a - when receiving a guess, you check
     //ship on your own board
     var tileXY = calculateStartCoordinate(tileId);
-    var conertedTileId = XYToTileId(tileXY, "a");
+    var convertedTileId = XYToTileId(tileXY, "a");
 
-    console.log("This tile was guessed by the other player: " + conertedTileId);
+    console.log("This tile was guessed by the other player: " + convertedTileId);
 
 
     
 
 
      //if the guessed tileid by the user has one of the current user's ship
-     if(isTileHit(boardArray, conertedTileId)){
+     if(isTileHit(boardArray, convertedTileId)){
 
 
         //then there is a ship, get the id of that ship
-        var shipId = shipIdFromTileId(conertedTileId, boardArray);
+        var shipId = shipIdFromTileId(convertedTileId, boardArray);
 
-        tileHit(conertedTileId); //then update the UI + add tileid to hittiles of ship obj
+        tileHit(convertedTileId); //then update the UI + add tileid to hittiles of ship obj
 
         //check if ship has been destroyed
         if(checkIfHitShipIsDone(shipObjects, shipId)) {
@@ -1197,11 +1199,10 @@ function receieveGuess(tileId) {
 
             //get the surrounding tiles, and send them with the ws message
             var surrondingTilesToSend = getSurroundingTileIds(boardArray, shipId);
-           correctGuessWithShipDestroy(surrondingTilesToSend);
+           correctGuessWithShipDestroy(tileId, surrondingTilesToSend);
 
 
-           //it's your turn again
-            isMyTurn = true;
+          
             //exit the function, so the rest of the function doesn't get executed
             return;
         }
@@ -1216,22 +1217,17 @@ function receieveGuess(tileId) {
         alert(userMissedMessage);
 
         //send it to other player that she missed
-        incorrectGuess();
+        incorrectGuess(tileId);
+
+        //it's your turn again
+        isMyTurn = true;
 
 
     }
-
     
-
-    //Check in game if something is on tileId
-
-
-
-    //it's your turn again
-    isMyTurn = true;
 }
 
-function correctGuessWithShipDestroy(surrondingTileIds) {
+function correctGuessWithShipDestroy(tileId, surrondingTileIds) {
     let message = {messageType: "guessReply", payload: {hit: true, shipDestroyed: true, surrondingTiles: surrondingTileIds, tileId: tileId }};
     sendMessage(message);
 };
@@ -1254,27 +1250,34 @@ reply contains info if the guessed tile was hit or not
 
 */
 function receieveGuessReply(payload) {
+    console.log("Received payload with no stringify: " + payload);
+    //console.log("Received payload with stringify: " + JSON.stringify(payload));
+    //console.log("Received payload with stringify and parse: " + JSON.parse(JSON.stringify(payload)));
+    //payload = JSON.parse(JSON.stringify(payload));
     if(payload.hit) {
 
         // Hit a ship
 
         //if the ship was destroyed 
         if(payload.shipDestroyed) {
-            tileHit(payload.tile); //then update the UI + add tileid to hittiles of ship obj
+            tileHit(payload.tileId); //then update the UI + add tileid to hittiles of ship obj
             //also reveal surroundings
             revealSurroundingTilesOwnBoard(payload.surrondingTiles);
 
             //otherwise only part of ship was hit
         } else {
-            console.log("I received this" + payload);
-            tileHit(payload.tile);
+            console.log("I received this payload: " + payload);
+            tileHit(payload.tileId);
         }
+
+        //it's your turn again
+        isMyTurn = true;
     } else {
         // Guessed incorrectly
 
         //tell the user who guessed, that she missed, also mark the tile as missed
-        console.log(payload);
-        tileMissed(payload.tile);
+        console.log("this should be the payload's tileid " + payload.tileId);
+        tileMissed(payload.tileId);
         alert(userMissedMessage);
 
     }
