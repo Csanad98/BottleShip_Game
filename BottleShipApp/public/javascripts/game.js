@@ -1076,6 +1076,10 @@ function sendGameOver() {
 
 //when executed it means that this player won
 function receiveGameOver() {
+    alert("You won! Congratulations!");
+    alert("Now you will be redirected to the splash screen.");
+    window.open("splash", "_self");
+
 
 };
 
@@ -1195,8 +1199,9 @@ function receieveGuess(tileId) {
                 sendGameOver();
 
                 //notify this user that she lost and bring her to the splash screen
-                alert("All your ships have been destroyed. You lost.")
-                window.open("splash.html", "_self");
+                alert("All your ships have been destroyed. You lost.");
+                alert("Now you will be redirected to the splash screen.");
+                window.open("splash", "_self");
 
 
 

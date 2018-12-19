@@ -12,21 +12,26 @@
 <body>
   <header>
 
-    <h2>BottleShip Game</h2>
+    <div id = "title">BottleShip Game<div></div>
 
       <span id = "onlinePlayers" class="headerField">Players online: 7 </span>
      
       <span id = "yourSteps" class="headerField">Steps taken: 0</span>
      
       <span id = "recordSteps" class="headerField">All time record: 19 steps</span>
+
+      
       
   </header>
+
+  <div id = "messageBoard">Place your ships on the board.</div>
         
 
         <div class="row">
           <div class="column" style="background-color:#aaa;">
 
             <br>
+            <h2>Your Board</h2>
 
             <div class ="gameBoard" id="board1">
             </div>
@@ -34,6 +39,8 @@
           </div>
 
           <div id = "enemyColumn" class="column" style="background-color:#ccc;">
+            <br>
+            <h2 id = "enemyBoardTitle"></h2>
 
             <div id = "board2">
 
