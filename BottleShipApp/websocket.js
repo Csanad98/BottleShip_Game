@@ -45,8 +45,8 @@ let OnLoad = (CurrentServer) => {
                     //end the game
                     gameController.gameOver(Database.getPlayer(ws.clientId));
                 }
-            }else if (payload.messageType === "playerQuit"){
-                if (logging) console.log('Client quit uneqpectedly: Client %s', ws.clientId);
+           // }else if (payload.messageType === "playerQuit"){
+                //if (logging) console.log('Client quit uneqpectedly: Client %s', ws.clientId);
             }
 
         } else {
