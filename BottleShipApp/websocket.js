@@ -10,6 +10,9 @@ module.exports = (server) => {
     OnLoad(new WebServer({server}));
 };
 
+//for the statistics 
+// var currentClientCookie = null;
+
 //messageTypes
 // to connect to server:  messageType = "connect"
 // to enter a game messageType = "readyToPlay"
@@ -65,6 +68,8 @@ let OnLoad = (CurrentServer) => {
         } else {
             ws.clientId = uuid();
         }
+        console.log("aaaaaaaaaaa: "+ws.clientId);
+        currentClientCookie = ws.clientId;
 
         ws.isAlive = true;
         //server recieves a message
@@ -102,3 +107,5 @@ let OnLoad = (CurrentServer) => {
     
     const interval = setInterval(() => CurrentServer.clients.forEach(sendPing), config.websocket.timeInterval);
 };
+
+// module.exports = currentClientCookie
