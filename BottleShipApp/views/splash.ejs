@@ -37,21 +37,21 @@
             <% } %>
             played, 
 
-            <%=  yourGamesCount %> 
-            <%if (yourGamesCount != 1) { %>
-                games
+            <%=  waitingRoom %> 
+            <%if (waitingRoom != 1) { %>
+                players are
             <% } else { %>
-                game
+                player is
             <% } %>
-            is your play count, 
+            currently waiting, 
 
-            <%=  yourWinsCount %> 
-            <%if (yourWinsCount != 1) { %>
-                games
+            <%=  fastestWinner %> 
+            <%if (fastestWinner != 1) { %>
+                moves
             <% } else { %>
-                game
+                move
             <% } %>
-            you won.
+            did it take for the fastest to win.
         </h2>
     </div>
 

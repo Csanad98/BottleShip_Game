@@ -53,6 +53,37 @@ function addNewUser(playerId, socket) {
 function getPlayer(playerId) {
     return users[playerId];
 }
+
+
+
+
+// function updateUserPlays(playerId) {
+//     let user = users[playerId];
+//     console.log("user value at updateUserPlays" + user);
+//     user.plays = user.plays + 1;
+
+//     //users[playerId].plays = users[playerId].plays + 1;
+// }
+
+// function getUserPlays(playerId) {
+//     let user = users[playerId];
+//     return user.plays;
+//     //return users[playerId].plays;
+// }
+
+// function updateUserWins(playerId) {
+//     let user = users[playerId];
+//     user.wins += 1;
+//     //users[playerId].wins = users[playerId].wins + 1;
+// }
+
+// function getUserWins(playerId) {
+//     let user = users[playerId];
+//     return user.wins;
+//     //return users[playerId].wins;
+// }
+
+
 /*
 function removePlayer(playerId) {
     delete users[playerId];

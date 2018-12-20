@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const config = require('./config/config');
 const Database = require('./database');
+const gameController = require('./gameController');
 
 let indexRouter = require('./routes/index');
 let playRouter = require('./routes/play');
@@ -30,28 +31,28 @@ app.use('/play', playRouter);
 //app.use('/splash', splashRouter);
 
 var distinctUsers = Database.getPlayerCount();
-var yourGames = 6;
-var yourWins = 4;
+var playersWaiting = gameController.playersReadyToStart.length;
+var leastMoves = 1;
 
 //get statistics
 function updateStatistics(){
     distinctUsers = Database.getPlayerCount();
-    yourGames = 15;
-    yourWins = 11;
+    playersWaiting = gameController.playersReadyToStart.length;
+    leastMoves = 2;
 };
 
 app.get('/', (req, res) => {
     updateStatistics();
     console.log(distinctUsers); 
     //example of data to render; here gameStatus is an object holding this information
-    res.render('splash.ejs', { distinctUsersPlayed: distinctUsers, yourGamesCount: yourGames, yourWinsCount: yourWins });
+    res.render('splash.ejs', { distinctUsersPlayed: distinctUsers, waitingRoom: playersWaiting, fastestWinner:leastMoves });
 })
 
 app.get('/splash', (req, res) => {
     updateStatistics();
     console.log(distinctUsers);
     //example of data to render; here gameStatus is an object holding this information
-    res.render('splash.ejs', { distinctUsersPlayed: distinctUsers, yourGamesCount: yourGames, yourWinsCount: yourWins });
+    res.render('splash.ejs', { distinctUsersPlayed: distinctUsers, waitingRoom: playersWaiting, fastestWinner: leastMoves });
 })
 
 module.exports = app;

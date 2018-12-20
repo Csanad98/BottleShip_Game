@@ -41,8 +41,12 @@ function forwardMessageToOpponent(player, message){
 }
 
 function gameOver(player){
-
+    console.log("the player is:  "+ player)
     //player.opponent.socket.send(JSON.stringify({messageType: "gameOver", abortedGame: false}));
+    Database.updateUserPlays(player);
+    Database.updateUserPlays(player.opponent);
+    Database.updateUserWins(player.opponent);
+
     removeOpponent(player);
 
 }
@@ -73,4 +77,4 @@ function removeOpponent(player){
     console.log("removeopponent function e");
 }
 
-module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver, RemovePlayer}
+module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver, RemovePlayer, playersReadyToStart}
