@@ -1,3 +1,5 @@
+//establish web socket connection with the server
+const ws = new WebSocket("ws://localhost:3000"); //open web socket
 
 var isMyTurn = false;
 
@@ -1037,8 +1039,7 @@ Messages part -  included here so functions can be easily accessed between the t
 
 
 */
-//establish web socket connection with the server
-const ws = new WebSocket("ws://localhost:3000"); //open web socket
+
 
 //send connection message to server
 function establishWSConnection() {
