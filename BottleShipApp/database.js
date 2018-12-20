@@ -57,19 +57,21 @@ function getPlayer(playerId) {
 
 
 
-// function updateUserPlays(playerId) {
-//     let user = users[playerId];
-//     console.log("user value at updateUserPlays" + user);
-//     user.plays = user.plays + 1;
+function updateUserPlays(playerId) {
+    let user = users[playerId];
+    console.log("user value at updateUserPlays" + user);
+    //user.plays = user.plays + 1;
+    console.log(user.plays);
+    user.plays++;
 
-//     //users[playerId].plays = users[playerId].plays + 1;
-// }
+    //users[playerId].plays = users[playerId].plays + 1;
+}
 
-// function getUserPlays(playerId) {
-//     let user = users[playerId];
-//     return user.plays;
-//     //return users[playerId].plays;
-// }
+function getUserPlays(playerId) {
+    let user = users[playerId];
+    return user.plays;
+    //return users[playerId].plays;
+}
 
 // function updateUserWins(playerId) {
 //     let user = users[playerId];
@@ -98,4 +100,4 @@ function getPlayerCount() {
     return size;
 }
 
-module.exports = {addUser, getPlayer, getPlayerCount};
+module.exports = {addUser, getPlayer, getPlayerCount, updateUserPlays, getUserPlays};
