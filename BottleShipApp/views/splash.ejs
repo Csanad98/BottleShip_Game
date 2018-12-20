@@ -29,8 +29,8 @@
             </form>
         </section>
 
-        <h><%= distinctUsersPlayed %> 
-            <%if (distinctUsersPlayed != 1) { %>
+        <h><%= distinctUsers %> 
+            <%if (distinctUsers != 1) { %>
                 players
             <% } else { %>
                 player
@@ -43,14 +43,11 @@
             <% } else { %>
                 player is
             <% } %>
-            currently waiting, you have visited 
+            currently waiting
 
-            <%=  fastestWinner %> 
-            <%if (fastestWinner != 1) { %>
-                times
-            <% } else { %>
-                time
-            <% } %>
+            <%if (user && user.visited) { %>
+                , you have visited <%= user.visited %> times
+            <% } %> 
             .
         </h2>
     </div>
