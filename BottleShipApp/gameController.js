@@ -73,4 +73,4 @@ function removeOpponent(player){
     console.log("removeopponent function e");
 }
 
-module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver, RemovePlayer}
+module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver, RemovePlayer, playersReadyToStart}
