@@ -140,7 +140,7 @@ shipId: integer
 shipSize: int, number of tiles it takes
 shipTiles, surroundingTiles, hitTiles: array of tileid arrays
 */
-class ShipObject {
+/* class ShipObject {
     constructor(shipID, shipSize, shipTiles, surroundingTiles, hitTiles) {
         this.shipID = shipID;
         this.shipSize = shipSize;
@@ -148,6 +148,14 @@ class ShipObject {
         this.surroundingTiles = surroundingTiles;
         this.hitTiles = hitTiles;
     }
+} */
+
+function ShipObject( shipID, shipSize, shipTiles, surroundingTiles, hitTiles){
+    this.shipID = shipID;
+    this.shipSize = shipSize;
+    this.shipTiles = shipTiles;
+    this.surroundingTiles = surroundingTiles;
+    this.hitTiles = hitTiles;
 }
 
 //ititialise all the user's ships (total 8)
