@@ -10,10 +10,20 @@ function checkOrCreateUserID(req, res) {
         res.cookie("userId", uuid());
     }
 }
+// original
 router.get('/', function (req, res, next) {
     checkOrCreateUserID(req, res);
     res.sendFile('splash.html', {root: './pages'});
 });
+
+//ejs
+// app.set('view engine', 'ejs');
+
+// router.get('/', function (req, res, next) {
+//     checkOrCreateUserID(req, res);
+//     res.render('splash.ejs',  { gamesInitialized: gameStatus.gamesInitialized, gamesCompleted: gameStatus.gamesCompleted });
+// });
+
 
 module.exports = router;
 
