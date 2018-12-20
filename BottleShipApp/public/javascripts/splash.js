@@ -1,3 +1,6 @@
+
+
+//fullscreen
 var elem = document.documentElement;
 function openFullscreen() {
   if (elem.requestFullscreen) {
@@ -10,3 +13,8 @@ function openFullscreen() {
     elem.msRequestFullscreen();
   } 
 }
+// statistics 1: number of distinct users ever played
+// (function DistinctUsersPlayed(){
+//   let UserCount = Database.getPlayerCount;
+//   document.getElementById('distinctUsersPlayed').innerHTML = "Number of Distinct users ever playeed: " + UserCount;
+// }());

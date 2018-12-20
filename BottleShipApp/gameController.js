@@ -73,4 +73,11 @@ function removeOpponent(player){
     console.log("removeopponent function e");
 }
 
+//statistics
+
+// function DistinctUsersPlayed(player){
+//     let UserCount = Database.getPlayerCount;
+//     document.getElementById('distinctUsersPlayed').innerHTML = "Number of Distinct users ever playeed: " + UserCount;
+//   }());
+
 module.exports = {addPlayerToWaitingRoom, forwardMessageToOpponent, gameOver, RemovePlayer}

@@ -17,6 +17,9 @@ module.exports = (server) => {
 // to forward the guessmessageType = "guess"
 // to forward the reply to the hit MessageType = "guessReply"
 // if player quits unexpectidly MessageType = "playerQuit"
+// statistics 1  MessageType = "distinctUsersPlayed"
+// statistics 2  MessageType = "yourGamesCount"
+// statistics 3  MessageType = "yourWinsCount"
 
 let OnLoad = (CurrentServer) => {
     let logging = config.websocket.logging;
@@ -47,7 +50,6 @@ let OnLoad = (CurrentServer) => {
                 }
             }else if (payload.messageType === "playerQuit"){
                 if (logging) console.log('Client quit uneqpectedly: Client %s', ws.clientId);
-            }
 
         } else {
             console.error("No message type set for socket message: " + message);
