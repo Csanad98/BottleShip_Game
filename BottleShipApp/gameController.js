@@ -15,8 +15,8 @@ function addPlayerToWaitingRoom(player){
             console.log("Same player sent message again (reloaded the page)");
         } else {
             startNewGame(player, playersReadyToStart[0]);
-            //playersReadyToStart.pop(playersReadyToStart[0]);
-            playersReadyToStart = [];
+            playersReadyToStart.pop(playersReadyToStart[0]);
+            //playersReadyToStart = [];
         }
     } else {
         playersReadyToStart.push(player);
