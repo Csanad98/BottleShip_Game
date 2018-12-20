@@ -4,6 +4,7 @@ let Player = function (playerId, socket) {
     this.opponent = null;
     this.wins = 0;
     this.plays = 0;
+    this.visited = 0;
 
     this.addOpponent = (player) => {
         //user can't play agianst itself

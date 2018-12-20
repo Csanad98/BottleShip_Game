@@ -11,6 +11,7 @@ function loadDatabase() {
                 let player = new Player(user.playerId);
                 player.wins = user.wins;
                 player.plays = user.plays;
+                player.visited = user.visited;
                 users[user.playerId] = player;
             }
         });
@@ -28,7 +29,7 @@ function saveDatabase() {
 
     for(let key in users) {
         let user = users[key];
-        json.users.push({playerId: user.playerId, wins: user.wins, plays: user.plays});
+        json.users.push({playerId: user.playerId, wins: user.wins, plays: user.plays, visited: user.visited});
     }
     console.log(json);
     fs.writeFileSync(config.database.fileLocation, JSON.stringify(json), 'utf8');

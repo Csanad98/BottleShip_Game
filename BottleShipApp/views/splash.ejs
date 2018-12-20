@@ -28,7 +28,28 @@
                 <button id ="Button">Start the game</button>
             </form>
         </section>
-    
+
+        <h><%= distinctUsers %> 
+            <%if (distinctUsers != 1) { %>
+                players
+            <% } else { %>
+                player
+            <% } %>
+            played, 
+
+            <%=  waitingRoom %> 
+            <%if (waitingRoom != 1) { %>
+                players are
+            <% } else { %>
+                player is
+            <% } %>
+            currently waiting
+
+            <%if (user && user.visited) { %>
+                , you have visited <%= user.visited %> times
+            <% } %> 
+            .
+        </h2>
     </div>
 
     <script id = "picture" src="../javascripts/splash.js"></script>
