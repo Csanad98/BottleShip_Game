@@ -42,7 +42,7 @@ function forwardMessageToOpponent(player, message){
 
 function gameOver(player){
 
-    player.opponent.socket.send(JSON.stringify({messageType: "gameOver", abortedGame: false}));
+    //player.opponent.socket.send(JSON.stringify({messageType: "gameOver", abortedGame: false}));
     removeOpponent(player);
 
 }

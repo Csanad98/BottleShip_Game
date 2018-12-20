@@ -1091,7 +1091,7 @@ function readyToStartGame() {
 //other player wins
 function sendGameOver(tileId, shipId, surrondingTilesToSend) {
 
-    let message = {messageType: "gameOver", payload: {hit: true, shipDestroyed: true, surrondingTiles: surrondingTilesToSend, tileId: tileId, shipId: shipId }};
+    let message = {messageType: "gameOver", payload: {hit: true, shipDestroyed: true, surrondingTiles: surrondingTilesToSend, tileId: tileId, shipId: shipId, abortedGame: false }};
     ws.send(JSON.stringify(message));
 
     
@@ -1100,31 +1100,38 @@ function sendGameOver(tileId, shipId, surrondingTilesToSend) {
 //when executed it means that this player won
 function receiveGameOver(payload) {
 
+    //console.log("received payload: "+payload);
+
     
 
-    if(payload.abortedGame) {
+    if(payload.abortedGame === false) {
 
-        changeTextOnMessageBoard("You won! ...since the other player quit.");
+        receieveGuessReply(payload);
+        disableOnClickOfEnemyBoard();
+
+
+
+        changeTextOnMessageBoard("You won! Congratulations! You will be redirected to the splash screen.");
+    
+        //alert("You won! Congratulations!");
+        //alert("Now you will be redirected to the splash screen.");
+        //send connection message
+        //establishWSConnection();
         setTimeout(function(){ 
             window.open("splash", "_self");
-         }, 7000);
+        }, 7000);
 
+    } else {
+        changeTextOnMessageBoard("You won! ...since the other player quit. You will be redirected to the splash screen.");
+        disableOnClickOfEnemyBoard();
+        setTimeout(function(){ 
+        window.open("splash", "_self");
+    }, 7000);
     }
 
-    receieveGuessReply(payload);
-    disableOnClickOfEnemyBoard();
-
-
-
-    changeTextOnMessageBoard("You won! Congratulations!");
     
-    //alert("You won! Congratulations!");
-    //alert("Now you will be redirected to the splash screen.");
-    //send connection message
-    //establishWSConnection();
-    setTimeout(function(){ 
-        window.open("splash", "_self");
-     }, 7000);
+
+    
 
 
     
@@ -1179,7 +1186,7 @@ function receivedMessage(message) {
 
         case "gameOver":
 
-            console.log(serverMessage.payload);
+            //console.log(serverMessage.payload);
 
             receiveGameOver(serverMessage.payload);
             //if you receive this then it means you won
@@ -1249,7 +1256,7 @@ function receieveGuess(tileId) {
             if(checkIfAllShipsAreHit(shipObjects)) {
                 //alert("You won, all ships have been destroyed.");
 
-                changeTextOnMessageBoard("All your ships have been destroyed. You lost.");
+                changeTextOnMessageBoard("All your ships have been destroyed. You lost. You will be redirected to the splash screen.");
 
                 //signal it to the other user that him/her won
                 var surrondingTilesToSend = convertSurroundingTileIdsForEnemyBoard(getSurroundingTileIds(shipObjects, shipId));
